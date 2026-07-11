@@ -128,34 +128,46 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
 
-        /* منوی موبایل با دسته‌بندی آکاردئونی */
+        /* منوی موبایل با کنتراست بالا */
         .mobile-menu {
             position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh;
-            background: rgba(11, 19, 43, 0.98); backdrop-filter: blur(24px); z-index: 1500;
+            background: #0b132b; /* پس‌زمینه ثابت تیره */
+            backdrop-filter: blur(24px); z-index: 1500;
             padding: 70px 20px 20px; transition: right 0.3s; border-left: 1px solid var(--border);
             overflow-y: auto;
+        }
+        body.light-mode .mobile-menu {
+            background: #ffffff; /* پس‌زمینه ثابت روشن */
         }
         .mobile-menu.active { right: 0; }
         .mobile-menu a, .mobile-menu .menu-item {
             display: block; padding: 10px 14px; border-radius: var(--radius-sm);
-            color: #ffffff; text-decoration: none; margin-bottom: 4px; font-weight: 500;
-            background: rgba(255, 255, 255, 0.15); font-size: 0.9rem; cursor: pointer;
+            color: #ffffff !important; /* رنگ ثابت سفید */
+            text-decoration: none; margin-bottom: 4px; font-weight: 500;
+            background: rgba(255, 255, 255, 0.15); /* پس‌زمینه مات */
+            font-size: 0.9rem; cursor: pointer;
         }
-        body.light-mode .mobile-menu a, body.light-mode .mobile-menu .menu-item {
-            color: #0b132b; background: rgba(0, 0, 0, 0.06);
+        body.light-mode .mobile-menu a,
+        body.light-mode .mobile-menu .menu-item {
+            color: #0b132b !important; /* رنگ تیره در تم روشن */
+            background: rgba(0, 0, 0, 0.06);
         }
         .mobile-menu a:hover, .mobile-menu .menu-item:hover {
-            background: rgba(111, 255, 233, 0.3); color: var(--accent);
+            background: rgba(111, 255, 233, 0.3);
+            color: var(--accent) !important;
         }
         .mobile-menu .submenu {
             margin-right: 16px; display: none;
         }
         .mobile-menu .submenu.open { display: block; }
         .mobile-menu .submenu a {
-            font-size: 0.8rem; padding-right: 24px; background: rgba(255,255,255,0.05);
+            font-size: 0.8rem; padding-right: 24px;
+            background: rgba(255,255,255,0.05);
+            color: #ffffff !important;
         }
         body.light-mode .mobile-menu .submenu a {
             background: rgba(0,0,0,0.03);
+            color: #0b132b !important;
         }
         .mobile-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1400;
@@ -243,6 +255,21 @@
         .footer { background: var(--bg-card); backdrop-filter: blur(12px); border-top: 1px solid var(--border); padding: 30px 0 20px; margin-top: 50px; text-align: center; color: var(--text-secondary); font-size: 0.8rem; }
         .footer-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
         .footer-col h4 { color: var(--accent); margin-bottom: 4px; font-size: 0.9rem; }
+
+        /* جستجو همیشه مخفی در ابتدا */
+        .search-overlay {
+            position: fixed; inset: 0; background: rgba(11, 19, 43, 0.97); z-index: var(--z-search);
+            display: flex; align-items: flex-start; justify-content: center; padding-top: 70px;
+            opacity: 0; visibility: hidden; transition: 0.3s;
+        }
+        .search-overlay.active { opacity: 1; visibility: visible; }
+        .search-container { width: 90%; max-width: 450px; }
+        .search-input-wrap { display: flex; gap: 6px; }
+        .search-input-wrap input {
+            flex: 1; padding: 10px 14px; border-radius: 30px; border: 2px solid var(--border);
+            background: var(--bg-card); color: var(--text-primary); font-size: 0.9rem; outline: none;
+        }
+        .search-results { margin-top: 12px; font-size: 0.85rem; }
 
         @media (min-width: 768px) {
             .product-card { width: 220px; }
@@ -387,6 +414,7 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
+        // ذرات هیرو
         (function() {
             const canvas = document.getElementById('heroParticles');
             const ctx = canvas.getContext('2d');
@@ -480,7 +508,7 @@
             document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
         }
 
-        // توابع مدیریت منوی دسته‌بندی
+        // مدیریت منوی آکاردئونی
         window.toggleMobileSub = function(event, cat) {
             event.preventDefault();
             event.stopPropagation();
@@ -518,8 +546,14 @@
             document.getElementById('cartDropdown').classList.remove('active');
         });
 
-        document.getElementById('searchToggle').addEventListener('click',()=>document.getElementById('searchOverlay').classList.add('active'));
-        document.getElementById('closeSearch').addEventListener('click',()=>document.getElementById('searchOverlay').classList.remove('active'));
+        // جستجو فقط با کلیک باز می‌شود
+        document.getElementById('searchToggle').addEventListener('click',()=>{
+            document.getElementById('searchOverlay').classList.add('active');
+            document.getElementById('searchInput').focus();
+        });
+        document.getElementById('closeSearch').addEventListener('click',()=>{
+            document.getElementById('searchOverlay').classList.remove('active');
+        });
         document.getElementById('searchInput').addEventListener('input',(e)=>{
             const q = e.target.value.toLowerCase();
             document.getElementById('searchResults').innerHTML = products.filter(p=>p.name.includes(q)).map(p=>`<div style="padding:6px;cursor:pointer;font-size:0.85rem;" onclick="addToCart(${p.id})">${p.name}</div>`).join('');
@@ -531,9 +565,8 @@
                 btn.classList.add('active');
                 currentFilter = btn.dataset.category;
                 if (currentFilter !== 'all') {
-                    // فیلتر بر اساس گروه (group) نه subcat
-                    // ولی در کد ما currentFilter می‌تواند group باشد ولی renderAllSliders بر اساس subcat فیلتر می‌کند. باید اصلاح شود.
-                    // برای سادگی، دکمه‌های فیلتر را هم بر اساس group تنظیم می‌کنیم.
+                    // فیلتر گروهی
+                    currentFilter = btn.dataset.category;
                 }
                 renderAllSliders();
             });
