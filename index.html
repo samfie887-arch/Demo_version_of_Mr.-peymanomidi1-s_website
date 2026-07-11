@@ -33,7 +33,6 @@
             --z-modal: 1200;
             --z-toast: 1300;
         }
-        /* تم تاریک کاملاً مشکی */
         body.dark-mode {
             --bg-primary: #0a0a0a;
             --bg-secondary: #1a1a1a;
@@ -119,6 +118,7 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
 
+        /* منوی موبایل */
         .mobile-menu {
             position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh;
             background: #ffffff; backdrop-filter: blur(24px); z-index: 1500;
@@ -146,7 +146,7 @@
         }
         .mobile-overlay.active { opacity: 1; visibility: visible; }
 
-        /* پنل‌های کشویی با بسته‌شدن خودکار */
+        /* پنل‌های کشویی (دسکتاپ) */
         .dropdown-panel {
             position: absolute; top: calc(var(--navbar-height) + 8px); left: 0;
             background: var(--bg-card); backdrop-filter: blur(24px);
@@ -183,7 +183,42 @@
         .dropdown-footer .total { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); }
         .empty-message { color: var(--text-muted); text-align: center; padding: 20px 0; font-size: 0.85rem; }
 
-        /* بقیه استایل‌ها بدون تغییر عمده */
+        /* پنل‌های موبایل (Bottom Sheet) */
+        @media (max-width: 767px) {
+            .dropdown-panel {
+                position: fixed; bottom: 0; left: 0; right: 0; top: auto;
+                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+                transform: translateY(100%);
+                width: 100%; max-width: 100%;
+                box-shadow: 0 -8px 25px rgba(0,0,0,0.4);
+                padding: 16px;
+                max-height: 60vh;
+            }
+            .dropdown-panel.active { transform: translateY(0); }
+            .dropdown-panel h3 {
+                font-size: 1rem;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .dropdown-panel h3 .close-sheet {
+                background: none;
+                border: none;
+                color: var(--text-muted);
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 0 4px;
+            }
+            .dropdown-item {
+                padding: 8px;
+                gap: 8px;
+            }
+            .dropdown-item img { width: 36px; height: 36px; }
+            .remove-item { width: 24px; height: 24px; font-size: 0.8rem; }
+        }
+
+        /* سایر استایل‌ها */
         .slider-section { position: relative; margin-top: 10px; }
         .slider-container {
             display: flex; gap: 10px;
@@ -283,16 +318,6 @@
             background: var(--bg-card); color: var(--text-primary); font-size: 0.9rem; outline: none;
         }
         .search-results { margin-top: 12px; font-size: 0.85rem; }
-
-        @media (max-width: 767px) {
-            .dropdown-panel {
-                position: fixed; bottom: 0; left: 0; right: 0; top: auto;
-                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-                transform: translateY(100%);
-                width: 100%; box-shadow: 0 -8px 25px rgba(0,0,0,0.4);
-            }
-            .dropdown-panel.active { transform: translateY(0); }
-        }
     </style>
 </head>
 <body>
@@ -563,7 +588,7 @@
             document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
         }
 
-        // مدیریت کشوها با بسته‌شدن خودکار
+        // مدیریت کشوها
         function setupDropdowns() {
             const cartToggle = document.getElementById('cartToggle');
             const cartDropdown = document.getElementById('cartDropdown');
