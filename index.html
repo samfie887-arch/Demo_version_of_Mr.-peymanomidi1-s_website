@@ -136,12 +136,12 @@
         .mobile-menu.active { right: 0; }
         .mobile-menu a {
             display: block; padding: 10px 14px; border-radius: var(--radius-sm);
-            color: #ffffff; /* ثابت سفید برای خوانایی در تم تیره */
+            color: #ffffff;
             text-decoration: none; margin-bottom: 4px; font-weight: 500;
             background: rgba(255,255,255,0.1); font-size: 0.9rem;
         }
         body.light-mode .mobile-menu a {
-            color: #0b132b; /* در تم روشن مشکی پررنگ */
+            color: #0b132b;
             background: rgba(0,0,0,0.05);
         }
         .mobile-menu a:hover {
@@ -167,7 +167,7 @@
         }
         .dropdown-panel.active { transform: translateY(0); }
 
-        .slider-section { position: relative; }
+        .slider-section { position: relative; margin-top: 10px; }
         .slider-container {
             display: flex; gap: 10px;
             overflow-x: auto; scroll-snap-type: x mandatory;
@@ -222,16 +222,14 @@
             cursor: pointer; font-size: 1rem; backdrop-filter: blur(8px);
         }
 
-        /* تایمر با بک‌گراند شیشه‌ای */
+        /* تایمر */
         .countdown {
-            display: flex; gap: 12px; justify-content: center; margin: 20px 0 30px;
+            display: flex; gap: 12px; justify-content: center; margin: 20px 0 10px;
             background: rgba(20, 30, 56, 0.7); backdrop-filter: blur(10px);
             padding: 14px 20px; border-radius: 20px; border: 1px solid rgba(111,255,233,0.25);
             display: inline-flex;
         }
-        .countdown-item {
-            text-align: center; min-width: 60px;
-        }
+        .countdown-item { text-align: center; min-width: 60px; }
         .countdown-number { font-size: 1.6rem; font-weight: 800; color: var(--danger); }
         .countdown-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
 
@@ -346,13 +344,10 @@
                     <div class="countdown-item"><div class="countdown-number" id="cd-hours">02</div><div class="countdown-label">ساعت</div></div>
                 </div>
                 <a href="#flash-sale" class="btn btn-primary" style="font-size:0.85rem;">مشاهده محصولات</a>
-            </div>
-        </section>
 
-        <section class="section-padding" id="flash-sale" style="padding-top: 8px;">
-            <div class="container">
-                <div class="section-title"><h2>⚡ فروش ویژه</h2></div>
-                <div class="slider-section">
+                <!-- اسلایدر فروش ویژه دقیقاً زیر تایمر و دکمه -->
+                <div class="slider-section" id="flash-sale" style="margin-top: 20px;">
+                    <div class="section-title"><h2>⚡ فروش ویژه</h2></div>
                     <div class="slider-container" id="flashSlider"></div>
                     <div class="slider-arrows">
                         <button class="slider-arrow" onclick="slide('flashSlider', -200)">→</button>
