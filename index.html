@@ -88,6 +88,7 @@
         }
         .btn-sm { padding: 6px 14px; font-size: 0.75rem; }
 
+        /* نوبار جمع‌وجور */
         .navbar {
             position: sticky; top: 0; z-index: var(--z-nav);
             background: rgba(11, 19, 43, 0.9); backdrop-filter: blur(20px);
@@ -121,6 +122,7 @@
             display: flex; align-items: center; justify-content: center; font-weight: 700;
             border: 2px solid var(--bg-primary);
         }
+
         .hamburger { display: flex; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: 6px; }
         .hamburger span { width: 20px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: 0.3s; }
         .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
@@ -134,28 +136,11 @@
             overflow-y: auto;
         }
         .mobile-menu.active { right: 0; }
-        .mobile-menu a {
-            display: block; padding: 10px 14px; border-radius: var(--radius-sm);
-            color: #ffffff;
-            text-decoration: none; margin-bottom: 4px; font-weight: 500;
-            background: rgba(255,255,255,0.1); font-size: 0.9rem;
-        }
-        body.light-mode .mobile-menu a {
-            color: #0b132b;
-            background: rgba(0,0,0,0.05);
-        }
-        .mobile-menu a:hover {
-            background: rgba(111,255,233,0.25);
-        }
-        .mobile-menu .submenu { margin-right: 16px; display: none; }
-        .mobile-menu .submenu.open { display: block; }
-        .mobile-menu .submenu a { font-size: 0.8rem; padding-right: 24px; }
-        .mobile-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1400;
-            opacity: 0; visibility: hidden; transition: 0.3s;
-        }
+        .mobile-menu a { display: block; padding: 10px 14px; border-radius: var(--radius-sm); color: var(--text-primary); text-decoration: none; margin-bottom: 4px; font-weight: 500; background: var(--bg-glass); font-size: 0.9rem; }
+        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1400; opacity: 0; visibility: hidden; transition: 0.3s; }
         .mobile-overlay.active { opacity: 1; visibility: visible; }
 
+        /* کشوها */
         .dropdown-panel {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: var(--bg-card); backdrop-filter: blur(24px);
@@ -166,8 +151,29 @@
             z-index: var(--z-dropdown);
         }
         .dropdown-panel.active { transform: translateY(0); }
+        .dropdown-panel h3 { margin-bottom: 8px; color: var(--accent); font-size: 1rem; }
+        .dropdown-item { display: flex; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+        .item-title { font-size: 0.85rem; font-weight: 600; }
+        .item-price { font-size: 0.8rem; color: var(--accent); }
+        .remove-item { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1rem; }
 
-        .slider-section { position: relative; margin-top: 10px; }
+        /* جستجو */
+        .search-overlay {
+            position: fixed; inset: 0; background: rgba(11, 19, 43, 0.97); z-index: var(--z-search);
+            display: flex; align-items: flex-start; justify-content: center; padding-top: 70px;
+            opacity: 0; visibility: hidden; transition: 0.3s;
+        }
+        .search-overlay.active { opacity: 1; visibility: visible; }
+        .search-container { width: 90%; max-width: 450px; }
+        .search-input-wrap { display: flex; gap: 6px; }
+        .search-input-wrap input {
+            flex: 1; padding: 10px 14px; border-radius: 30px; border: 2px solid var(--border);
+            background: var(--bg-card); color: var(--text-primary); font-size: 0.9rem; outline: none;
+        }
+        .search-results { margin-top: 12px; font-size: 0.85rem; }
+
+        /* کارت محصول کوچک‌تر */
+        .slider-section { position: relative; }
         .slider-container {
             display: flex; gap: 10px;
             overflow-x: auto; scroll-snap-type: x mandatory;
@@ -214,66 +220,39 @@
             cursor: pointer; font-size: 0.7rem;
         }
 
-        .slider-arrows { display: none; gap: 6px; justify-content: center; margin-top: 4px; }
-        @media (min-width: 768px) { .slider-arrows { display: flex; } }
+        .slider-arrows { display: flex; gap: 6px; justify-content: center; margin-top: 4px; }
         .slider-arrow {
             background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary);
             width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
             cursor: pointer; font-size: 1rem; backdrop-filter: blur(8px);
         }
 
-        /* تایمر */
-        .countdown {
-            display: flex; gap: 12px; justify-content: center; margin: 20px 0 10px;
-            background: rgba(20, 30, 56, 0.7); backdrop-filter: blur(10px);
-            padding: 14px 20px; border-radius: 20px; border: 1px solid rgba(111,255,233,0.25);
-            display: inline-flex;
+        /* تایمر کوچک */
+        .countdown { display: flex; gap: 6px; justify-content: center; margin: 16px 0 20px; }
+        .countdown-item {
+            background: rgba(20,30,56,0.8); padding: 8px 12px; border-radius: var(--radius-sm);
+            min-width: 45px; border: 1px solid var(--border); text-align: center;
         }
-        .countdown-item { text-align: center; min-width: 60px; }
-        .countdown-number { font-size: 1.6rem; font-weight: 800; color: var(--danger); }
-        .countdown-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+        .countdown-number { font-size: 1.2rem; font-weight: 800; color: var(--danger); }
+        .countdown-label { font-size: 0.65rem; color: var(--text-muted); }
 
-        .footer {
-            background: var(--bg-card); backdrop-filter: blur(12px);
-            border-top: 1px solid var(--border); padding: 40px 0 20px; margin-top: 60px;
-            color: var(--text-secondary); font-size: 0.8rem;
+        .category-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 20px; }
+        .filter-btn {
+            padding: 6px 12px; border: 2px solid var(--border); background: var(--bg-card);
+            color: var(--text-secondary); border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+            cursor: pointer; transition: 0.2s;
         }
-        .footer-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
-            max-width: 1100px; margin: 0 auto 20px; padding: 0 12px;
-        }
-        @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
-        .footer-col h4 { color: var(--accent); margin-bottom: 10px; font-size: 0.9rem; font-weight: 700; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 6px; }
-        .footer-col ul li a { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
-        .footer-col ul li a:hover { color: var(--accent); }
-        .newsletter-form { display: flex; gap: 6px; margin-top: 8px; }
-        .newsletter-form input {
-            flex: 1; padding: 8px 12px; border-radius: 20px; border: 1px solid var(--border);
-            background: rgba(255,255,255,0.1); color: var(--text-primary); font-size: 0.75rem;
-        }
-        .newsletter-form button { padding: 8px 14px; border-radius: 20px; background: var(--accent); color: #0b132b; border: none; font-weight: 600; cursor: pointer; font-size: 0.7rem; }
-        .footer-bottom { text-align: center; margin-top: 20px; font-size: 0.7rem; color: var(--text-muted); }
+        .filter-btn.active, .filter-btn:hover { background: var(--accent); color: #0b132b; border-color: var(--accent); }
 
-        .search-overlay {
-            position: fixed; inset: 0; background: rgba(11, 19, 43, 0.97); z-index: var(--z-search);
-            display: flex; align-items: flex-start; justify-content: center; padding-top: 70px;
-            opacity: 0; visibility: hidden; transition: 0.3s;
-        }
-        .search-overlay.active { opacity: 1; visibility: visible; }
-        .search-container { width: 90%; max-width: 450px; }
-        .search-input-wrap { display: flex; gap: 6px; }
-        .search-input-wrap input {
-            flex: 1; padding: 10px 14px; border-radius: 30px; border: 2px solid var(--border);
-            background: var(--bg-card); color: var(--text-primary); font-size: 0.9rem; outline: none;
-        }
-        .search-results { margin-top: 12px; font-size: 0.85rem; }
+        .footer { background: var(--bg-card); backdrop-filter: blur(12px); border-top: 1px solid var(--border); padding: 30px 0 20px; margin-top: 50px; text-align: center; color: var(--text-secondary); font-size: 0.8rem; }
+        .footer-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+        .footer-col h4 { color: var(--accent); margin-bottom: 4px; font-size: 0.9rem; }
 
         @media (min-width: 768px) {
             .product-card { width: 220px; }
             .navbar-brand { font-size: 1.4rem; }
-            .dropdown-panel { position: absolute; bottom: auto; top: calc(var(--navbar-height) - 5px); left: 0; right: auto; width: 320px; border-radius: var(--radius-lg); transform: translateY(-10px); }
+            .dropdown-panel { position: absolute; bottom: auto; top: calc(var(--navbar-height) - 5px); left: 0; right: auto; width: 320px; border-radius: var(--radius-lg); transform: translateY(-10px); box-shadow: var(--shadow-card); }
+            .footer-grid { flex-direction: row; justify-content: space-around; }
         }
     </style>
 </head>
@@ -299,27 +278,9 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html">🏠 خانه</a>
-        <a href="products.html">🛍️ محصولات</a>
-        <a href="#" onclick="applySubFilter('all')">🗂️ همه</a>
-        <a href="#" onclick="toggleMobileSub(event, 'fashion')">👗 مد و پوشاک ▾</a>
-        <div class="submenu" id="mobile-sub-fashion">
-            <a href="#" onclick="applySubFilter('کفش')">کفش</a>
-            <a href="#" onclick="applySubFilter('بلوز')">بلوز</a>
-            <a href="#" onclick="applySubFilter('ساعت')">ساعت</a>
-            <a href="#" onclick="applySubFilter('کیف')">کیف</a>
-        </div>
-        <a href="#" onclick="toggleMobileSub(event, 'electronics')">📱 الکترونیک ▾</a>
-        <div class="submenu" id="mobile-sub-electronics">
-            <a href="#" onclick="applySubFilter('هدفون')">هدفون</a>
-            <a href="#" onclick="applySubFilter('لپتاپ')">لپتاپ</a>
-            <a href="#" onclick="applySubFilter('گجت')">گجت</a>
-        </div>
-        <a href="#" onclick="toggleMobileSub(event, 'beauty')">💄 زیبایی ▾</a>
-        <div class="submenu" id="mobile-sub-beauty">
-            <a href="#" onclick="applySubFilter('عطر')">عطر</a>
-            <a href="#" onclick="applySubFilter('مراقبت')">مراقبت پوست</a>
-        </div>
-        <a href="about.html">ℹ️ درباره ما</a>
+        <a href="#" onclick="applyFilter('all')">🗂️ همه</a>
+        <a href="#" onclick="applyFilter('ساعت')">⌚ ساعت</a>
+        <a href="#" onclick="applyFilter('کفش')">👟 کفش</a>
     </div>
 
     <div class="dropdown-panel" id="cartDropdown"><h3>🛒 سبد خرید</h3><div id="cartItems"></div><div id="cartFooter" style="margin-top:12px; display:flex; justify-content:space-between;"></div></div>
@@ -344,10 +305,22 @@
                     <div class="countdown-item"><div class="countdown-number" id="cd-hours">02</div><div class="countdown-label">ساعت</div></div>
                 </div>
                 <a href="#flash-sale" class="btn btn-primary" style="font-size:0.85rem;">مشاهده محصولات</a>
+            </div>
+        </section>
 
-                <!-- اسلایدر فروش ویژه دقیقاً زیر تایمر و دکمه -->
-                <div class="slider-section" id="flash-sale" style="margin-top: 20px;">
-                    <div class="section-title"><h2>⚡ فروش ویژه</h2></div>
+        <div class="container" style="padding-top: 16px;">
+            <div class="category-filter" id="categoryFilter">
+                <button class="filter-btn active" data-category="all">همه</button>
+                <button class="filter-btn" data-category="fashion">مد و پوشاک</button>
+                <button class="filter-btn" data-category="electronics">الکترونیک</button>
+                <button class="filter-btn" data-category="beauty">زیبایی</button>
+            </div>
+        </div>
+
+        <section class="section-padding" id="flash-sale" style="padding-top: 4px;">
+            <div class="container">
+                <div class="section-title"><h2>⚡ فروش ویژه</h2></div>
+                <div class="slider-section">
                     <div class="slider-container" id="flashSlider"></div>
                     <div class="slider-arrows">
                         <button class="slider-arrow" onclick="slide('flashSlider', -200)">→</button>
@@ -385,43 +358,12 @@
     </main>
 
     <footer class="footer">
-        <div class="container" style="max-width:1100px; margin:0 auto; padding:0 12px;">
+        <div class="container">
             <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>دسته‌بندی‌ها</h4>
-                    <ul>
-                        <li><a href="#" onclick="applySubFilter('کفش')">کفش</a></li>
-                        <li><a href="#" onclick="applySubFilter('ساعت')">ساعت</a></li>
-                        <li><a href="#" onclick="applySubFilter('هدفون')">هدفون</a></li>
-                        <li><a href="#" onclick="applySubFilter('عطر')">عطر</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>خدمات مشتریان</h4>
-                    <ul>
-                        <li><a href="#">پیگیری سفارش</a></li>
-                        <li><a href="#">بازگشت کالا</a></li>
-                        <li><a href="#">سوالات متداول</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>اطلاعات</h4>
-                    <ul>
-                        <li><a href="about.html">درباره ژینو</a></li>
-                        <li><a href="contact.html">تماس با ما</a></li>
-                        <li><a href="#">قوانین و مقررات</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>خبرنامه</h4>
-                    <p style="font-size:0.75rem; margin-bottom:8px;">برای دریافت آخرین تخفیف‌ها عضو شوید</p>
-                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('با موفقیت عضو شدید!')">
-                        <input type="email" placeholder="ایمیل شما" required>
-                        <button type="submit">عضویت</button>
-                    </form>
-                </div>
+                <div class="footer-col"><h4>ژینو</h4><p>خریدی لوکس و مطمئن</p></div>
+                <div class="footer-col"><h4>خدمات</h4><p>پیگیری | بازگشت</p></div>
             </div>
-            <div class="footer-bottom">© ۱۴۰۴ ژینو. تمامی حقوق محفوظ است.</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">© ۱۴۰۴ ژینو</div>
         </div>
     </footer>
 
@@ -505,7 +447,7 @@
         }
 
         function renderAllSliders() {
-            const filtered = currentFilter === 'all' ? products : products.filter(p=>p.subcat === currentFilter);
+            const filtered = currentFilter === 'all' ? products : products.filter(p=>p.group===currentFilter);
             document.getElementById('flashSlider').innerHTML = filtered.filter(p=>p.discount).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
             document.getElementById('newSlider').innerHTML = filtered.filter(p=>p.isNew).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
             document.getElementById('bestSlider').innerHTML = filtered.filter(p=>p.isBest).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
@@ -518,24 +460,9 @@
         function showToast(msg) {
             const t = document.createElement('div'); t.textContent=msg;
             t.style.cssText='position:fixed; bottom:70px; left:16px; background:var(--accent); color:#0b132b; padding:8px 16px; border-radius:20px; z-index:9999; font-weight:700; font-size:0.8rem;';
-            document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
+            document.body.appendChild(t);
+            setTimeout(()=>t.remove(),2000);
         }
-
-        window.toggleMobileSub = function(event, cat) {
-            event.preventDefault();
-            const sub = document.getElementById('mobile-sub-' + cat);
-            if (sub) sub.classList.toggle('open');
-        };
-
-        window.applySubFilter = function(subcat) {
-            if (subcat === 'all') currentFilter = 'all';
-            else currentFilter = subcat;
-            document.getElementById('mobileMenu').classList.remove('active');
-            document.getElementById('mobileOverlay').classList.remove('active');
-            document.getElementById('hamburgerBtn').classList.remove('active');
-            renderAllSliders();
-            document.getElementById('flash-sale').scrollIntoView({behavior:'smooth'});
-        };
 
         document.getElementById('hamburgerBtn').addEventListener('click',()=>{
             document.getElementById('mobileMenu').classList.toggle('active');
@@ -564,6 +491,15 @@
             document.getElementById('searchResults').innerHTML = products.filter(p=>p.name.includes(q)).map(p=>`<div style="padding:6px;cursor:pointer;font-size:0.85rem;" onclick="addToCart(${p.id})">${p.name}</div>`).join('');
         });
 
+        document.querySelectorAll('.filter-btn').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.category;
+                renderAllSliders();
+            });
+        });
+
         document.getElementById('themeToggle').addEventListener('click',()=>{
             document.body.classList.toggle('light-mode');
             document.getElementById('themeToggle').textContent = document.body.classList.contains('light-mode')?'☀️':'🌙';
@@ -572,21 +508,23 @@
         if(localStorage.getItem('theme')==='light') { document.body.classList.add('light-mode'); document.getElementById('themeToggle').textContent = '☀️'; }
 
         function startCountdown() {
-            let end = Date.now() + (2*3600+34*60+56)*1000;
-            const timerInterval = setInterval(()=>{
+            const end = Date.now() + (2*3600+34*60+56)*1000;
+            setInterval(()=>{
                 const diff = end - Date.now();
-                if(diff <= 0) {
-                    end = Date.now() + (2*3600+34*60+56)*1000;
-                }
-                const currentDiff = end - Date.now();
-                const h = Math.floor(currentDiff / 3600000);
-                const m = Math.floor((currentDiff % 3600000) / 60000);
-                const s = Math.floor((currentDiff % 60000) / 1000);
-                document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
-                document.getElementById('cd-minutes').textContent = String(m).padStart(2,'0');
-                document.getElementById('cd-seconds').textContent = String(s).padStart(2,'0');
-            }, 1000);
+                if(diff<=0) return;
+                document.getElementById('cd-hours').textContent = String(Math.floor(diff/3600000)).padStart(2,'0');
+                document.getElementById('cd-minutes').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+                document.getElementById('cd-seconds').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+            },1000);
         }
+
+        window.applyFilter = (cat) => {
+            currentFilter = cat === 'all' ? 'all' : cat;
+            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+            if(cat==='all') document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+            renderAllSliders();
+            document.getElementById('flash-sale').scrollIntoView({behavior:'smooth'});
+        };
 
         renderAllSliders();
         updateCartUI();
