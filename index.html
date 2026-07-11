@@ -34,7 +34,6 @@
             --z-toast: 1300;
         }
         
-        /* تم تاریک – خاکستری تیره لوکس */
         body.dark-mode {
             --bg-primary: #1a1a1a;
             --bg-secondary: #242424;
@@ -101,10 +100,6 @@
             background: linear-gradient(135deg, var(--accent), #f4a261);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        body.dark-mode .brand-text {
-            background: linear-gradient(135deg, var(--accent), #ffffff);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
         .navbar-actions { display: flex; align-items: center; gap: 6px; }
         .icon-btn {
             width: 34px; height: 34px; border-radius: 50%; border: none;
@@ -157,7 +152,7 @@
             position: fixed; bottom: 0; left: 0; right: 0;
             background: var(--bg-card); backdrop-filter: blur(24px);
             border-top: 1px solid var(--border); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-            box-shadow: 0 -12px 30px rgba(0,0,0,0.15); max-height: 70vh; overflow-y: auto; padding: 20px;
+            box-shadow: 0 -12px 30px rgba(0,0,0,0.15); max-height: 60vh; overflow-y: auto; padding: 20px;
             transform: translateY(100%); transition: transform 0.3s ease; z-index: var(--z-dropdown);
         }
         body.dark-mode .dropdown-panel { box-shadow: 0 -12px 30px rgba(0,0,0,0.7); }
@@ -447,23 +442,58 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
+        // انیمیشن بهینه‌سازی شده ذرات پس‌زمینه
         (function() {
             const canvas = document.getElementById('heroParticles');
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
             let particles = [];
-            function resizeCanvas() { canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight; }
-            window.addEventListener('resize', resizeCanvas); resizeCanvas();
+            const maxParticles = 20; // کاهش تعداد ذرات
+
+            function resizeCanvas() { 
+                canvas.width = canvas.parentElement.offsetWidth; 
+                canvas.height = canvas.parentElement.offsetHeight; 
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
             class Particle {
                 constructor() { this.reset(); }
-                reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.radius = Math.random()*2+0.8; this.speedX = (Math.random()-0.5)*0.5; this.speedY = (Math.random()-0.5)*0.5; this.opacity = Math.random()*0.6+0.2; this.color = Math.random()>0.5?'212, 175, 55':'244, 162, 97'; }
-                update() { this.x+=this.speedX; this.y+=this.speedY; if(this.x<0||this.x>canvas.width) this.speedX*=-1; if(this.y<0||this.y>canvas.height) this.speedY*=-1; }
-                draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.radius,0,Math.PI*2); ctx.fillStyle=`rgba(${this.color},${this.opacity})`; ctx.fill(); }
+                reset() { 
+                    this.x = Math.random() * canvas.width; 
+                    this.y = Math.random() * canvas.height; 
+                    this.radius = Math.random() * 2 + 0.8; 
+                    this.speedX = (Math.random() - 0.5) * 0.4; 
+                    this.speedY = (Math.random() - 0.5) * 0.4; 
+                    this.opacity = Math.random() * 0.5 + 0.2; 
+                    this.color = Math.random() > 0.5 ? '212, 175, 55' : '244, 162, 97'; 
+                }
+                update() { 
+                    this.x += this.speedX; 
+                    this.y += this.speedY; 
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; 
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; 
+                }
+                draw() { 
+                    ctx.beginPath(); 
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); 
+                    ctx.fillStyle = `rgba(${this.color},${this.opacity})`; 
+                    ctx.fill(); 
+                }
             }
-            for(let i=0;i<45;i++) particles.push(new Particle());
-            function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
+
+            for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
+
+            function animate() { 
+                if (!canvas.isConnected) return; // توقف انیمیشن در صورت حذف canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                particles.forEach(p => { p.update(); p.draw(); }); 
+                requestAnimationFrame(animate); 
+            }
             animate();
         })();
 
+        // داده‌های محصولات
         const products = [
             { id:1, name:'ساعت مچی لوکس', group:'fashion', subcat:'ساعت', price:2850000, oldPrice:3400000, discount:16, image:'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop', isNew:false, isBest:true },
             { id:2, name:'کیف چرم طبیعی', group:'fashion', subcat:'کیف', price:1950000, oldPrice:2400000, discount:19, image:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop', isNew:true, isBest:false },
@@ -477,7 +507,9 @@
 
         let currentFilter = 'all';
         const groups = ['fashion', 'electronics', 'beauty'];
+        let cachedCards = {}; // کش کارت‌ها برای جلوگیری از بازسازی مکرر
 
+        // توابع localStorage
         function getCart() { return JSON.parse(localStorage.getItem('cart')||'[]'); }
         function setCart(c) { localStorage.setItem('cart',JSON.stringify(c)); updateCartUI(); }
         function getWishlist() { return JSON.parse(localStorage.getItem('wishlist')||'[]'); }
@@ -486,6 +518,7 @@
         function updateCartBadge() { document.getElementById('cartBadge').textContent = getCart().reduce((s,i)=>s+i.quantity,0); }
         function updateWishlistBadge() { document.getElementById('wishlistBadge').textContent = getWishlist().length; }
 
+        // رندر پنل‌های کشویی
         function renderCartDropdown() {
             const cart = getCart();
             const container = document.getElementById('cartItems');
@@ -535,6 +568,7 @@
         function updateCartUI() { updateCartBadge(); renderCartDropdown(); }
         function updateWishlistUI() { updateWishlistBadge(); renderWishlistDropdown(); }
 
+        // عملیات سبد و علاقه‌مندی
         function addToCart(id) {
             const cart = getCart(); const p = products.find(x=>x.id===id);
             const exist = cart.find(x=>x.id===id);
@@ -550,34 +584,40 @@
             setWishlist(w); renderAllSliders();
         }
 
+        // ساخت کارت محصول (با کش)
         function createCard(p) {
-            const liked = getWishlist().some(w=>w.id===p.id);
-            return `<article class="product-card">
-                <div class="product-img"><img src="${p.image}" alt="${p.name}"><div class="product-badges">${p.discount?`<span class="badge">-${p.discount}%</span>`:''}</div><button class="wishlist-btn-card ${liked?'liked':''}" onclick="event.stopPropagation();toggleWishlist(${p.id})">${liked?'❤️':'🤍'}</button></div>
-                <div class="product-info"><span class="product-category">${p.subcat}</span><h3 class="product-name">${p.name}</h3><div><span class="price">${p.price.toLocaleString()} تومان</span>${p.oldPrice ? `<span class="old-price">${p.oldPrice.toLocaleString()}</span>` : ''}</div><button class="add-to-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})">افزودن به سبد</button></div>
-            </article>`;
+            if (!cachedCards[p.id]) {
+                const liked = getWishlist().some(w=>w.id===p.id);
+                cachedCards[p.id] = `<article class="product-card">
+                    <div class="product-img"><img src="${p.image}" alt="${p.name}"><div class="product-badges">${p.discount?`<span class="badge">-${p.discount}%</span>`:''}</div><button class="wishlist-btn-card ${liked?'liked':''}" onclick="event.stopPropagation();toggleWishlist(${p.id})">${liked?'❤️':'🤍'}</button></div>
+                    <div class="product-info"><span class="product-category">${p.subcat}</span><h3 class="product-name">${p.name}</h3><div><span class="price">${p.price.toLocaleString()} تومان</span>${p.oldPrice ? `<span class="old-price">${p.oldPrice.toLocaleString()}</span>` : ''}</div><button class="add-to-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})">افزودن به سبد</button></div>
+                </article>`;
+            }
+            return cachedCards[p.id];
         }
 
         function renderAllSliders() {
             let filtered;
-            if (currentFilter === 'all') {
-                filtered = products;
-            } else if (groups.includes(currentFilter)) {
-                filtered = products.filter(p => p.group === currentFilter);
-            } else {
-                filtered = products.filter(p => p.subcat === currentFilter);
-            }
-            document.getElementById('flashSlider').innerHTML = filtered.filter(p=>p.discount).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
-            document.getElementById('newSlider').innerHTML = filtered.filter(p=>p.isNew).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
-            document.getElementById('bestSlider').innerHTML = filtered.filter(p=>p.isBest).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
+            if (currentFilter === 'all') filtered = products;
+            else if (groups.includes(currentFilter)) filtered = products.filter(p => p.group === currentFilter);
+            else filtered = products.filter(p => p.subcat === currentFilter);
+
+            const flashSlider = document.getElementById('flashSlider');
+            const newSlider = document.getElementById('newSlider');
+            const bestSlider = document.getElementById('bestSlider');
+
+            if (flashSlider) flashSlider.innerHTML = filtered.filter(p=>p.discount).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
+            if (newSlider) newSlider.innerHTML = filtered.filter(p=>p.isNew).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
+            if (bestSlider) bestSlider.innerHTML = filtered.filter(p=>p.isBest).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
         }
 
         function showToast(msg) {
             const t = document.createElement('div'); t.textContent=msg;
-            t.style.cssText='position:fixed; bottom:70px; left:16px; background:var(--accent); color:#000000; padding:8px 16px; border-radius:20px; z-index:9999; font-weight:700; font-size:0.8rem;';
+            t.style.cssText='position:fixed; bottom:70px; left:16px; background:var(--accent); color:#000; padding:8px 16px; border-radius:20px; z-index:9999; font-weight:700; font-size:0.8rem;';
             document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
         }
 
+        // مدیریت منو
         window.toggleMobileSub = function(event, cat) {
             event.preventDefault();
             event.stopPropagation();
@@ -586,8 +626,7 @@
         };
 
         window.applySubFilter = function(subcat) {
-            if (subcat === 'all') currentFilter = 'all';
-            else currentFilter = subcat;
+            currentFilter = subcat === 'all' ? 'all' : subcat;
             document.getElementById('mobileMenu').classList.remove('active');
             document.getElementById('mobileOverlay').classList.remove('active');
             document.getElementById('hamburgerBtn').classList.remove('active');
@@ -599,6 +638,7 @@
             document.getElementById('flash-sale').scrollIntoView({behavior:'smooth'});
         };
 
+        // Event Listeners
         document.getElementById('hamburgerBtn').addEventListener('click',()=>{
             document.getElementById('mobileMenu').classList.toggle('active');
             document.getElementById('mobileOverlay').classList.toggle('active');
@@ -619,38 +659,37 @@
             document.getElementById('cartDropdown').classList.remove('active');
         });
 
+        // جستجو
         const searchOverlay = document.getElementById('searchOverlay');
         const searchInput = document.getElementById('searchInput');
         const searchResults = document.getElementById('searchResults');
-        const searchToggle = document.getElementById('searchToggle');
-        const closeSearchBtn = document.getElementById('closeSearch');
-
-        searchToggle.addEventListener('click', ()=>{
+        document.getElementById('searchToggle').addEventListener('click', ()=>{
             searchOverlay.classList.add('active');
             searchInput.focus();
         });
-        closeSearchBtn.addEventListener('click', ()=> searchOverlay.classList.remove('active'));
+        document.getElementById('closeSearch').addEventListener('click', ()=> searchOverlay.classList.remove('active'));
         searchInput.addEventListener('input', (e)=>{
             const query = e.target.value.trim().toLowerCase();
             if (query.length === 0) { searchResults.innerHTML = ''; return; }
             const matched = products.filter(p => p.name.includes(query) || p.subcat.includes(query));
             searchResults.innerHTML = matched.length ? matched.map(p => `
-                <div class="search-item" style="padding:8px; background:var(--bg-card); border-radius:8px; margin-bottom:4px; cursor:pointer;" onclick="applySubFilter('${p.subcat}'); searchOverlay.classList.remove('active');">
+                <div style="padding:8px; background:var(--bg-card); border-radius:8px; margin-bottom:4px; cursor:pointer;" onclick="applySubFilter('${p.subcat}'); searchOverlay.classList.remove('active');">
                     ${p.name}
                 </div>
             `).join('') : '<p style="color:var(--text-muted);">نتیجه‌ای یافت نشد</p>';
         });
 
+        // فیلترها
         document.querySelectorAll('.filter-btn').forEach(btn=>{
             btn.addEventListener('click',()=>{
                 document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
                 btn.classList.add('active');
-                const cat = btn.dataset.category;
-                currentFilter = cat === 'all' ? 'all' : cat;
+                currentFilter = btn.dataset.category === 'all' ? 'all' : btn.dataset.category;
                 renderAllSliders();
             });
         });
 
+        // تم
         const themeToggle = document.getElementById('themeToggle');
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-mode');
@@ -665,17 +704,22 @@
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
 
+        // تایمر بهینه
         function startCountdown() {
-            const end = Date.now() + (2*3600+34*60+56)*1000;
-            setInterval(()=>{
+            let end = Date.now() + (2*3600+34*60+56)*1000;
+            const updateTimer = () => {
                 const diff = end - Date.now();
-                if(diff<=0) return;
-                document.getElementById('cd-hours').textContent = String(Math.floor(diff/3600000)).padStart(2,'0');
-                document.getElementById('cd-minutes').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
-                document.getElementById('cd-seconds').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
-            },1000);
+                if(diff <= 0) end = Date.now() + (2*3600+34*60+56)*1000;
+                const currentDiff = end - Date.now();
+                document.getElementById('cd-hours').textContent = String(Math.floor(currentDiff / 3600000)).padStart(2,'0');
+                document.getElementById('cd-minutes').textContent = String(Math.floor((currentDiff % 3600000) / 60000)).padStart(2,'0');
+                document.getElementById('cd-seconds').textContent = String(Math.floor((currentDiff % 60000) / 1000)).padStart(2,'0');
+            };
+            updateTimer();
+            setInterval(updateTimer, 1000);
         }
 
+        // راه‌اندازی
         renderAllSliders();
         updateCartUI();
         updateWishlistUI();
