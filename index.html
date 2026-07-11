@@ -72,7 +72,6 @@
             background-clip: text; display: inline-block;
         }
 
-        /* دکمه‌ها */
         .btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 4px;
             padding: 8px 16px; border-radius: var(--radius-full); font-weight: 600;
@@ -123,18 +122,27 @@
             display: flex; align-items: center; justify-content: center; font-weight: 700;
             border: 2px solid var(--bg-primary);
         }
-        .hamburger { display: flex; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: 6px; }
-        .hamburger span { width: 20px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: 0.3s; }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+        .hamburger {
+            display: flex; flex-direction: column; gap: 4px; background: none; border: none;
+            cursor: pointer; padding: 6px; width: 34px; height: 34px;
+            align-items: center; justify-content: center; position: relative;
+        }
+        .hamburger span {
+            position: absolute; width: 18px; height: 2px; background: var(--text-primary);
+            border-radius: 2px; transition: all 0.3s;
+        }
+        .hamburger span:nth-child(1) { transform: translateY(-5px); }
+        .hamburger span:nth-child(3) { transform: translateY(5px); }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg); }
 
         /* منوی موبایل */
         .mobile-menu {
             position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh;
             background: rgba(11, 19, 43, 0.98); backdrop-filter: blur(24px); z-index: 1500;
-            padding: 70px 20px 20px; transition: right 0.3s; border-left: 1px solid var(--border);
-            overflow-y: auto;
+            padding: 70px 20px 20px; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 1px solid var(--border); overflow-y: auto;
         }
         .mobile-menu.active { right: 0; }
         .mobile-menu a {
@@ -147,7 +155,7 @@
         }
         .mobile-overlay.active { opacity: 1; visibility: visible; }
 
-        /* پنل دسته‌بندی (مگامنوی کوچک) */
+        /* پنل دسته‌بندی */
         .category-panel {
             position: absolute; top: 100%; left: 0;
             background: rgba(20, 30, 56, 0.98); backdrop-filter: blur(20px);
@@ -233,20 +241,24 @@
             cursor: pointer; font-size: 0.7rem;
         }
 
-        /* فلش‌های اسکرول (فقط دسکتاپ) */
-        .slider-arrows {
-            display: none; gap: 6px; justify-content: center; margin-top: 4px;
-        }
-        @media (min-width: 768px) {
-            .slider-arrows { display: flex; }
-        }
+        .slider-arrows { display: none; gap: 6px; justify-content: center; margin-top: 4px; }
+        @media (min-width: 768px) { .slider-arrows { display: flex; } }
         .slider-arrow {
             background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary);
             width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
             cursor: pointer; font-size: 1rem; backdrop-filter: blur(8px);
         }
 
-        /* فوتر حرفه‌ای */
+        /* تایمر */
+        .countdown { display: flex; gap: 6px; justify-content: center; margin: 16px 0 20px; }
+        .countdown-item {
+            background: rgba(20,30,56,0.8); padding: 8px 12px; border-radius: var(--radius-sm);
+            min-width: 45px; border: 1px solid var(--border); text-align: center;
+        }
+        .countdown-number { font-size: 1.2rem; font-weight: 800; color: var(--danger); }
+        .countdown-label { font-size: 0.65rem; color: var(--text-muted); }
+
+        /* فوتر */
         .footer {
             background: var(--bg-card); backdrop-filter: blur(12px);
             border-top: 1px solid var(--border); padding: 30px 0 20px; margin-top: 50px;
@@ -256,20 +268,21 @@
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
             max-width: 1100px; margin: 0 auto 16px; padding: 0 12px;
         }
-        @media (min-width: 768px) {
-            .footer-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-        .footer-col h4 { color: var(--accent); margin-bottom: 8px; font-size: 0.9rem; }
+        @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(3, 1fr); } }
+        .footer-col h4 { color: var(--accent); margin-bottom: 8px; font-size: 0.9rem; font-weight: 700; }
         .footer-col ul { list-style: none; }
         .footer-col ul li { margin-bottom: 4px; }
-        .footer-col ul li a { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; }
+        .footer-col ul li a { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
         .footer-col ul li a:hover { color: var(--accent); }
         .newsletter-form { display: flex; gap: 6px; margin-top: 8px; }
         .newsletter-form input {
             flex: 1; padding: 6px 10px; border-radius: 20px; border: 1px solid var(--border);
             background: rgba(255,255,255,0.1); color: var(--text-primary); font-size: 0.75rem;
         }
-        .newsletter-form button { padding: 6px 12px; border-radius: 20px; background: var(--accent); color: #0b132b; border: none; font-weight: 600; cursor: pointer; font-size: 0.7rem; }
+        .newsletter-form button {
+            padding: 6px 12px; border-radius: 20px; background: var(--accent);
+            color: #0b132b; border: none; font-weight: 600; cursor: pointer; font-size: 0.7rem;
+        }
         .footer-bottom { text-align: center; margin-top: 12px; font-size: 0.7rem; color: var(--text-muted); }
 
         /* جستجو */
@@ -308,7 +321,6 @@
                 <button class="icon-btn" id="wishlistToggle">♡<span class="badge-count" id="wishlistBadge">0</span></button>
                 <button class="icon-btn" id="cartToggle">🛒<span class="badge-count" id="cartBadge">0</span></button>
                 <button class="icon-btn" id="themeToggle">🌙</button>
-                <!-- دکمه دسته‌بندی -->
                 <div style="position: relative;">
                     <button class="icon-btn" id="categoryToggle">☰</button>
                     <div class="category-panel" id="categoryPanel">
@@ -332,7 +344,9 @@
                         </ul>
                     </div>
                 </div>
-                <button class="hamburger" id="hamburgerBtn"><span></span><span></span><span></span></button>
+                <button class="hamburger" id="hamburgerBtn">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
     </header>
@@ -362,9 +376,9 @@
                 <h1 style="font-size: clamp(1.8rem, 5vw, 2.5rem); background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">خریدی لوکس، تجربه‌ای ناب</h1>
                 <p style="color: #f8fafc; margin: 12px 0 6px; font-weight: 500; font-size: 0.9rem;">تا ۵۰٪ تخفیف ویژه</p>
                 <div class="countdown" id="countdown">
-                    <div class="countdown-item"><div class="countdown-number" id="cd-seconds">56</div><div class="countdown-label">ثانیه</div></div>
-                    <div class="countdown-item"><div class="countdown-number" id="cd-minutes">34</div><div class="countdown-label">دقیقه</div></div>
-                    <div class="countdown-item"><div class="countdown-number" id="cd-hours">02</div><div class="countdown-label">ساعت</div></div>
+                    <div class="countdown-item"><div class="countdown-number" id="cd-hours">00</div><div class="countdown-label">ساعت</div></div>
+                    <div class="countdown-item"><div class="countdown-number" id="cd-minutes">00</div><div class="countdown-label">دقیقه</div></div>
+                    <div class="countdown-item"><div class="countdown-number" id="cd-seconds">00</div><div class="countdown-label">ثانیه</div></div>
                 </div>
                 <a href="#flash-sale" class="btn btn-primary" style="font-size:0.85rem;">مشاهده محصولات</a>
             </div>
@@ -413,15 +427,6 @@
     <footer class="footer">
         <div class="container" style="max-width:1100px; margin:0 auto; padding:0 12px;">
             <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>دسته‌بندی</h4>
-                    <ul>
-                        <li><a href="#" onclick="applySubFilter('کفش')">کفش</a></li>
-                        <li><a href="#" onclick="applySubFilter('ساعت')">ساعت</a></li>
-                        <li><a href="#" onclick="applySubFilter('هدفون')">هدفون</a></li>
-                        <li><a href="#" onclick="applySubFilter('عطر')">عطر</a></li>
-                    </ul>
-                </div>
                 <div class="footer-col">
                     <h4>خدمات مشتریان</h4>
                     <ul>
@@ -483,7 +488,7 @@
             { id:8, name:'کرم ضد چروک', group:'beauty', subcat:'مراقبت', price:650000, oldPrice:850000, discount:24, image:'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=400&h=400&fit=crop', isNew:false, isBest:false },
         ];
 
-        let currentFilter = 'all'; // 'all' یا یک subcat خاص
+        let currentFilter = 'all';
 
         function getCart() { return JSON.parse(localStorage.getItem('cart')||'[]'); }
         function setCart(c) { localStorage.setItem('cart',JSON.stringify(c)); updateCartUI(); }
@@ -548,7 +553,29 @@
             document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
         }
 
-        // مدیریت پنل دسته‌بندی
+        // تایمر واقعی ۲ ساعته
+        function startCountdown() {
+            const endTime = Date.now() + (2 * 60 * 60 * 1000); // ۲ ساعت از الان
+            function update() {
+                const diff = endTime - Date.now();
+                if (diff <= 0) {
+                    document.getElementById('cd-hours').textContent = '00';
+                    document.getElementById('cd-minutes').textContent = '00';
+                    document.getElementById('cd-seconds').textContent = '00';
+                    return;
+                }
+                const h = Math.floor(diff / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+                document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+                document.getElementById('cd-minutes').textContent = String(m).padStart(2, '0');
+                document.getElementById('cd-seconds').textContent = String(s).padStart(2, '0');
+            }
+            update();
+            setInterval(update, 1000);
+        }
+
+        // پنل دسته‌بندی
         const categoryToggle = document.getElementById('categoryToggle');
         const categoryPanel = document.getElementById('categoryPanel');
         categoryToggle.addEventListener('click', (e) => {
@@ -572,6 +599,7 @@
             document.getElementById('flash-sale').scrollIntoView({behavior:'smooth'});
         };
 
+        // منوی موبایل
         document.getElementById('hamburgerBtn').addEventListener('click',()=>{
             document.getElementById('mobileMenu').classList.toggle('active');
             document.getElementById('mobileOverlay').classList.toggle('active');
@@ -605,17 +633,6 @@
             localStorage.setItem('theme', document.body.classList.contains('light-mode')?'light':'dark');
         });
         if(localStorage.getItem('theme')==='light') { document.body.classList.add('light-mode'); document.getElementById('themeToggle').textContent = '☀️'; }
-
-        function startCountdown() {
-            const end = Date.now() + (2*3600+34*60+56)*1000;
-            setInterval(()=>{
-                const diff = end - Date.now();
-                if(diff<=0) return;
-                document.getElementById('cd-hours').textContent = String(Math.floor(diff/3600000)).padStart(2,'0');
-                document.getElementById('cd-minutes').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
-                document.getElementById('cd-seconds').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
-            },1000);
-        }
 
         renderAllSliders();
         updateCartUI();
