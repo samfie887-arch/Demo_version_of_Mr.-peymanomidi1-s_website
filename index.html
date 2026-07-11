@@ -3,259 +3,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <meta name="description" content="ژینو - فروشگاه اینترنتی لوکس | طراحی مدرن و خاص">
-    <meta name="theme-color" content="#1a0533">
+    <meta name="description" content="ژینو - فروشگاه اینترنتی لوکس | خرید آنلاین با طراحی مدرن">
+    <meta name="theme-color" content="#0b132b">
     <title>ژینو | فروشگاه اینترنتی لوکس</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #1a0533;
-            --bg-card: rgba(45, 27, 78, 0.9);
-            --text: #f8f0ff;
-            --text-secondary: #d1c4e9;
-            --accent: #ff6f91;
-            --accent2: #ffc75f;
-            --accent3: #00c9a7;
+            --bg-primary: #0b132b;
+            --bg-secondary: #141e38;
+            --bg-card: rgba(20, 30, 56, 0.96);
+            --bg-glass: rgba(255, 255, 255, 0.12);
+            --text-primary: #ffffff;
+            --text-secondary: #f0f4ff;
+            --text-muted: #cbd5e1;
+            --accent: #6fffe9;
+            --accent-hover: #4cd4c0;
+            --accent-glow: rgba(111, 255, 233, 0.6);
+            --gold: #f4d03f;
+            --danger: #ff6b6b;
             --border: rgba(255, 255, 255, 0.2);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            --radius: 20px;
-            --radius-clip: 20% 0 20% 0;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-full: 50px;
+            --navbar-height: 60px;
+            --z-nav: 1000;
+            --z-dropdown: 1050;
+            --z-search: 1100;
+            --z-modal: 1200;
+            --z-toast: 1300;
         }
 
         body.light-mode {
-            --bg: #fdf6ff;
-            --bg-card: rgba(255, 255, 255, 0.9);
-            --text: #2d1b4e;
-            --text-secondary: #4a3f5c;
-            --accent: #e8456b;
-            --accent2: #f5a623;
-            --accent3: #008b74;
+            --bg-primary: #f4f6fb;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.96);
+            --bg-glass: rgba(0, 0, 0, 0.06);
+            --text-primary: #0b132b;
+            --text-secondary: #1e293b;
+            --text-muted: #475569;
+            --accent: #0d9488;
+            --accent-hover: #0f766e;
+            --accent-glow: rgba(13, 148, 136, 0.5);
+            --gold: #b45309;
+            --danger: #dc2626;
             --border: rgba(0, 0, 0, 0.15);
-            --shadow: 0 8px 24px rgba(0,0,0,0.1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; font-size: 16px; }
         body {
             font-family: 'Vazirmatn', sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
-            transition: background 0.4s, color 0.4s;
+            transition: background-color 0.4s, color 0.4s;
             overflow-x: hidden;
             min-height: 100vh;
         }
         body.no-scroll { overflow: hidden; }
-
-        /* ذرات پس‌زمینه */
-        #particles-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none;
-        }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
-
-        /* تایپوگرافی خاص */
-        h1, h2, h3 { font-weight: 900; letter-spacing: -0.5px; }
+        .section-padding { padding: 60px 0; }
+        .section-title { text-align: center; margin-bottom: 32px; }
         .section-title h2 {
-            font-size: 2rem; background: linear-gradient(135deg, var(--accent), var(--accent2));
+            font-size: 1.8rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            display: inline-block; position: relative;
-        }
-        .section-title h2::after {
-            content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
-            width: 50px; height: 4px; background: var(--accent); border-radius: 4px;
+            background-clip: text; display: inline-block;
         }
 
-        /* دکمه‌ها با انیمیشن ripple */
         .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 12px 28px; border-radius: 50px; font-weight: 700; border: none;
-            cursor: pointer; transition: all var(--transition); font-family: inherit;
-            text-decoration: none; position: relative; overflow: hidden;
-            color: #fff; background: var(--accent);
-            box-shadow: 0 4px 15px rgba(255, 111, 145, 0.4);
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            padding: 10px 22px; border-radius: var(--radius-full); font-weight: 600;
+            border: none; cursor: pointer; transition: all 0.25s ease;
+            font-family: inherit; white-space: nowrap; text-decoration: none;
         }
-        .btn::after {
-            content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0;
-            border-radius: 50%; background: rgba(255,255,255,0.3); transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #2dd4bf); color: #0b132b;
+            box-shadow: 0 4px 12px var(--accent-glow);
         }
-        .btn:active::after { width: 300px; height: 300px; }
-        .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #1a0533; }
-        .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); box-shadow: none; }
-        .btn-sm { padding: 8px 18px; font-size: 0.85rem; }
+        .btn-outline {
+            border: 2px solid var(--accent); color: var(--accent); background: transparent;
+        }
 
         /* نوبار */
         .navbar {
-            position: sticky; top: 0; z-index: 1000;
-            background: rgba(26, 5, 51, 0.85); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border); height: 60px;
+            position: sticky; top: 0; z-index: var(--z-nav);
+            background: rgba(11, 19, 43, 0.9); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            height: var(--navbar-height);
         }
-        .navbar-inner { display: flex; align-items: center; justify-content: space-between; height: 100%; gap: 12px; }
-        .navbar-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-        .brand-logo svg { width: 32px; height: 32px; }
+        body.light-mode .navbar { background: rgba(255, 255, 255, 0.9); }
+        .navbar-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            height: 100%; gap: 12px;
+        }
+        .navbar-brand {
+            display: flex; align-items: center; gap: 8px;
+            text-decoration: none; font-size: 1.4rem; font-weight: 800;
+        }
+        .brand-logo svg { width: 30px; height: 30px; display: block; }
         .brand-text {
-            font-size: 1.5rem; font-weight: 900;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            background: linear-gradient(135deg, var(--accent), #fff);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .navbar-actions { display: flex; align-items: center; gap: 10px; }
-        .icon-btn {
-            width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--border);
-            background: transparent; color: var(--text); cursor: pointer;
-            font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
-            position: relative; transition: all var(--transition);
+        body.light-mode .brand-text {
+            background: linear-gradient(135deg, var(--accent), #0b132b);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        .navbar-actions { display: flex; align-items: center; gap: 8px; }
+        .icon-btn {
+            width: 38px; height: 38px; border-radius: 50%; border: none;
+            background: var(--bg-glass); color: var(--text-primary); cursor: pointer;
+            font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+            position: relative; backdrop-filter: blur(4px);
+        }
+        .icon-btn:hover { background: rgba(255,255,255,0.25); }
         .badge-count {
-            position: absolute; top: -6px; right: -6px; background: var(--accent); color: #fff;
+            position: absolute; top: -4px; right: -4px; background: var(--danger); color: #fff;
             font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; font-weight: 700;
-            border: 2px solid var(--bg);
+            border: 2px solid var(--bg-primary);
         }
-        .hamburger { display: flex; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
-        .hamburger span { width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+        .hamburger {
+            display: flex; flex-direction: column; gap: 5px; background: none;
+            border: none; cursor: pointer; padding: 8px;
+        }
+        .hamburger span {
+            width: 22px; height: 2px; background: var(--text-primary); border-radius: 2px;
+            transition: 0.3s;
+        }
         .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
 
-        /* موبایل منو */
         .mobile-menu {
-            position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh;
-            background: rgba(26, 5, 51, 0.98); backdrop-filter: blur(24px); z-index: 1500;
+            position: fixed; top: 0; right: -100%; width: 85%; max-width: 340px; height: 100vh;
+            background: rgba(11, 19, 43, 0.98); backdrop-filter: blur(24px); z-index: 1500;
             padding: 80px 24px 30px; transition: right 0.3s; border-left: 1px solid var(--border);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
             overflow-y: auto;
         }
+        body.light-mode .mobile-menu { background: rgba(255, 255, 255, 0.98); }
         .mobile-menu.active { right: 0; }
         .mobile-menu a {
-            display: block; padding: 14px; border-radius: 12px; color: var(--text); text-decoration: none;
-            margin-bottom: 6px; font-weight: 500; border: 1px solid transparent; transition: all 0.2s;
+            display: block; padding: 12px 16px; border-radius: var(--radius-sm);
+            color: var(--text-primary); text-decoration: none; margin-bottom: 6px;
+            font-weight: 500; background: var(--bg-glass);
         }
-        .mobile-menu a:hover { border-color: var(--accent); color: var(--accent); background: rgba(255,111,145,0.1); }
+        .mobile-menu a:hover { background: rgba(111,255,233,0.25); color: var(--accent); }
         .mobile-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1400;
             opacity: 0; visibility: hidden; transition: 0.3s;
         }
         .mobile-overlay.active { opacity: 1; visibility: visible; }
 
-        /* کارت محصول با زاویه‌های خاص */
-        .products-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+        /* کشوها */
+        .dropdown-panel {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: var(--bg-card); backdrop-filter: blur(24px);
+            border-top: 1px solid var(--border); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            box-shadow: 0 -8px 30px rgba(0,0,0,0.5);
+            max-height: 70vh; overflow-y: auto; padding: 20px;
+            transform: translateY(100%); transition: transform 0.3s ease;
+            z-index: var(--z-dropdown);
         }
-        .product-card {
-            background: var(--bg-card); backdrop-filter: blur(12px);
-            border-radius: var(--radius); overflow: hidden;
-            border: 1px solid var(--border); box-shadow: var(--shadow);
-            transition: all var(--transition); position: relative;
-            clip-path: polygon(0 0, 100% 4%, 100% 100%, 0 96%);
-        }
-        .product-card:hover {
-            transform: translateY(-6px); border-color: var(--accent);
-            box-shadow: 0 16px 40px rgba(255, 111, 145, 0.3);
-        }
-        .product-img {
-            aspect-ratio: 1/1; background: #2d1b4e; position: relative;
-            overflow: hidden;
-        }
-        .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .product-card:hover .product-img img { transform: scale(1.1); }
-        .product-badges { position: absolute; top: 10px; right: 10px; z-index: 2; }
-        .badge {
-            background: var(--accent); color: #fff; padding: 4px 10px;
-            border-radius: 20px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px;
-        }
-        .wishlist-btn-card {
-            position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5);
-            width: 30px; height: 30px; border-radius: 50%; border: none;
-            color: #fff; font-size: 1rem; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 2; transition: background 0.3s;
-        }
-        .wishlist-btn-card.liked { background: var(--accent); }
-        .product-info { padding: 12px; display: flex; flex-direction: column; flex: 1; }
-        .product-category { font-size: 0.7rem; color: var(--accent2); margin-bottom: 4px; font-weight: 600; text-transform: uppercase; }
-        .product-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; }
-        .price { font-weight: 900; font-size: 1.1rem; color: var(--accent); }
-        .old-price { font-size: 0.75rem; color: var(--text-secondary); text-decoration: line-through; margin-right: 6px; }
-        .add-to-cart-btn {
-            width: 100%; margin-top: auto; padding: 10px; border-radius: 12px;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            color: #1a0533; border: none; font-weight: 700; font-family: inherit;
-            cursor: pointer; font-size: 0.8rem; transition: box-shadow 0.3s;
-        }
-        .add-to-cart-btn:hover { box-shadow: 0 4px 15px rgba(255, 111, 145, 0.5); }
+        .dropdown-panel.active { transform: translateY(0); }
+        .dropdown-panel h3 { margin-bottom: 12px; color: var(--accent); font-weight: 700; }
+        .dropdown-item { display: flex; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+        .dropdown-item img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+        .item-title { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+        .item-price { font-size: 0.85rem; color: var(--accent); font-weight: 700; }
+        .remove-item { background: none; border: none; color: var(--danger); font-size: 1.2rem; cursor: pointer; }
+        .dropdown-footer { margin-top: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .dropdown-footer .total { font-weight: 700; color: var(--text-primary); }
 
-        /* تایمر */
-        .countdown { display: flex; gap: 8px; justify-content: center; margin: 20px 0 30px; }
-        .countdown-item {
-            background: rgba(45, 27, 78, 0.8); padding: 10px 14px; border-radius: 12px;
-            min-width: 55px; border: 1px solid var(--accent); text-align: center;
-            backdrop-filter: blur(8px);
-        }
-        .countdown-number { font-size: 1.5rem; font-weight: 900; color: var(--accent2); }
-        .countdown-label { font-size: 0.7rem; color: var(--text-secondary); }
-
-        /* جستجو overlay */
+        /* جستجو */
         .search-overlay {
-            position: fixed; inset: 0; background: rgba(26, 5, 51, 0.97); z-index: 1100;
-            display: flex; align-items: flex-start; justify-content: center; padding-top: 80px;
-            opacity: 0; visibility: hidden; transition: 0.3s;
+            position: fixed; inset: 0; background: rgba(11, 19, 43, 0.97);
+            z-index: var(--z-search); display: flex; align-items: flex-start; justify-content: center;
+            padding-top: 80px; opacity: 0; visibility: hidden; transition: 0.3s;
         }
         .search-overlay.active { opacity: 1; visibility: visible; }
         .search-container { width: 90%; max-width: 500px; }
         .search-input-wrap { display: flex; gap: 8px; }
         .search-input-wrap input {
             flex: 1; padding: 12px 16px; border-radius: 30px; border: 2px solid var(--border);
-            background: var(--bg-card); color: var(--text); font-size: 1rem; outline: none;
+            background: var(--bg-card); color: var(--text-primary); font-size: 1rem;
+            outline: none; font-family: inherit;
         }
-        .search-results { margin-top: 16px; }
+        .search-input-wrap input:focus { border-color: var(--accent); }
+        .search-results { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+        .search-item {
+            background: var(--bg-card); padding: 10px 16px; border-radius: var(--radius-sm);
+            cursor: pointer; color: var(--text-primary); border: 1px solid transparent;
+        }
+        .search-item:hover { border-color: var(--accent); }
 
-        /* کشوهای سبد و علاقه‌مندی */
-        .dropdown-panel {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: var(--bg-card); backdrop-filter: blur(24px);
-            border-top: 2px solid var(--accent); border-radius: 20px 20px 0 0;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.4); max-height: 70vh;
-            overflow-y: auto; padding: 20px; transform: translateY(100%);
-            transition: transform 0.3s ease; z-index: 1200;
+        /* کارت محصول */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
         }
-        .dropdown-panel.active { transform: translateY(0); }
-        .dropdown-item { display: flex; gap: 10px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
-        .dropdown-item img { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; }
-        .item-title { font-size: 0.9rem; font-weight: 600; }
-        .item-price { font-size: 0.85rem; color: var(--accent); font-weight: 700; }
-        .remove-item { background: none; border: none; color: var(--accent); font-size: 1.2rem; cursor: pointer; }
+        .product-card {
+            background: var(--bg-card); backdrop-filter: blur(12px);
+            border-radius: var(--radius-md); overflow: hidden;
+            border: 1px solid var(--border); display: flex; flex-direction: column;
+        }
+        .product-img {
+            aspect-ratio: 1/1; background: var(--bg-glass); position: relative;
+            overflow: hidden;
+        }
+        .product-img img { width: 100%; height: 100%; object-fit: cover; }
+        .product-badges { position: absolute; top: 8px; right: 8px; z-index: 2; }
+        .badge {
+            display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem;
+            background: var(--accent); color: #0b132b; font-weight: 700;
+        }
+        .wishlist-btn-card {
+            position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.5);
+            width: 30px; height: 30px; border-radius: 50%; border: none;
+            color: #fff; font-size: 1rem; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 2;
+        }
+        .product-info {
+            padding: 12px; display: flex; flex-direction: column; flex: 1;
+        }
+        .product-category { font-size: 0.65rem; color: var(--accent); margin-bottom: 4px; font-weight: 600; }
+        .product-name {
+            font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; color: var(--text-primary);
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .price { font-weight: 800; font-size: 1rem; color: var(--accent); }
+        .old-price { font-size: 0.75rem; color: var(--text-muted); text-decoration: line-through; margin-right: 6px; }
+        .add-to-cart-btn {
+            width: 100%; margin-top: auto; padding: 8px; border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--accent), #2dd4bf);
+            color: #0b132b; border: none; font-weight: 700; font-family: inherit;
+            cursor: pointer; font-size: 0.8rem;
+        }
+
+        /* تایمر */
+        .countdown { display: flex; gap: 8px; justify-content: center; margin: 20px 0 24px; }
+        .countdown-item {
+            background: rgba(20,30,56,0.8); padding: 10px 14px; border-radius: var(--radius-sm);
+            min-width: 55px; border: 1px solid var(--border);
+            text-align: center;
+        }
+        .countdown-number { font-size: 1.4rem; font-weight: 800; color: var(--danger); }
+        .countdown-label { font-size: 0.7rem; color: var(--text-muted); }
+
+        /* فیلترها */
+        .category-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 28px; }
+        .filter-btn {
+            padding: 8px 16px; border: 2px solid var(--border); background: var(--bg-card);
+            color: var(--text-secondary); border-radius: 30px; font-size: 0.8rem; font-weight: 600;
+            cursor: pointer; transition: 0.2s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent); color: #0b132b; border-color: var(--accent);
+            font-weight: 700;
+        }
 
         /* فوتر */
         .footer {
             background: var(--bg-card); backdrop-filter: blur(12px);
             border-top: 1px solid var(--border); padding: 40px 0 24px; margin-top: 60px;
-            text-align: center;
+            text-align: center; color: var(--text-secondary);
         }
         .footer-grid { display: flex; flex-direction: column; gap: 20px; margin-bottom: 20px; }
-        .footer-col h4 { color: var(--accent); margin-bottom: 8px; }
+        .footer-col h4 { color: var(--accent); margin-bottom: 8px; font-weight: 700; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; }
+        .footer-col ul li a:hover { color: var(--accent); }
+
+        /* Toast */
+        .toast-container { position: fixed; bottom: 20px; left: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 8px; }
 
         @media (min-width: 768px) {
-            .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
-            .navbar-brand { font-size: 1.8rem; }
+            .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+            .navbar-brand { font-size: 1.6rem; }
+            .brand-logo svg { width: 36px; height: 36px; }
             .dropdown-panel {
-                position: absolute; bottom: auto; top: 60px; left: 0; right: auto;
-                width: 340px; border-radius: 16px; border: 1px solid var(--border);
-                transform: translateY(-10px); box-shadow: var(--shadow);
+                position: absolute; bottom: auto; top: calc(var(--navbar-height) - 5px);
+                left: 0; right: auto; width: 340px; border-radius: var(--radius-lg);
+                transform: translateY(-10px); box-shadow: var(--shadow-card);
             }
             .footer-grid { flex-direction: row; justify-content: space-around; }
         }
     </style>
 </head>
 <body>
-    <canvas id="particles-canvas"></canvas>
-
     <header class="navbar">
         <div class="container navbar-inner">
             <a href="index.html" class="navbar-brand">
                 <span class="brand-logo">
-                    <svg viewBox="0 0 40 40" fill="none"><path d="M20 4L36 12V28L20 36L4 28V12L20 4Z" stroke="url(#g)" stroke-width="2"/><circle cx="20" cy="20" r="6" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6f91"/><stop offset="100%" stop-color="#ffc75f"/></linearGradient></defs></svg>
+                    <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="url(#g)" stroke-width="2.5"/><path d="M12 14L20 8L28 14M12 20L20 14L28 20M12 26L20 20L28 26" stroke="url(#g)" stroke-width="2.5"/><circle cx="20" cy="20" r="3" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6fffe9"/><stop offset="100%" stop-color="#f4d03f"/></linearGradient></defs></svg>
                 </span>
                 <span class="brand-text">ژینو</span>
             </a>
@@ -273,55 +319,59 @@
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html">🏠 خانه</a>
         <a href="products.html">🛍️ محصولات</a>
-        <a href="#" onclick="applyFilter('all')">🗂️ همه</a>
-        <a href="#" onclick="applyFilter('ساعت')">⌚ ساعت</a>
-        <a href="#" onclick="applyFilter('کفش')">👟 کفش</a>
+        <a href="#" onclick="applyMegaFilter('all')">🗂️ همه دسته‌ها</a>
+        <a href="#" onclick="applyMegaFilter('ساعت')">⌚ ساعت</a>
+        <a href="#" onclick="applyMegaFilter('کفش')">👟 کفش</a>
         <a href="about.html">ℹ️ درباره ما</a>
     </div>
 
     <div class="dropdown-panel" id="cartDropdown">
-        <h3 style="color:var(--accent);">🛒 سبد خرید</h3>
+        <h3>🛒 سبد خرید</h3>
         <div id="cartItems"></div>
-        <div id="cartFooter" style="margin-top:16px; display:flex; justify-content:space-between;"></div>
+        <div class="dropdown-footer" id="cartFooter"></div>
     </div>
+
     <div class="dropdown-panel" id="wishlistDropdown">
-        <h3 style="color:var(--accent);">❤️ علاقه‌مندی‌ها</h3>
+        <h3>❤️ علاقه‌مندی‌ها</h3>
         <div id="wishlistItems"></div>
     </div>
+
     <div class="search-overlay" id="searchOverlay">
         <div class="search-container">
             <div class="search-input-wrap">
                 <input type="text" id="searchInput" placeholder="جستجو...">
-                <button class="btn btn-outline btn-sm" id="closeSearch">بستن</button>
+                <button class="btn btn-outline" id="closeSearch">بستن</button>
             </div>
             <div class="search-results" id="searchResults"></div>
         </div>
     </div>
 
-    <main style="position:relative; z-index:1;">
-        <section style="padding: 60px 0 40px; text-align: center;">
-            <div class="container">
-                <h1 style="font-size: clamp(2.5rem, 8vw, 4rem); line-height:1.2; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">خریدی فراتر از تصور</h1>
-                <p style="color: var(--text-secondary); margin: 16px 0 8px; font-size: 1.1rem;">تا ۵۰٪ تخفیف، فقط تا پایان امشب</p>
-                <div class="countdown" id="countdown">
+    <main>
+        <!-- هیرو با انیمیشن ذرات -->
+        <section style="position: relative; padding: 80px 0 50px; text-align: center; background: radial-gradient(circle at 30% 20%, #1c2541, #0b132b); overflow: hidden;">
+            <canvas id="heroParticles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+            <div class="container" style="position: relative; z-index: 1;">
+                <h1 style="font-size: clamp(2.2rem, 6vw, 3.2rem); background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeInUp 0.8s;">خریدی لوکس، تجربه‌ای ناب</h1>
+                <p style="color: #f8fafc; margin: 16px 0 8px; font-weight: 500; animation: fadeInUp 0.8s 0.2s both;">تا ۵۰٪ تخفیف ویژه</p>
+                <div class="countdown" id="countdown" style="animation: fadeInUp 0.8s 0.3s both;">
                     <div class="countdown-item"><div class="countdown-number" id="cd-seconds">56</div><div class="countdown-label">ثانیه</div></div>
                     <div class="countdown-item"><div class="countdown-number" id="cd-minutes">34</div><div class="countdown-label">دقیقه</div></div>
                     <div class="countdown-item"><div class="countdown-number" id="cd-hours">02</div><div class="countdown-label">ساعت</div></div>
                 </div>
-                <a href="#products" class="btn btn-primary btn-lg" style="font-size:1.1rem;">کشف محصولات</a>
+                <a href="#flash-sale" class="btn btn-primary btn-lg" style="animation: fadeInUp 0.8s 0.4s both;">مشاهده محصولات</a>
             </div>
         </section>
 
-        <div class="container" style="padding: 24px 0;">
-            <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px;" id="categoryFilter">
-                <button class="btn btn-outline btn-sm active" data-category="all">همه</button>
-                <button class="btn btn-outline btn-sm" data-category="fashion">مد و پوشاک</button>
-                <button class="btn btn-outline btn-sm" data-category="electronics">الکترونیک</button>
-                <button class="btn btn-outline btn-sm" data-category="beauty">زیبایی</button>
+        <div class="container" style="padding-top: 24px;">
+            <div class="category-filter" id="categoryFilter">
+                <button class="filter-btn active" data-category="all">همه</button>
+                <button class="filter-btn" data-category="fashion">مد و پوشاک</button>
+                <button class="filter-btn" data-category="electronics">الکترونیک</button>
+                <button class="filter-btn" data-category="beauty">زیبایی</button>
             </div>
         </div>
 
-        <section class="section-padding" id="products" style="padding-top: 8px;">
+        <section class="section-padding" id="flash-sale" style="padding-top: 8px;">
             <div class="container">
                 <div class="section-title"><h2>⚡ فروش ویژه</h2></div>
                 <div class="products-grid" id="flashProducts"></div>
@@ -332,36 +382,74 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col"><h4>ژینو</h4><p>لوکس و متفاوت</p></div>
-                <div class="footer-col"><h4>خدمات</h4><p>پیگیری | بازگشت</p></div>
-                <div class="footer-col"><h4>ارتباط</h4><p>درباره ما | تماس</p></div>
+                <div class="footer-col"><h4>ژینو</h4><p style="font-size:0.85rem; color:var(--text-secondary);">خریدی لوکس و مطمئن</p></div>
+                <div class="footer-col"><h4>خدمات</h4><ul><li><a href="#">پیگیری</a></li><li><a href="#">بازگشت کالا</a></li></ul></div>
+                <div class="footer-col"><h4>اطلاعات</h4><ul><li><a href="#">درباره ما</a></li><li><a href="#">تماس</a></li></ul></div>
             </div>
-            <div style="color:var(--text-secondary); font-size:0.8rem;">© ۱۴۰۴ ژینو</div>
+            <div style="font-size:0.8rem; color:var(--text-muted);">© ۱۴۰۴ ژینو</div>
         </div>
     </footer>
 
+    <div class="toast-container" id="toastContainer"></div>
+
     <script>
+        // ==================== انیمیشن ذرات هیرو ====================
         (function() {
-            const canvas = document.getElementById('particles-canvas');
+            const canvas = document.getElementById('heroParticles');
             const ctx = canvas.getContext('2d');
-            let w, h, particles = [];
-            function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
-            window.addEventListener('resize', resize); resize();
-            for(let i=0; i<40; i++) particles.push({x:Math.random()*w, y:Math.random()*h, r:Math.random()*2+1, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5, o:Math.random()*0.5+0.3});
-            function draw() {
-                ctx.clearRect(0,0,w,h);
-                particles.forEach(p => {
-                    p.x += p.vx; p.y += p.vy;
-                    if(p.x<0||p.x>w) p.vx*=-1;
-                    if(p.y<0||p.y>h) p.vy*=-1;
-                    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-                    ctx.fillStyle = `rgba(255,111,145,${p.o})`; ctx.fill();
-                });
-                requestAnimationFrame(draw);
+            let particles = [];
+            const particleCount = 40;
+
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.offsetWidth;
+                canvas.height = canvas.parentElement.offsetHeight;
             }
-            draw();
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.radius = Math.random() * 2.5 + 1;
+                    this.speedX = (Math.random() - 0.5) * 0.8;
+                    this.speedY = (Math.random() - 0.5) * 0.8;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                    this.color = Math.random() > 0.5 ? '111, 255, 233' : '244, 208, 63';
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
         })();
 
+        // ==================== داده‌ها ====================
         const products = [
             { id:1, name:'ساعت مچی لوکس', category:'مد و پوشاک', group:'fashion', subcat:'ساعت', price:2850000, oldPrice:3400000, discount:16, image:'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop' },
             { id:2, name:'کیف چرم طبیعی', category:'مد و پوشاک', group:'fashion', subcat:'کیف', price:1950000, oldPrice:2400000, discount:19, image:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop' },
@@ -384,15 +472,21 @@
         function renderCartDropdown() {
             const cart = getCart();
             document.getElementById('cartItems').innerHTML = cart.length ? cart.map(i=>`
-                <div class="dropdown-item"><img src="${i.image}"><div style="flex:1"><div class="item-title">${i.name}</div><div class="item-price">${i.price.toLocaleString()} تومان</div></div><button class="remove-item" onclick="removeFromCart(${i.id})">✕</button></div>`).join('') : '<p style="color:var(--text-secondary);">خالی</p>';
+                <div class="dropdown-item">
+                    <img src="${i.image}"><div style="flex:1"><div class="item-title">${i.name}</div><div class="item-price">${i.price.toLocaleString()} تومان</div></div>
+                    <button class="remove-item" onclick="removeFromCart(${i.id})">✕</button>
+                </div>`).join('') : '<p style="color:var(--text-muted);">سبد خرید خالی است</p>';
             const total = cart.reduce((s,i)=>s+i.price*i.quantity,0);
-            document.getElementById('cartFooter').innerHTML = cart.length ? `<span>جمع: ${total.toLocaleString()} تومان</span><a href="cart.html" class="btn btn-primary btn-sm">تکمیل</a>` : '';
+            document.getElementById('cartFooter').innerHTML = cart.length ? `<span class="total">جمع: ${total.toLocaleString()} تومان</span><a href="cart.html" class="btn btn-primary btn-sm">تکمیل خرید</a>` : '';
         }
 
         function renderWishlistDropdown() {
             const wish = getWishlist();
             document.getElementById('wishlistItems').innerHTML = wish.length ? wish.map(i=>`
-                <div class="dropdown-item"><img src="${i.image}"><div style="flex:1"><div class="item-title">${i.name}</div><div class="item-price">${i.price.toLocaleString()} تومان</div></div><button class="remove-item" onclick="removeFromWishlist(${i.id})">✕</button></div>`).join('') : '<p style="color:var(--text-secondary);">خالی</p>';
+                <div class="dropdown-item">
+                    <img src="${i.image}"><div style="flex:1"><div class="item-title">${i.name}</div><div class="item-price">${i.price.toLocaleString()} تومان</div></div>
+                    <button class="remove-item" onclick="removeFromWishlist(${i.id})">✕</button>
+                </div>`).join('') : '<p style="color:var(--text-muted);">لیست علاقه‌مندی خالی است</p>';
         }
 
         function updateCartUI() { updateCartBadge(); renderCartDropdown(); }
@@ -419,19 +513,29 @@
             document.getElementById('flashProducts').innerHTML = filtered.map(p=>{
                 const liked = getWishlist().some(w=>w.id===p.id);
                 return `<article class="product-card">
-                    <div class="product-img"><img src="${p.image}" alt="${p.name}"><div class="product-badges"><span class="badge">-${p.discount}%</span></div><button class="wishlist-btn-card ${liked?'liked':''}" onclick="event.stopPropagation();toggleWishlist(${p.id})">${liked?'❤️':'🤍'}</button></div>
-                    <div class="product-info"><span class="product-category">${p.category}</span><h3 class="product-name">${p.name}</h3><div><span class="price">${p.price.toLocaleString()} تومان</span>${p.oldPrice?`<span class="old-price">${p.oldPrice.toLocaleString()}</span>`:''}</div><button class="add-to-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})">افزودن به سبد</button></div>
+                    <div class="product-img">
+                        <img src="${p.image}" alt="${p.name}">
+                        <div class="product-badges"><span class="badge">${p.discount}%</span></div>
+                        <button class="wishlist-btn-card ${liked?'liked':''}" onclick="event.stopPropagation();toggleWishlist(${p.id})">${liked?'❤️':'🤍'}</button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">${p.category}</span>
+                        <h3 class="product-name">${p.name}</h3>
+                        <div><span class="price">${p.price.toLocaleString()} تومان</span>${p.oldPrice ? `<span class="old-price">${p.oldPrice.toLocaleString()}</span>` : ''}</div>
+                        <button class="add-to-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})">افزودن به سبد</button>
+                    </div>
                 </article>`;
             }).join('');
         }
 
         function showToast(msg) {
             const t = document.createElement('div'); t.textContent=msg;
-            t.style.cssText='position:fixed; bottom:80px; left:20px; background:var(--accent); color:#fff; padding:10px 20px; border-radius:30px; z-index:9999; font-weight:700;';
-            document.body.appendChild(t);
+            t.style.cssText='background:var(--bg-card); color:var(--text-primary); padding:10px 16px; border-radius:8px; border-right:4px solid var(--accent); backdrop-filter:blur(8px);';
+            document.getElementById('toastContainer').appendChild(t);
             setTimeout(()=>t.remove(),2500);
         }
 
+        // Event Listeners
         document.getElementById('hamburgerBtn').addEventListener('click',()=>{
             document.getElementById('mobileMenu').classList.toggle('active');
             document.getElementById('mobileOverlay').classList.toggle('active');
@@ -456,12 +560,12 @@
         document.getElementById('closeSearch').addEventListener('click',()=>document.getElementById('searchOverlay').classList.remove('active'));
         document.getElementById('searchInput').addEventListener('input',(e)=>{
             const q = e.target.value.toLowerCase();
-            document.getElementById('searchResults').innerHTML = products.filter(p=>p.name.includes(q)).map(p=>`<div style="padding:8px;cursor:pointer; color:var(--text);" onclick="addToCart(${p.id})">${p.name}</div>`).join('');
+            document.getElementById('searchResults').innerHTML = products.filter(p=>p.name.includes(q)).map(p=>`<div class="search-item" onclick="addToCart(${p.id})">${p.name}</div>`).join('');
         });
 
-        document.querySelectorAll('#categoryFilter .btn').forEach(btn=>{
+        document.querySelectorAll('.filter-btn').forEach(btn=>{
             btn.addEventListener('click',()=>{
-                document.querySelectorAll('#categoryFilter .btn').forEach(b=>b.classList.remove('active'));
+                document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
                 btn.classList.add('active');
                 currentFilter = btn.dataset.category;
                 renderProducts();
@@ -489,13 +593,18 @@
             },1000);
         }
 
-        window.applyFilter = (cat) => {
+        window.applyMegaFilter = (cat) => {
             currentFilter = cat === 'all' ? 'all' : cat;
-            document.querySelectorAll('#categoryFilter .btn').forEach(b=>b.classList.remove('active'));
-            if(cat==='all') document.querySelector('#categoryFilter .btn[data-category="all"]').classList.add('active');
+            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+            if(cat==='all') document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
             renderProducts();
-            document.getElementById('products').scrollIntoView({behavior:'smooth'});
+            document.getElementById('flash-sale').scrollIntoView({behavior:'smooth'});
         };
+
+        // استایل انیمیشن fadeInUp
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = "@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }";
+        document.head.appendChild(styleSheet);
 
         renderProducts();
         updateCartUI();
