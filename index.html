@@ -16,10 +16,10 @@
             --text-primary: #0b132b;
             --text-secondary: #1e293b;
             --text-muted: #475569;
-            --accent: #d4af37;
-            --accent-hover: #c8963e;
-            --accent-glow: rgba(212, 175, 55, 0.5);
-            --gold: #f4a261;
+            --accent: #d4b896;       /* کرم گندمی */
+            --accent-hover: #c9a97a;
+            --accent-glow: rgba(212, 184, 150, 0.5);
+            --gold: #f5e1c0;         /* شیری */
             --danger: #dc2626;
             --border: rgba(0, 0, 0, 0.15);
             --radius-sm: 6px;
@@ -42,10 +42,10 @@
             --text-primary: #f0f0f0;
             --text-secondary: #d1d1d1;
             --text-muted: #999999;
-            --accent: #d4af37;
-            --accent-hover: #e6c300;
-            --accent-glow: rgba(212, 175, 55, 0.6);
-            --gold: #f4a261;
+            --accent: #d4b896;
+            --accent-hover: #e0c7a8;
+            --accent-glow: rgba(212, 184, 150, 0.4);
+            --gold: #f5e1c0;
             --danger: #ff4444;
             --border: rgba(255, 255, 255, 0.15);
         }
@@ -79,7 +79,8 @@
             font-size: 0.8rem;
         }
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent), #e6c300); color: #000000;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            color: #1a1a1a; /* متن تیره برای خوانایی روی کرم */
             box-shadow: 0 4px 15px var(--accent-glow);
             font-weight: 700;
         }
@@ -97,7 +98,11 @@
         .navbar-brand { display: flex; align-items: center; gap: 6px; text-decoration: none; font-size: 1.2rem; font-weight: 800; }
         .brand-logo svg { width: 26px; height: 26px; }
         .brand-text {
-            background: linear-gradient(135deg, var(--accent), #f4a261);
+            background: linear-gradient(135deg, var(--accent), #b08b5c);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        body.dark-mode .brand-text {
+            background: linear-gradient(135deg, var(--accent), #f5e1c0);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .navbar-actions { display: flex; align-items: center; gap: 6px; }
@@ -137,7 +142,7 @@
         body.dark-mode .mobile-menu a, body.dark-mode .mobile-menu .menu-item {
             color: #ffffff !important; background: rgba(255, 255, 255, 0.1);
         }
-        .mobile-menu a:hover, .mobile-menu .menu-item:hover { background: rgba(212,175,55,0.2); color: var(--accent) !important; }
+        .mobile-menu a:hover, .mobile-menu .menu-item:hover { background: rgba(212, 184, 150, 0.3); color: var(--accent) !important; }
         .mobile-menu .submenu { margin-right: 16px; display: none; }
         .mobile-menu .submenu.open { display: block; }
         .mobile-menu .submenu a { font-size: 0.8rem; padding-right: 24px; background: rgba(0,0,0,0.03); color: #0b132b !important; }
@@ -202,7 +207,7 @@
         .product-badges { position: absolute; top: 6px; right: 6px; z-index: 2; }
         .badge {
             display: inline-block; padding: 2px 6px; border-radius: 10px; font-size: 0.65rem;
-            background: var(--accent); color: #000000; font-weight: 700;
+            background: var(--accent); color: #1a1a1a; font-weight: 700;
         }
         .wishlist-btn-card {
             position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.5);
@@ -220,7 +225,7 @@
         .old-price { font-size: 0.7rem; color: var(--text-muted); text-decoration: line-through; margin-right: 4px; }
         .add-to-cart-btn {
             width: 100%; margin-top: 6px; padding: 6px; border-radius: var(--radius-sm);
-            background: linear-gradient(135deg, var(--accent), #e6c300); color: #000000;
+            background: linear-gradient(135deg, var(--accent), var(--gold)); color: #1a1a1a;
             border: none; font-weight: 700; font-family: inherit; cursor: pointer; font-size: 0.7rem;
             transition: box-shadow 0.3s;
         }
@@ -242,7 +247,7 @@
             color: var(--text-secondary); border-radius: 20px; font-size: 0.75rem; font-weight: 600;
             cursor: pointer; transition: 0.2s;
         }
-        .filter-btn.active, .filter-btn:hover { background: var(--accent); color: #000000; border-color: var(--accent); }
+        .filter-btn.active, .filter-btn:hover { background: var(--accent); color: #1a1a1a; border-color: var(--accent); }
 
         .footer {
             background: var(--bg-card); backdrop-filter: blur(12px);
@@ -262,7 +267,7 @@
             background: rgba(0,0,0,0.03); color: var(--text-primary); font-size: 0.75rem;
         }
         body.dark-mode .newsletter-form input { background: rgba(255,255,255,0.08); }
-        .newsletter-form button { padding: 8px 14px; border-radius: 20px; background: var(--accent); color: #000000; border: none; font-weight: 600; cursor: pointer; font-size: 0.7rem; }
+        .newsletter-form button { padding: 8px 14px; border-radius: 20px; background: var(--accent); color: #1a1a1a; border: none; font-weight: 600; cursor: pointer; font-size: 0.7rem; }
         .footer-bottom { text-align: center; margin-top: 20px; font-size: 0.7rem; color: var(--text-muted); }
 
         .search-overlay {
@@ -293,7 +298,7 @@
         <div class="container navbar-inner">
             <a href="index.html" class="navbar-brand">
                 <span class="brand-logo">
-                    <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="url(#g)" stroke-width="2.5"/><path d="M12 14L20 8L28 14M12 20L20 14L28 20M12 26L20 20L28 26" stroke="url(#g)" stroke-width="2.5"/><circle cx="20" cy="20" r="3" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d4af37"/><stop offset="100%" stop-color="#f4a261"/></linearGradient></defs></svg>
+                    <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="url(#g)" stroke-width="2.5"/><path d="M12 14L20 8L28 14M12 20L20 14L28 20M12 26L20 20L28 26" stroke="url(#g)" stroke-width="2.5"/><circle cx="20" cy="20" r="3" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d4b896"/><stop offset="100%" stop-color="#f5e1c0"/></linearGradient></defs></svg>
                 </span>
                 <span class="brand-text">ژینو</span>
             </a>
@@ -347,10 +352,10 @@
     </div>
 
     <main>
-        <section style="position: relative; padding: 70px 0 30px; text-align: center; background: radial-gradient(circle at 30% 30%, #3a2c1b, #1a1a1a 70%); overflow: hidden;">
+        <section style="position: relative; padding: 70px 0 30px; text-align: center; background: radial-gradient(circle at 30% 30%, #4a3c2b, #1a1a1a 70%); overflow: hidden;">
             <canvas id="heroParticles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
             <div class="container" style="position: relative; z-index: 1;">
-                <h1 style="font-size: clamp(2rem, 6vw, 3rem); background: linear-gradient(135deg, #d4af37, #f4a261); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">خریدی لوکس، تجربه‌ای ناب</h1>
+                <h1 style="font-size: clamp(2rem, 6vw, 3rem); background: linear-gradient(135deg, #d4b896, #f5e1c0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">خریدی لوکس، تجربه‌ای ناب</h1>
                 <p style="color: #fef3c7; margin: 16px 0 8px; font-weight: 500; font-size: 1rem;">تا ۵۰٪ تخفیف ویژه</p>
                 <div class="countdown" id="countdown">
                     <div class="countdown-item"><div class="countdown-number" id="cd-seconds">56</div><div class="countdown-label">ثانیه</div></div>
@@ -442,58 +447,26 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
-        // انیمیشن بهینه‌سازی شده ذرات پس‌زمینه
+        // ذرات پس‌زمینه (تعداد کم و بهینه)
         (function() {
             const canvas = document.getElementById('heroParticles');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             let particles = [];
-            const maxParticles = 20; // کاهش تعداد ذرات
-
-            function resizeCanvas() { 
-                canvas.width = canvas.parentElement.offsetWidth; 
-                canvas.height = canvas.parentElement.offsetHeight; 
-            }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
+            const MAX = 20;
+            function resize() { canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight; }
+            window.addEventListener('resize', resize);
+            resize();
             class Particle {
                 constructor() { this.reset(); }
-                reset() { 
-                    this.x = Math.random() * canvas.width; 
-                    this.y = Math.random() * canvas.height; 
-                    this.radius = Math.random() * 2 + 0.8; 
-                    this.speedX = (Math.random() - 0.5) * 0.4; 
-                    this.speedY = (Math.random() - 0.5) * 0.4; 
-                    this.opacity = Math.random() * 0.5 + 0.2; 
-                    this.color = Math.random() > 0.5 ? '212, 175, 55' : '244, 162, 97'; 
-                }
-                update() { 
-                    this.x += this.speedX; 
-                    this.y += this.speedY; 
-                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; 
-                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; 
-                }
-                draw() { 
-                    ctx.beginPath(); 
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); 
-                    ctx.fillStyle = `rgba(${this.color},${this.opacity})`; 
-                    ctx.fill(); 
-                }
+                reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.r = Math.random()*2+0.8; this.vx = (Math.random()-0.5)*0.4; this.vy = (Math.random()-0.5)*0.4; this.o = Math.random()*0.5+0.2; this.c = Math.random()>0.5?'212, 184, 150':'245, 225, 192'; }
+                update() { this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>canvas.width) this.vx*=-1; if(this.y<0||this.y>canvas.height) this.vy*=-1; }
+                draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle=`rgba(${this.c},${this.o})`; ctx.fill(); }
             }
-
-            for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
-
-            function animate() { 
-                if (!canvas.isConnected) return; // توقف انیمیشن در صورت حذف canvas
-                ctx.clearRect(0, 0, canvas.width, canvas.height); 
-                particles.forEach(p => { p.update(); p.draw(); }); 
-                requestAnimationFrame(animate); 
-            }
-            animate();
+            for(let i=0;i<MAX;i++) particles.push(new Particle());
+            (function anim() { if(!canvas.isConnected) return; ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(anim); })();
         })();
 
-        // داده‌های محصولات
         const products = [
             { id:1, name:'ساعت مچی لوکس', group:'fashion', subcat:'ساعت', price:2850000, oldPrice:3400000, discount:16, image:'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop', isNew:false, isBest:true },
             { id:2, name:'کیف چرم طبیعی', group:'fashion', subcat:'کیف', price:1950000, oldPrice:2400000, discount:19, image:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop', isNew:true, isBest:false },
@@ -507,9 +480,8 @@
 
         let currentFilter = 'all';
         const groups = ['fashion', 'electronics', 'beauty'];
-        let cachedCards = {}; // کش کارت‌ها برای جلوگیری از بازسازی مکرر
+        const cardCache = {};
 
-        // توابع localStorage
         function getCart() { return JSON.parse(localStorage.getItem('cart')||'[]'); }
         function setCart(c) { localStorage.setItem('cart',JSON.stringify(c)); updateCartUI(); }
         function getWishlist() { return JSON.parse(localStorage.getItem('wishlist')||'[]'); }
@@ -518,7 +490,6 @@
         function updateCartBadge() { document.getElementById('cartBadge').textContent = getCart().reduce((s,i)=>s+i.quantity,0); }
         function updateWishlistBadge() { document.getElementById('wishlistBadge').textContent = getWishlist().length; }
 
-        // رندر پنل‌های کشویی
         function renderCartDropdown() {
             const cart = getCart();
             const container = document.getElementById('cartItems');
@@ -568,7 +539,6 @@
         function updateCartUI() { updateCartBadge(); renderCartDropdown(); }
         function updateWishlistUI() { updateWishlistBadge(); renderWishlistDropdown(); }
 
-        // عملیات سبد و علاقه‌مندی
         function addToCart(id) {
             const cart = getCart(); const p = products.find(x=>x.id===id);
             const exist = cart.find(x=>x.id===id);
@@ -584,16 +554,15 @@
             setWishlist(w); renderAllSliders();
         }
 
-        // ساخت کارت محصول (با کش)
         function createCard(p) {
-            if (!cachedCards[p.id]) {
+            if (!cardCache[p.id]) {
                 const liked = getWishlist().some(w=>w.id===p.id);
-                cachedCards[p.id] = `<article class="product-card">
+                cardCache[p.id] = `<article class="product-card">
                     <div class="product-img"><img src="${p.image}" alt="${p.name}"><div class="product-badges">${p.discount?`<span class="badge">-${p.discount}%</span>`:''}</div><button class="wishlist-btn-card ${liked?'liked':''}" onclick="event.stopPropagation();toggleWishlist(${p.id})">${liked?'❤️':'🤍'}</button></div>
                     <div class="product-info"><span class="product-category">${p.subcat}</span><h3 class="product-name">${p.name}</h3><div><span class="price">${p.price.toLocaleString()} تومان</span>${p.oldPrice ? `<span class="old-price">${p.oldPrice.toLocaleString()}</span>` : ''}</div><button class="add-to-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})">افزودن به سبد</button></div>
                 </article>`;
             }
-            return cachedCards[p.id];
+            return cardCache[p.id];
         }
 
         function renderAllSliders() {
@@ -602,43 +571,33 @@
             else if (groups.includes(currentFilter)) filtered = products.filter(p => p.group === currentFilter);
             else filtered = products.filter(p => p.subcat === currentFilter);
 
-            const flashSlider = document.getElementById('flashSlider');
-            const newSlider = document.getElementById('newSlider');
-            const bestSlider = document.getElementById('bestSlider');
-
-            if (flashSlider) flashSlider.innerHTML = filtered.filter(p=>p.discount).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
-            if (newSlider) newSlider.innerHTML = filtered.filter(p=>p.isNew).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
-            if (bestSlider) bestSlider.innerHTML = filtered.filter(p=>p.isBest).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);font-size:0.8rem;">موردی نیست</p>';
+            const flash = document.getElementById('flashSlider');
+            const newS = document.getElementById('newSlider');
+            const best = document.getElementById('bestSlider');
+            if(flash) flash.innerHTML = filtered.filter(p=>p.discount).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);">موردی نیست</p>';
+            if(newS) newS.innerHTML = filtered.filter(p=>p.isNew).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);">موردی نیست</p>';
+            if(best) best.innerHTML = filtered.filter(p=>p.isBest).map(createCard).join('') || '<p style="padding:10px;color:var(--text-muted);">موردی نیست</p>';
         }
 
         function showToast(msg) {
             const t = document.createElement('div'); t.textContent=msg;
-            t.style.cssText='position:fixed; bottom:70px; left:16px; background:var(--accent); color:#000; padding:8px 16px; border-radius:20px; z-index:9999; font-weight:700; font-size:0.8rem;';
+            t.style.cssText='position:fixed; bottom:70px; left:16px; background:var(--accent); color:#1a1a1a; padding:8px 16px; border-radius:20px; z-index:9999; font-weight:700;';
             document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
         }
 
-        // مدیریت منو
-        window.toggleMobileSub = function(event, cat) {
-            event.preventDefault();
-            event.stopPropagation();
-            const sub = document.getElementById('mobile-sub-' + cat);
-            if (sub) sub.classList.toggle('open');
-        };
-
-        window.applySubFilter = function(subcat) {
-            currentFilter = subcat === 'all' ? 'all' : subcat;
+        window.toggleMobileSub = function(e, cat) { e.preventDefault(); e.stopPropagation(); const s = document.getElementById('mobile-sub-'+cat); if(s) s.classList.toggle('open'); };
+        window.applySubFilter = function(sub) {
+            currentFilter = sub === 'all' ? 'all' : sub;
             document.getElementById('mobileMenu').classList.remove('active');
             document.getElementById('mobileOverlay').classList.remove('active');
             document.getElementById('hamburgerBtn').classList.remove('active');
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            const groupBtn = document.querySelector(`.filter-btn[data-category="${subcat}"]`);
-            if (groupBtn) groupBtn.classList.add('active');
-            else document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+            const btn = document.querySelector(`.filter-btn[data-category="${sub}"]`);
+            if(btn) btn.classList.add('active'); else document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
             renderAllSliders();
             document.getElementById('flash-sale').scrollIntoView({behavior:'smooth'});
         };
 
-        // Event Listeners
         document.getElementById('hamburgerBtn').addEventListener('click',()=>{
             document.getElementById('mobileMenu').classList.toggle('active');
             document.getElementById('mobileOverlay').classList.toggle('active');
@@ -649,77 +608,51 @@
             document.getElementById('mobileOverlay').classList.remove('active');
             document.getElementById('hamburgerBtn').classList.remove('active');
         });
+        document.getElementById('cartToggle').addEventListener('click',()=>{ document.getElementById('cartDropdown').classList.toggle('active'); document.getElementById('wishlistDropdown').classList.remove('active'); });
+        document.getElementById('wishlistToggle').addEventListener('click',()=>{ document.getElementById('wishlistDropdown').classList.toggle('active'); document.getElementById('cartDropdown').classList.remove('active'); });
 
-        document.getElementById('cartToggle').addEventListener('click',()=>{
-            document.getElementById('cartDropdown').classList.toggle('active');
-            document.getElementById('wishlistDropdown').classList.remove('active');
-        });
-        document.getElementById('wishlistToggle').addEventListener('click',()=>{
-            document.getElementById('wishlistDropdown').classList.toggle('active');
-            document.getElementById('cartDropdown').classList.remove('active');
-        });
-
-        // جستجو
-        const searchOverlay = document.getElementById('searchOverlay');
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
-        document.getElementById('searchToggle').addEventListener('click', ()=>{
-            searchOverlay.classList.add('active');
-            searchInput.focus();
-        });
-        document.getElementById('closeSearch').addEventListener('click', ()=> searchOverlay.classList.remove('active'));
-        searchInput.addEventListener('input', (e)=>{
-            const query = e.target.value.trim().toLowerCase();
-            if (query.length === 0) { searchResults.innerHTML = ''; return; }
-            const matched = products.filter(p => p.name.includes(query) || p.subcat.includes(query));
-            searchResults.innerHTML = matched.length ? matched.map(p => `
-                <div style="padding:8px; background:var(--bg-card); border-radius:8px; margin-bottom:4px; cursor:pointer;" onclick="applySubFilter('${p.subcat}'); searchOverlay.classList.remove('active');">
-                    ${p.name}
-                </div>
-            `).join('') : '<p style="color:var(--text-muted);">نتیجه‌ای یافت نشد</p>';
+        const searchOv = document.getElementById('searchOverlay');
+        const searchIn = document.getElementById('searchInput');
+        const searchRes = document.getElementById('searchResults');
+        document.getElementById('searchToggle').addEventListener('click',()=>{ searchOv.classList.add('active'); searchIn.focus(); });
+        document.getElementById('closeSearch').addEventListener('click',()=>searchOv.classList.remove('active'));
+        searchIn.addEventListener('input',e=>{
+            const q = e.target.value.trim().toLowerCase();
+            if(!q) { searchRes.innerHTML=''; return; }
+            const m = products.filter(p=>p.name.includes(q)||p.subcat.includes(q));
+            searchRes.innerHTML = m.length ? m.map(p=>`<div style="padding:8px;background:var(--bg-card);border-radius:8px;margin-bottom:4px;cursor:pointer;" onclick="applySubFilter('${p.subcat}');searchOv.classList.remove('active');">${p.name}</div>`).join('') : '<p style="color:var(--text-muted);">نتیجه‌ای یافت نشد</p>';
         });
 
-        // فیلترها
-        document.querySelectorAll('.filter-btn').forEach(btn=>{
-            btn.addEventListener('click',()=>{
-                document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.category === 'all' ? 'all' : btn.dataset.category;
-                renderAllSliders();
-            });
-        });
+        document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>{
+            document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+            b.classList.add('active');
+            currentFilter = b.dataset.category === 'all' ? 'all' : b.dataset.category;
+            renderAllSliders();
+        }));
 
-        // تم
         const themeToggle = document.getElementById('themeToggle');
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeToggle.textContent = '☀️';
-        } else {
-            themeToggle.textContent = '🌙';
-        }
-        themeToggle.addEventListener('click', ()=>{
+        if(localStorage.getItem('theme')==='dark') { document.body.classList.add('dark-mode'); themeToggle.textContent='☀️'; }
+        themeToggle.addEventListener('click',()=>{
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
-            themeToggle.textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeToggle.textContent = isDark?'☀️':'🌙';
+            localStorage.setItem('theme', isDark?'dark':'light');
         });
 
-        // تایمر بهینه
         function startCountdown() {
             let end = Date.now() + (2*3600+34*60+56)*1000;
-            const updateTimer = () => {
-                const diff = end - Date.now();
-                if(diff <= 0) end = Date.now() + (2*3600+34*60+56)*1000;
-                const currentDiff = end - Date.now();
-                document.getElementById('cd-hours').textContent = String(Math.floor(currentDiff / 3600000)).padStart(2,'0');
-                document.getElementById('cd-minutes').textContent = String(Math.floor((currentDiff % 3600000) / 60000)).padStart(2,'0');
-                document.getElementById('cd-seconds').textContent = String(Math.floor((currentDiff % 60000) / 1000)).padStart(2,'0');
+            const update = ()=>{
+                let diff = end - Date.now();
+                if(diff<=0) end = Date.now() + (2*3600+34*60+56)*1000;
+                diff = end - Date.now();
+                document.getElementById('cd-hours').textContent = String(Math.floor(diff/3600000)).padStart(2,'0');
+                document.getElementById('cd-minutes').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+                document.getElementById('cd-seconds').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
             };
-            updateTimer();
-            setInterval(updateTimer, 1000);
+            update();
+            setInterval(update, 1000);
         }
 
-        // راه‌اندازی
         renderAllSliders();
         updateCartUI();
         updateWishlistUI();
