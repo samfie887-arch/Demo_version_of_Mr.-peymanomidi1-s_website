@@ -135,8 +135,17 @@
         }
         .mobile-menu.active { right: 0; }
         .mobile-menu a {
-            display: block; padding: 10px 14px; border-radius: var(--radius-sm); color: var(--text-primary);
-            text-decoration: none; margin-bottom: 4px; font-weight: 500; background: var(--bg-glass); font-size: 0.9rem;
+            display: block; padding: 10px 14px; border-radius: var(--radius-sm);
+            color: #ffffff; /* ثابت سفید برای خوانایی در تم تیره */
+            text-decoration: none; margin-bottom: 4px; font-weight: 500;
+            background: rgba(255,255,255,0.1); font-size: 0.9rem;
+        }
+        body.light-mode .mobile-menu a {
+            color: #0b132b; /* در تم روشن مشکی پررنگ */
+            background: rgba(0,0,0,0.05);
+        }
+        .mobile-menu a:hover {
+            background: rgba(111,255,233,0.25);
         }
         .mobile-menu .submenu { margin-right: 16px; display: none; }
         .mobile-menu .submenu.open { display: block; }
@@ -212,6 +221,19 @@
             width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
             cursor: pointer; font-size: 1rem; backdrop-filter: blur(8px);
         }
+
+        /* تایمر با بک‌گراند شیشه‌ای */
+        .countdown {
+            display: flex; gap: 12px; justify-content: center; margin: 20px 0 30px;
+            background: rgba(20, 30, 56, 0.7); backdrop-filter: blur(10px);
+            padding: 14px 20px; border-radius: 20px; border: 1px solid rgba(111,255,233,0.25);
+            display: inline-flex;
+        }
+        .countdown-item {
+            text-align: center; min-width: 60px;
+        }
+        .countdown-number { font-size: 1.6rem; font-weight: 800; color: var(--danger); }
+        .countdown-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
 
         .footer {
             background: var(--bg-card); backdrop-filter: blur(12px);
