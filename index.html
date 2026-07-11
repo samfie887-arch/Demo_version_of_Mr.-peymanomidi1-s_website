@@ -350,11 +350,12 @@
     </div>
 
     <main>
-        <section style="position: relative; padding: 60px 0 30px; text-align: center; background: radial-gradient(circle at 30% 20%, #eef2f6, #d9e2ec); overflow: hidden;">
+        <!-- هیروی لوکس با پس‌زمینه تیره عمیق -->
+        <section style="position: relative; padding: 60px 0 30px; text-align: center; background: radial-gradient(circle at 30% 20%, #334155, #0f172a); overflow: hidden;">
             <canvas id="heroParticles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
             <div class="container" style="position: relative; z-index: 1;">
                 <h1 style="font-size: clamp(1.8rem, 5vw, 2.5rem); background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">خریدی لوکس، تجربه‌ای ناب</h1>
-                <p style="color: #1e293b; margin: 12px 0 6px; font-weight: 500; font-size: 0.9rem;">تا ۵۰٪ تخفیف ویژه</p>
+                <p style="color: #f1f5f9; margin: 12px 0 6px; font-weight: 500; font-size: 0.9rem;">تا ۵۰٪ تخفیف ویژه</p>
                 <div class="countdown" id="countdown">
                     <div class="countdown-item"><div class="countdown-number" id="cd-seconds">56</div><div class="countdown-label">ثانیه</div></div>
                     <div class="countdown-item"><div class="countdown-number" id="cd-minutes">34</div><div class="countdown-label">دقیقه</div></div>
@@ -453,7 +454,7 @@
             window.addEventListener('resize', resizeCanvas); resizeCanvas();
             class Particle {
                 constructor() { this.reset(); }
-                reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.radius = Math.random()*2+0.8; this.speedX = (Math.random()-0.5)*0.6; this.speedY = (Math.random()-0.5)*0.6; this.opacity = Math.random()*0.3+0.1; this.color = Math.random()>0.5?'13, 148, 136':'180, 83, 9'; }
+                reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.radius = Math.random()*2+0.8; this.speedX = (Math.random()-0.5)*0.6; this.speedY = (Math.random()-0.5)*0.6; this.opacity = Math.random()*0.5+0.2; this.color = Math.random()>0.5?'111, 255, 233':'244, 208, 63'; }
                 update() { this.x+=this.speedX; this.y+=this.speedY; if(this.x<0||this.x>canvas.width) this.speedX*=-1; if(this.y<0||this.y>canvas.height) this.speedY*=-1; }
                 draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.radius,0,Math.PI*2); ctx.fillStyle=`rgba(${this.color},${this.opacity})`; ctx.fill(); }
             }
@@ -589,7 +590,6 @@
             document.getElementById('mobileMenu').classList.remove('active');
             document.getElementById('mobileOverlay').classList.remove('active');
             document.getElementById('hamburgerBtn').classList.remove('active');
-            // به‌روزرسانی دکمه‌های فیلتر اصلی
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             const groupBtn = document.querySelector(`.filter-btn[data-category="${subcat}"]`);
             if (groupBtn) groupBtn.classList.add('active');
