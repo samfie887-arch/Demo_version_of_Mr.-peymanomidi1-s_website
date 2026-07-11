@@ -16,10 +16,10 @@
             --text-primary: #0b132b;
             --text-secondary: #1e293b;
             --text-muted: #475569;
-            --accent: #d4a373;       /* کرم عسلی گرم */
+            --accent: #d4a373;
             --accent-hover: #c08b5c;
             --accent-glow: rgba(212, 163, 115, 0.5);
-            --gold: #f5deb3;         /* گندمی */
+            --gold: #f5deb3;
             --danger: #dc2626;
             --border: rgba(0, 0, 0, 0.15);
             --radius-sm: 6px;
@@ -153,7 +153,7 @@
         }
         .mobile-overlay.active { opacity: 1; visibility: visible; }
 
-        /* پنل‌های کشویی (دسکتاپ و موبایل) */
+        /* پنل‌های کشویی */
         .dropdown-panel {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: var(--bg-card); backdrop-filter: blur(24px);
@@ -190,11 +190,13 @@
         .dropdown-footer .total { font-weight: 700; font-size: 1rem; color: var(--text-primary); }
         .empty-message { color: var(--text-muted); text-align: center; padding: 30px 0; font-size: 0.9rem; }
 
+        /* اصلاح موقعیت در دسکتاپ: تراز از سمت راست */
         @media (min-width: 768px) {
             .dropdown-panel {
-                position: absolute; bottom: auto; top: calc(var(--navbar-height) - 5px); left: 0; right: auto;
+                position: absolute; bottom: auto; top: calc(var(--navbar-height) - 5px);
+                left: auto; right: 0; /* تراز از سمت راست دکمه */
                 width: 340px; border-radius: var(--radius-lg);
-                transform: translateY(10px); /* موقعیت اولیه پایین‌تر */
+                transform: translateY(10px);
                 box-shadow: 0 12px 40px rgba(0,0,0,0.1);
                 opacity: 0; visibility: hidden;
             }
@@ -205,7 +207,6 @@
             body.dark-mode .dropdown-panel { box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
         }
 
-        /* بقیه استایل‌ها بدون تغییر */
         .slider-section { position: relative; }
         .slider-container {
             display: flex; gap: 10px;
@@ -315,8 +316,21 @@
             </a>
             <div class="navbar-actions">
                 <button class="icon-btn" id="searchToggle">🔍</button>
-                <button class="icon-btn" id="wishlistToggle">♡<span class="badge-count" id="wishlistBadge">0</span></button>
-                <button class="icon-btn" id="cartToggle">🛒<span class="badge-count" id="cartBadge">0</span></button>
+                <div style="position: relative;">
+                    <button class="icon-btn" id="wishlistToggle">♡<span class="badge-count" id="wishlistBadge">0</span></button>
+                    <div class="dropdown-panel" id="wishlistDropdown">
+                        <h3>❤️ علاقه‌مندی‌ها</h3>
+                        <div id="wishlistItems"></div>
+                    </div>
+                </div>
+                <div style="position: relative;">
+                    <button class="icon-btn" id="cartToggle">🛒<span class="badge-count" id="cartBadge">0</span></button>
+                    <div class="dropdown-panel" id="cartDropdown">
+                        <h3>🛒 سبد خرید</h3>
+                        <div id="cartItems"></div>
+                        <div class="dropdown-footer" id="cartFooter"></div>
+                    </div>
+                </div>
                 <button class="icon-btn" id="themeToggle">🌙</button>
                 <button class="hamburger" id="hamburgerBtn"><span></span><span></span><span></span></button>
             </div>
@@ -352,9 +366,6 @@
         <a href="contact.html">📞 تماس</a>
     </div>
 
-    <div class="dropdown-panel" id="cartDropdown"><h3>🛒 سبد خرید</h3><div id="cartItems"></div><div class="dropdown-footer" id="cartFooter"></div></div>
-    <div class="dropdown-panel" id="wishlistDropdown"><h3>❤️ علاقه‌مندی‌ها</h3><div id="wishlistItems"></div></div>
-
     <div class="search-overlay" id="searchOverlay">
         <div class="search-container">
             <div class="search-input-wrap"><input type="text" id="searchInput" placeholder="جستجوی محصول..."><button class="btn btn-outline btn-sm" id="closeSearch">بستن</button></div>
@@ -363,7 +374,6 @@
     </div>
 
     <main>
-        <!-- بنر با ته‌رنگ گرم -->
         <section style="position: relative; padding: 70px 0 30px; text-align: center; background: radial-gradient(circle at 30% 30%, #5c4430, #1f1a15 70%); overflow: hidden;">
             <canvas id="heroParticles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
             <div class="container" style="position: relative; z-index: 1;">
@@ -418,39 +428,10 @@
     <footer class="footer">
         <div class="container" style="max-width:1100px; margin:0 auto; padding:0 12px;">
             <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>دسته‌بندی‌ها</h4>
-                    <ul>
-                        <li><a href="#" onclick="applySubFilter('کفش')">کفش</a></li>
-                        <li><a href="#" onclick="applySubFilter('ساعت')">ساعت</a></li>
-                        <li><a href="#" onclick="applySubFilter('هدفون')">هدفون</a></li>
-                        <li><a href="#" onclick="applySubFilter('عطر')">عطر</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>خدمات مشتریان</h4>
-                    <ul>
-                        <li><a href="#">پیگیری سفارش</a></li>
-                        <li><a href="#">بازگشت کالا</a></li>
-                        <li><a href="#">سوالات متداول</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>اطلاعات</h4>
-                    <ul>
-                        <li><a href="about.html">درباره ژینو</a></li>
-                        <li><a href="contact.html">تماس با ما</a></li>
-                        <li><a href="#">قوانین و مقررات</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>خبرنامه</h4>
-                    <p style="font-size:0.75rem; margin-bottom:8px;">برای دریافت آخرین تخفیف‌ها عضو شوید</p>
-                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('با موفقیت عضو شدید!')">
-                        <input type="email" placeholder="ایمیل شما" required>
-                        <button type="submit">عضویت</button>
-                    </form>
-                </div>
+                <div class="footer-col"><h4>دسته‌بندی‌ها</h4><ul><li><a href="#" onclick="applySubFilter('کفش')">کفش</a></li><li><a href="#" onclick="applySubFilter('ساعت')">ساعت</a></li><li><a href="#" onclick="applySubFilter('هدفون')">هدفون</a></li><li><a href="#" onclick="applySubFilter('عطر')">عطر</a></li></ul></div>
+                <div class="footer-col"><h4>خدمات مشتریان</h4><ul><li><a href="#">پیگیری سفارش</a></li><li><a href="#">بازگشت کالا</a></li><li><a href="#">سوالات متداول</a></li></ul></div>
+                <div class="footer-col"><h4>اطلاعات</h4><ul><li><a href="about.html">درباره ژینو</a></li><li><a href="contact.html">تماس با ما</a></li><li><a href="#">قوانین و مقررات</a></li></ul></div>
+                <div class="footer-col"><h4>خبرنامه</h4><p style="font-size:0.75rem; margin-bottom:8px;">برای دریافت آخرین تخفیف‌ها عضو شوید</p><form class="newsletter-form" onsubmit="event.preventDefault(); alert('با موفقیت عضو شدید!')"><input type="email" placeholder="ایمیل شما" required><button type="submit">عضویت</button></form></div>
             </div>
             <div class="footer-bottom">© ۱۴۰۴ ژینو. تمامی حقوق محفوظ است.</div>
         </div>
@@ -459,7 +440,6 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
-        // ذرات پس‌زمینه با رنگ گرم
         (function() {
             const canvas = document.getElementById('heroParticles');
             if (!canvas) return;
@@ -610,7 +590,6 @@
             document.getElementById('flash-sale').scrollIntoView({behavior:'smooth'});
         };
 
-        // مدیریت پنل‌های کشویی با بسته‌شدن خودکار
         function setupDropdowns() {
             const cartToggle = document.getElementById('cartToggle');
             const cartDropdown = document.getElementById('cartDropdown');
