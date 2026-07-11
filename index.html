@@ -135,26 +135,39 @@
         }
         .mobile-menu.active { right: 0; }
         .mobile-menu a {
-            display: block; padding: 10px 14px; border-radius: var(--radius-sm);
-            color: #ffffff; /* ثابت سفید برای خوانایی در تم تیره */
-            text-decoration: none; margin-bottom: 4px; font-weight: 500;
-            background: rgba(255,255,255,0.1); font-size: 0.9rem;
+            display: block; padding: 10px 14px; border-radius: var(--radius-sm); color: var(--text-primary);
+            text-decoration: none; margin-bottom: 4px; font-weight: 500; background: var(--bg-glass); font-size: 0.9rem;
         }
-        body.light-mode .mobile-menu a {
-            color: #0b132b; /* در تم روشن مشکی پررنگ */
-            background: rgba(0,0,0,0.05);
-        }
-        .mobile-menu a:hover {
-            background: rgba(111,255,233,0.25);
-        }
-        .mobile-menu .submenu { margin-right: 16px; display: none; }
-        .mobile-menu .submenu.open { display: block; }
-        .mobile-menu .submenu a { font-size: 0.8rem; padding-right: 24px; }
         .mobile-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1400;
             opacity: 0; visibility: hidden; transition: 0.3s;
         }
         .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+        .category-panel {
+            position: absolute; top: 100%; left: 0;
+            background: rgba(20, 30, 56, 0.98); backdrop-filter: blur(20px);
+            border: 1px solid var(--border); border-radius: var(--radius-lg);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6); padding: 16px;
+            min-width: 200px; z-index: var(--z-dropdown);
+            opacity: 0; visibility: hidden; transform: translateY(-8px);
+            transition: all 0.2s ease;
+        }
+        .category-panel.active { opacity: 1; visibility: visible; transform: translateY(0); }
+        .category-panel .cat-main {
+            display: block; padding: 8px 12px; border-radius: 6px; color: var(--text-secondary);
+            font-size: 0.85rem; cursor: pointer; font-weight: 600; transition: 0.2s;
+        }
+        .category-panel .cat-main:hover { background: rgba(111,255,233,0.15); color: var(--accent); }
+        .category-panel .sub-list {
+            list-style: none; margin-top: 6px; margin-bottom: 8px; display: none;
+        }
+        .category-panel .sub-list.open { display: block; }
+        .category-panel .sub-list li a {
+            display: block; padding: 6px 20px; color: var(--text-secondary); font-size: 0.8rem;
+            text-decoration: none; border-radius: 4px;
+        }
+        .category-panel .sub-list li a:hover { background: rgba(111,255,233,0.2); color: var(--accent); }
 
         .dropdown-panel {
             position: fixed; bottom: 0; left: 0; right: 0;
@@ -222,7 +235,7 @@
             cursor: pointer; font-size: 1rem; backdrop-filter: blur(8px);
         }
 
-        /* تایمر با بک‌گراند شیشه‌ای */
+        /* تایمر با بک‌گراند شیشه‌ای و ترتیب ساعت، دقیقه، ثانیه */
         .countdown {
             display: flex; gap: 12px; justify-content: center; margin: 20px 0 30px;
             background: rgba(20, 30, 56, 0.7); backdrop-filter: blur(10px);
@@ -237,26 +250,26 @@
 
         .footer {
             background: var(--bg-card); backdrop-filter: blur(12px);
-            border-top: 1px solid var(--border); padding: 40px 0 20px; margin-top: 60px;
+            border-top: 1px solid var(--border); padding: 30px 0 20px; margin-top: 50px;
             color: var(--text-secondary); font-size: 0.8rem;
         }
         .footer-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
-            max-width: 1100px; margin: 0 auto 20px; padding: 0 12px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+            max-width: 1100px; margin: 0 auto 16px; padding: 0 12px;
         }
         @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
-        .footer-col h4 { color: var(--accent); margin-bottom: 10px; font-size: 0.9rem; font-weight: 700; }
+        .footer-col h4 { color: var(--accent); margin-bottom: 8px; font-size: 0.9rem; }
         .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 6px; }
-        .footer-col ul li a { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+        .footer-col ul li { margin-bottom: 4px; }
+        .footer-col ul li a { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; }
         .footer-col ul li a:hover { color: var(--accent); }
         .newsletter-form { display: flex; gap: 6px; margin-top: 8px; }
         .newsletter-form input {
-            flex: 1; padding: 8px 12px; border-radius: 20px; border: 1px solid var(--border);
+            flex: 1; padding: 6px 10px; border-radius: 20px; border: 1px solid var(--border);
             background: rgba(255,255,255,0.1); color: var(--text-primary); font-size: 0.75rem;
         }
-        .newsletter-form button { padding: 8px 14px; border-radius: 20px; background: var(--accent); color: #0b132b; border: none; font-weight: 600; cursor: pointer; font-size: 0.7rem; }
-        .footer-bottom { text-align: center; margin-top: 20px; font-size: 0.7rem; color: var(--text-muted); }
+        .newsletter-form button { padding: 6px 12px; border-radius: 20px; background: var(--accent); color: #0b132b; border: none; font-weight: 600; cursor: pointer; font-size: 0.7rem; }
+        .footer-bottom { text-align: center; margin-top: 12px; font-size: 0.7rem; color: var(--text-muted); }
 
         .search-overlay {
             position: fixed; inset: 0; background: rgba(11, 19, 43, 0.97); z-index: var(--z-search);
@@ -293,6 +306,29 @@
                 <button class="icon-btn" id="wishlistToggle">♡<span class="badge-count" id="wishlistBadge">0</span></button>
                 <button class="icon-btn" id="cartToggle">🛒<span class="badge-count" id="cartBadge">0</span></button>
                 <button class="icon-btn" id="themeToggle">🌙</button>
+                <div style="position: relative;">
+                    <button class="icon-btn" id="categoryToggle">☰</button>
+                    <div class="category-panel" id="categoryPanel">
+                        <div class="cat-main" data-cat="fashion" onclick="toggleSub(event, 'fashion')">👗 مد و پوشاک</div>
+                        <ul class="sub-list" id="sub-fashion">
+                            <li><a href="#" onclick="applySubFilter('کفش')">کفش</a></li>
+                            <li><a href="#" onclick="applySubFilter('بلوز')">بلوز</a></li>
+                            <li><a href="#" onclick="applySubFilter('ساعت')">ساعت</a></li>
+                            <li><a href="#" onclick="applySubFilter('کیف')">کیف</a></li>
+                        </ul>
+                        <div class="cat-main" data-cat="electronics" onclick="toggleSub(event, 'electronics')">📱 الکترونیک</div>
+                        <ul class="sub-list" id="sub-electronics">
+                            <li><a href="#" onclick="applySubFilter('هدفون')">هدفون</a></li>
+                            <li><a href="#" onclick="applySubFilter('لپتاپ')">لپتاپ</a></li>
+                            <li><a href="#" onclick="applySubFilter('گجت')">گجت</a></li>
+                        </ul>
+                        <div class="cat-main" data-cat="beauty" onclick="toggleSub(event, 'beauty')">💄 زیبایی</div>
+                        <ul class="sub-list" id="sub-beauty">
+                            <li><a href="#" onclick="applySubFilter('عطر')">عطر</a></li>
+                            <li><a href="#" onclick="applySubFilter('مراقبت')">مراقبت پوست</a></li>
+                        </ul>
+                    </div>
+                </div>
                 <button class="hamburger" id="hamburgerBtn"><span></span><span></span><span></span></button>
             </div>
         </div>
@@ -301,27 +337,9 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html">🏠 خانه</a>
-        <a href="products.html">🛍️ محصولات</a>
         <a href="#" onclick="applySubFilter('all')">🗂️ همه</a>
-        <a href="#" onclick="toggleMobileSub(event, 'fashion')">👗 مد و پوشاک ▾</a>
-        <div class="submenu" id="mobile-sub-fashion">
-            <a href="#" onclick="applySubFilter('کفش')">کفش</a>
-            <a href="#" onclick="applySubFilter('بلوز')">بلوز</a>
-            <a href="#" onclick="applySubFilter('ساعت')">ساعت</a>
-            <a href="#" onclick="applySubFilter('کیف')">کیف</a>
-        </div>
-        <a href="#" onclick="toggleMobileSub(event, 'electronics')">📱 الکترونیک ▾</a>
-        <div class="submenu" id="mobile-sub-electronics">
-            <a href="#" onclick="applySubFilter('هدفون')">هدفون</a>
-            <a href="#" onclick="applySubFilter('لپتاپ')">لپتاپ</a>
-            <a href="#" onclick="applySubFilter('گجت')">گجت</a>
-        </div>
-        <a href="#" onclick="toggleMobileSub(event, 'beauty')">💄 زیبایی ▾</a>
-        <div class="submenu" id="mobile-sub-beauty">
-            <a href="#" onclick="applySubFilter('عطر')">عطر</a>
-            <a href="#" onclick="applySubFilter('مراقبت')">مراقبت پوست</a>
-        </div>
-        <a href="about.html">ℹ️ درباره ما</a>
+        <a href="#" onclick="applySubFilter('کفش')">👟 کفش</a>
+        <a href="#" onclick="applySubFilter('ساعت')">⌚ ساعت</a>
     </div>
 
     <div class="dropdown-panel" id="cartDropdown"><h3>🛒 سبد خرید</h3><div id="cartItems"></div><div id="cartFooter" style="margin-top:12px; display:flex; justify-content:space-between;"></div></div>
@@ -393,7 +411,7 @@
         <div class="container" style="max-width:1100px; margin:0 auto; padding:0 12px;">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h4>دسته‌بندی‌ها</h4>
+                    <h4>دسته‌بندی</h4>
                     <ul>
                         <li><a href="#" onclick="applySubFilter('کفش')">کفش</a></li>
                         <li><a href="#" onclick="applySubFilter('ساعت')">ساعت</a></li>
@@ -412,17 +430,17 @@
                 <div class="footer-col">
                     <h4>اطلاعات</h4>
                     <ul>
-                        <li><a href="about.html">درباره ژینو</a></li>
-                        <li><a href="contact.html">تماس با ما</a></li>
-                        <li><a href="#">قوانین و مقررات</a></li>
+                        <li><a href="#">درباره ژینو</a></li>
+                        <li><a href="#">تماس با ما</a></li>
+                        <li><a href="#">قوانین</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>خبرنامه</h4>
-                    <p style="font-size:0.75rem; margin-bottom:8px;">برای دریافت آخرین تخفیف‌ها عضو شوید</p>
-                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('با موفقیت عضو شدید!')">
-                        <input type="email" placeholder="ایمیل شما" required>
-                        <button type="submit">عضویت</button>
+                    <p style="font-size:0.7rem;">از جدیدترین تخفیف‌ها باخبر شوید</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="ایمیل شما">
+                        <button>عضویت</button>
                     </form>
                 </div>
             </div>
@@ -526,18 +544,25 @@
             document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
         }
 
-        window.toggleMobileSub = function(event, cat) {
-            event.preventDefault();
-            const sub = document.getElementById('mobile-sub-' + cat);
+        const categoryToggle = document.getElementById('categoryToggle');
+        const categoryPanel = document.getElementById('categoryPanel');
+        categoryToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            categoryPanel.classList.toggle('active');
+        });
+        window.addEventListener('click', () => categoryPanel.classList.remove('active'));
+        categoryPanel.addEventListener('click', (e) => e.stopPropagation());
+
+        window.toggleSub = function(event, cat) {
+            event.stopPropagation();
+            const sub = document.getElementById('sub-' + cat);
             if (sub) sub.classList.toggle('open');
         };
 
         window.applySubFilter = function(subcat) {
             if (subcat === 'all') currentFilter = 'all';
             else currentFilter = subcat;
-            document.getElementById('mobileMenu').classList.remove('active');
-            document.getElementById('mobileOverlay').classList.remove('active');
-            document.getElementById('hamburgerBtn').classList.remove('active');
+            categoryPanel.classList.remove('active');
             renderAllSliders();
             document.getElementById('flash-sale').scrollIntoView({behavior:'smooth'});
         };
