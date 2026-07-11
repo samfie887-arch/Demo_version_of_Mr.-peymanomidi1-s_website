@@ -33,21 +33,24 @@
             --z-modal: 1200;
             --z-toast: 1300;
         }
+        
+        /* تم تاریک – خاکستری تیره لوکس */
         body.dark-mode {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1a1a1a;
-            --bg-card: rgba(20, 20, 20, 0.96);
-            --bg-glass: rgba(255, 255, 255, 0.1);
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #242424;
+            --bg-card: rgba(40, 40, 40, 0.96);
+            --bg-glass: rgba(255, 255, 255, 0.08);
             --text-primary: #f0f0f0;
-            --text-secondary: #cccccc;
+            --text-secondary: #d1d1d1;
             --text-muted: #999999;
             --accent: #d4af37;
             --accent-hover: #e6c300;
-            --accent-glow: rgba(212, 175, 55, 0.7);
+            --accent-glow: rgba(212, 175, 55, 0.6);
             --gold: #f4a261;
-            --danger: #ff6b6b;
-            --border: rgba(255, 255, 255, 0.2);
+            --danger: #ff4444;
+            --border: rgba(255, 255, 255, 0.15);
         }
+        
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; font-size: 16px; }
         body {
@@ -77,7 +80,7 @@
             font-size: 0.8rem;
         }
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent), #e6c300); color: #0b132b;
+            background: linear-gradient(135deg, var(--accent), #e6c300); color: #000000;
             box-shadow: 0 4px 15px var(--accent-glow);
             font-weight: 700;
         }
@@ -87,14 +90,19 @@
         .navbar {
             position: sticky; top: 0; z-index: var(--z-nav);
             background: rgba(244, 246, 251, 0.9); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border); height: var(--navbar-height);
+            border-bottom: 1px solid var(--border);
+            height: var(--navbar-height);
         }
-        body.dark-mode .navbar { background: rgba(10, 10, 10, 0.9); }
+        body.dark-mode .navbar { background: rgba(30, 30, 30, 0.9); }
         .navbar-inner { display: flex; align-items: center; justify-content: space-between; height: 100%; gap: 8px; }
         .navbar-brand { display: flex; align-items: center; gap: 6px; text-decoration: none; font-size: 1.2rem; font-weight: 800; }
         .brand-logo svg { width: 26px; height: 26px; }
         .brand-text {
             background: linear-gradient(135deg, var(--accent), #f4a261);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        body.dark-mode .brand-text {
+            background: linear-gradient(135deg, var(--accent), #ffffff);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .navbar-actions { display: flex; align-items: center; gap: 6px; }
@@ -118,14 +126,13 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
 
-        /* منوی موبایل */
         .mobile-menu {
             position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh;
             background: #ffffff; backdrop-filter: blur(24px); z-index: 1500;
             padding: 70px 20px 20px; transition: right 0.3s; border-left: 1px solid var(--border);
             overflow-y: auto;
         }
-        body.dark-mode .mobile-menu { background: #0a0a0a; }
+        body.dark-mode .mobile-menu { background: #1a1a1a; }
         .mobile-menu.active { right: 0; }
         .mobile-menu a, .mobile-menu .menu-item {
             display: block; padding: 10px 14px; border-radius: var(--radius-sm);
@@ -133,9 +140,9 @@
             background: rgba(0, 0, 0, 0.06); font-size: 0.9rem; cursor: pointer;
         }
         body.dark-mode .mobile-menu a, body.dark-mode .mobile-menu .menu-item {
-            color: #ffffff !important; background: rgba(255, 255, 255, 0.12);
+            color: #ffffff !important; background: rgba(255, 255, 255, 0.1);
         }
-        .mobile-menu a:hover, .mobile-menu .menu-item:hover { background: rgba(212,175,55,0.25); color: var(--accent) !important; }
+        .mobile-menu a:hover, .mobile-menu .menu-item:hover { background: rgba(212,175,55,0.2); color: var(--accent) !important; }
         .mobile-menu .submenu { margin-right: 16px; display: none; }
         .mobile-menu .submenu.open { display: block; }
         .mobile-menu .submenu a { font-size: 0.8rem; padding-right: 24px; background: rgba(0,0,0,0.03); color: #0b132b !important; }
@@ -146,85 +153,42 @@
         }
         .mobile-overlay.active { opacity: 1; visibility: visible; }
 
-        /* پنل‌های کشویی (دسکتاپ) */
         .dropdown-panel {
-            position: absolute; top: calc(var(--navbar-height) + 8px); left: 0;
+            position: fixed; bottom: 0; left: 0; right: 0;
             background: var(--bg-card); backdrop-filter: blur(24px);
-            border: 1px solid var(--border); border-radius: var(--radius-lg);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-            width: 340px; max-height: 70vh; overflow-y: auto; padding: 20px;
-            opacity: 0; visibility: hidden; transform: translateY(-10px);
-            transition: all 0.2s ease; z-index: var(--z-dropdown);
+            border-top: 1px solid var(--border); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            box-shadow: 0 -12px 30px rgba(0,0,0,0.15); max-height: 70vh; overflow-y: auto; padding: 20px;
+            transform: translateY(100%); transition: transform 0.3s ease; z-index: var(--z-dropdown);
         }
-        .dropdown-panel.active { opacity: 1; visibility: visible; transform: translateY(0); }
+        body.dark-mode .dropdown-panel { box-shadow: 0 -12px 30px rgba(0,0,0,0.7); }
+        .dropdown-panel.active { transform: translateY(0); }
         .dropdown-panel h3 { margin-bottom: 16px; color: var(--accent); font-size: 1.1rem; }
         .dropdown-item {
-            display: flex; gap: 12px; align-items: center; padding: 10px;
-            background: rgba(0, 0, 0, 0.02); border-radius: 10px;
-            margin-bottom: 8px; border: 1px solid var(--border);
+            display: flex; gap: 12px; align-items: center; padding: 12px;
+            background: rgba(0, 0, 0, 0.03); border-radius: 12px;
+            margin-bottom: 10px; border: 1px solid var(--border); backdrop-filter: blur(4px);
         }
-        body.dark-mode .dropdown-item { background: rgba(255, 255, 255, 0.05); }
-        .dropdown-item img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
+        body.dark-mode .dropdown-item { background: rgba(255, 255, 255, 0.03); }
+        .dropdown-item img { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); }
         .item-info { flex: 1; }
-        .item-title { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
-        .item-price { font-size: 0.8rem; color: var(--accent); font-weight: 700; }
+        .item-title { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+        .item-price { font-size: 0.85rem; color: var(--accent); font-weight: 700; }
         .item-quantity { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
         .remove-item {
-            background: rgba(0, 0, 0, 0.08); border: none; color: var(--danger);
-            width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 1rem; transition: 0.2s;
+            background: rgba(0, 0, 0, 0.1); border: none; color: var(--danger);
+            width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 1.2rem; transition: background 0.2s, color 0.2s;
         }
-        body.dark-mode .remove-item { background: rgba(255, 255, 255, 0.15); }
+        body.dark-mode .remove-item { background: rgba(255, 255, 255, 0.1); }
         .remove-item:hover { background: var(--danger); color: #fff; }
         .dropdown-footer {
-            margin-top: 12px; display: flex; justify-content: space-between; align-items: center;
+            margin-top: 16px; display: flex; justify-content: space-between; align-items: center;
             padding-top: 12px; border-top: 1px solid var(--border);
         }
-        .dropdown-footer .total { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); }
-        .empty-message { color: var(--text-muted); text-align: center; padding: 20px 0; font-size: 0.85rem; }
+        .dropdown-footer .total { font-weight: 700; font-size: 1rem; color: var(--text-primary); }
+        .empty-message { color: var(--text-muted); text-align: center; padding: 30px 0; font-size: 0.9rem; }
 
-        /* پنل‌های موبایل (Bottom Sheet) */
-        @media (max-width: 767px) {
-            .dropdown-panel {
-                position: fixed; bottom: 0; left: 0; right: 0; top: auto;
-                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-                transform: translateY(100%);
-                width: 100%; max-width: 100%;
-                box-shadow: 0 -8px 25px rgba(0,0,0,0.4);
-                padding: 16px;
-                max-height: 50vh; /* کاهش ارتفاع برای نمایش بهتر */
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(20px);
-            }
-            body.dark-mode .dropdown-panel {
-                background: rgba(20, 20, 20, 0.98);
-            }
-            .dropdown-panel.active { transform: translateY(0); }
-            .dropdown-panel h3 {
-                font-size: 1rem;
-                margin-bottom: 12px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-            .dropdown-panel h3 .close-sheet {
-                background: none;
-                border: none;
-                color: var(--text-muted);
-                font-size: 1.5rem;
-                cursor: pointer;
-                padding: 0 4px;
-            }
-            .dropdown-item {
-                padding: 8px;
-                gap: 8px;
-            }
-            .dropdown-item img { width: 36px; height: 36px; }
-            .remove-item { width: 24px; height: 24px; font-size: 0.8rem; }
-        }
-
-        /* سایر استایل‌ها */
-        .slider-section { position: relative; margin-top: 10px; }
+        .slider-section { position: relative; }
         .slider-container {
             display: flex; gap: 10px;
             overflow-x: auto; scroll-snap-type: x mandatory;
@@ -243,9 +207,8 @@
         .product-badges { position: absolute; top: 6px; right: 6px; z-index: 2; }
         .badge {
             display: inline-block; padding: 2px 6px; border-radius: 10px; font-size: 0.65rem;
-            background: var(--accent); color: #fff; font-weight: 700;
+            background: var(--accent); color: #000000; font-weight: 700;
         }
-        body.dark-mode .badge { color: #0b132b; }
         .wishlist-btn-card {
             position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.5);
             width: 28px; height: 28px; border-radius: 50%; border: none;
@@ -262,7 +225,7 @@
         .old-price { font-size: 0.7rem; color: var(--text-muted); text-decoration: line-through; margin-right: 4px; }
         .add-to-cart-btn {
             width: 100%; margin-top: 6px; padding: 6px; border-radius: var(--radius-sm);
-            background: linear-gradient(135deg, var(--accent), #e6c300); color: #0b132b;
+            background: linear-gradient(135deg, var(--accent), #e6c300); color: #000000;
             border: none; font-weight: 700; font-family: inherit; cursor: pointer; font-size: 0.7rem;
             transition: box-shadow 0.3s;
         }
@@ -270,13 +233,13 @@
 
         .countdown { display: flex; gap: 6px; justify-content: center; margin: 16px 0 20px; }
         .countdown-item {
-            background: rgba(0,0,0,0.2); backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);
             padding: 8px 12px; border-radius: var(--radius-sm);
             min-width: 45px; border: 1px solid var(--accent); text-align: center;
         }
-        body.dark-mode .countdown-item { background: rgba(30,30,30,0.8); }
+        body.dark-mode .countdown-item { background: rgba(255,255,255,0.05); }
         .countdown-number { font-size: 1.2rem; font-weight: 800; color: var(--accent); }
-        .countdown-label { font-size: 0.65rem; color: #f0f0f0; }
+        .countdown-label { font-size: 0.65rem; color: var(--text-secondary); }
 
         .category-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 20px; }
         .filter-btn {
@@ -284,8 +247,7 @@
             color: var(--text-secondary); border-radius: 20px; font-size: 0.75rem; font-weight: 600;
             cursor: pointer; transition: 0.2s;
         }
-        .filter-btn.active, .filter-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-        body.dark-mode .filter-btn.active, body.dark-mode .filter-btn:hover { color: #0b132b; }
+        .filter-btn.active, .filter-btn:hover { background: var(--accent); color: #000000; border-color: var(--accent); }
 
         .footer {
             background: var(--bg-card); backdrop-filter: blur(12px);
@@ -304,9 +266,8 @@
             flex: 1; padding: 8px 12px; border-radius: 20px; border: 1px solid var(--border);
             background: rgba(0,0,0,0.03); color: var(--text-primary); font-size: 0.75rem;
         }
-        body.dark-mode .newsletter-form input { background: rgba(255,255,255,0.1); }
-        .newsletter-form button { padding: 8px 14px; border-radius: 20px; background: var(--accent); color: #fff; border: none; font-weight: 600; cursor: pointer; font-size: 0.7rem; }
-        body.dark-mode .newsletter-form button { color: #0b132b; }
+        body.dark-mode .newsletter-form input { background: rgba(255,255,255,0.08); }
+        .newsletter-form button { padding: 8px 14px; border-radius: 20px; background: var(--accent); color: #000000; border: none; font-weight: 600; cursor: pointer; font-size: 0.7rem; }
         .footer-bottom { text-align: center; margin-top: 20px; font-size: 0.7rem; color: var(--text-muted); }
 
         .search-overlay {
@@ -323,6 +284,13 @@
             background: var(--bg-card); color: var(--text-primary); font-size: 0.9rem; outline: none;
         }
         .search-results { margin-top: 12px; font-size: 0.85rem; }
+
+        @media (min-width: 768px) {
+            .product-card { width: 220px; }
+            .navbar-brand { font-size: 1.4rem; }
+            .dropdown-panel { position: absolute; bottom: auto; top: calc(var(--navbar-height) - 5px); left: 0; right: auto; width: 340px; border-radius: var(--radius-lg); transform: translateY(-10px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+            body.dark-mode .dropdown-panel { box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+        }
     </style>
 </head>
 <body>
@@ -336,21 +304,8 @@
             </a>
             <div class="navbar-actions">
                 <button class="icon-btn" id="searchToggle">🔍</button>
-                <div style="position: relative;">
-                    <button class="icon-btn" id="wishlistToggle">♡<span class="badge-count" id="wishlistBadge">0</span></button>
-                    <div class="dropdown-panel" id="wishlistDropdown">
-                        <h3>❤️ علاقه‌مندی‌ها <button class="close-sheet" onclick="closePanel('wishlistDropdown')" style="display:none;">✕</button></h3>
-                        <div id="wishlistItems"></div>
-                    </div>
-                </div>
-                <div style="position: relative;">
-                    <button class="icon-btn" id="cartToggle">🛒<span class="badge-count" id="cartBadge">0</span></button>
-                    <div class="dropdown-panel" id="cartDropdown">
-                        <h3>🛒 سبد خرید <button class="close-sheet" onclick="closePanel('cartDropdown')" style="display:none;">✕</button></h3>
-                        <div id="cartItems"></div>
-                        <div class="dropdown-footer" id="cartFooter"></div>
-                    </div>
-                </div>
+                <button class="icon-btn" id="wishlistToggle">♡<span class="badge-count" id="wishlistBadge">0</span></button>
+                <button class="icon-btn" id="cartToggle">🛒<span class="badge-count" id="cartBadge">0</span></button>
                 <button class="icon-btn" id="themeToggle">🌙</button>
                 <button class="hamburger" id="hamburgerBtn"><span></span><span></span><span></span></button>
             </div>
@@ -386,6 +341,9 @@
         <a href="contact.html">📞 تماس</a>
     </div>
 
+    <div class="dropdown-panel" id="cartDropdown"><h3>🛒 سبد خرید</h3><div id="cartItems"></div><div class="dropdown-footer" id="cartFooter"></div></div>
+    <div class="dropdown-panel" id="wishlistDropdown"><h3>❤️ علاقه‌مندی‌ها</h3><div id="wishlistItems"></div></div>
+
     <div class="search-overlay" id="searchOverlay">
         <div class="search-container">
             <div class="search-input-wrap"><input type="text" id="searchInput" placeholder="جستجوی محصول..."><button class="btn btn-outline btn-sm" id="closeSearch">بستن</button></div>
@@ -394,7 +352,6 @@
     </div>
 
     <main>
-        <!-- بنر لوکس طلایی -->
         <section style="position: relative; padding: 70px 0 30px; text-align: center; background: radial-gradient(circle at 30% 30%, #3a2c1b, #1a1a1a 70%); overflow: hidden;">
             <canvas id="heroParticles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
             <div class="container" style="position: relative; z-index: 1;">
@@ -449,10 +406,39 @@
     <footer class="footer">
         <div class="container" style="max-width:1100px; margin:0 auto; padding:0 12px;">
             <div class="footer-grid">
-                <div class="footer-col"><h4>دسته‌بندی‌ها</h4><ul><li><a href="#" onclick="applySubFilter('کفش')">کفش</a></li><li><a href="#" onclick="applySubFilter('ساعت')">ساعت</a></li><li><a href="#" onclick="applySubFilter('هدفون')">هدفون</a></li><li><a href="#" onclick="applySubFilter('عطر')">عطر</a></li></ul></div>
-                <div class="footer-col"><h4>خدمات مشتریان</h4><ul><li><a href="#">پیگیری سفارش</a></li><li><a href="#">بازگشت کالا</a></li><li><a href="#">سوالات متداول</a></li></ul></div>
-                <div class="footer-col"><h4>اطلاعات</h4><ul><li><a href="about.html">درباره ژینو</a></li><li><a href="contact.html">تماس با ما</a></li><li><a href="#">قوانین و مقررات</a></li></ul></div>
-                <div class="footer-col"><h4>خبرنامه</h4><p style="font-size:0.75rem; margin-bottom:8px;">برای دریافت آخرین تخفیف‌ها عضو شوید</p><form class="newsletter-form" onsubmit="event.preventDefault(); alert('با موفقیت عضو شدید!')"><input type="email" placeholder="ایمیل شما" required><button type="submit">عضویت</button></form></div>
+                <div class="footer-col">
+                    <h4>دسته‌بندی‌ها</h4>
+                    <ul>
+                        <li><a href="#" onclick="applySubFilter('کفش')">کفش</a></li>
+                        <li><a href="#" onclick="applySubFilter('ساعت')">ساعت</a></li>
+                        <li><a href="#" onclick="applySubFilter('هدفون')">هدفون</a></li>
+                        <li><a href="#" onclick="applySubFilter('عطر')">عطر</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>خدمات مشتریان</h4>
+                    <ul>
+                        <li><a href="#">پیگیری سفارش</a></li>
+                        <li><a href="#">بازگشت کالا</a></li>
+                        <li><a href="#">سوالات متداول</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>اطلاعات</h4>
+                    <ul>
+                        <li><a href="about.html">درباره ژینو</a></li>
+                        <li><a href="contact.html">تماس با ما</a></li>
+                        <li><a href="#">قوانین و مقررات</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>خبرنامه</h4>
+                    <p style="font-size:0.75rem; margin-bottom:8px;">برای دریافت آخرین تخفیف‌ها عضو شوید</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('با موفقیت عضو شدید!')">
+                        <input type="email" placeholder="ایمیل شما" required>
+                        <button type="submit">عضویت</button>
+                    </form>
+                </div>
             </div>
             <div class="footer-bottom">© ۱۴۰۴ ژینو. تمامی حقوق محفوظ است.</div>
         </div>
@@ -461,7 +447,6 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
-        // ذرات طلایی
         (function() {
             const canvas = document.getElementById('heroParticles');
             const ctx = canvas.getContext('2d');
@@ -589,42 +574,9 @@
 
         function showToast(msg) {
             const t = document.createElement('div'); t.textContent=msg;
-            t.style.cssText='position:fixed; bottom:70px; left:16px; background:var(--accent); color:#0b132b; padding:8px 16px; border-radius:20px; z-index:9999; font-weight:700; font-size:0.8rem;';
+            t.style.cssText='position:fixed; bottom:70px; left:16px; background:var(--accent); color:#000000; padding:8px 16px; border-radius:20px; z-index:9999; font-weight:700; font-size:0.8rem;';
             document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
         }
-
-        // بستن پنل‌ها
-        window.closePanel = function(panelId) {
-            document.getElementById(panelId).classList.remove('active');
-        };
-
-        // مدیریت کشوها
-        function setupDropdowns() {
-            const cartToggle = document.getElementById('cartToggle');
-            const cartDropdown = document.getElementById('cartDropdown');
-            const wishlistToggle = document.getElementById('wishlistToggle');
-            const wishlistDropdown = document.getElementById('wishlistDropdown');
-
-            cartToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                wishlistDropdown.classList.remove('active');
-                cartDropdown.classList.toggle('active');
-            });
-            wishlistToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                cartDropdown.classList.remove('active');
-                wishlistDropdown.classList.toggle('active');
-            });
-
-            window.addEventListener('click', () => {
-                cartDropdown.classList.remove('active');
-                wishlistDropdown.classList.remove('active');
-            });
-
-            cartDropdown.addEventListener('click', (e) => e.stopPropagation());
-            wishlistDropdown.addEventListener('click', (e) => e.stopPropagation());
-        }
-        setupDropdowns();
 
         window.toggleMobileSub = function(event, cat) {
             event.preventDefault();
@@ -658,14 +610,26 @@
             document.getElementById('hamburgerBtn').classList.remove('active');
         });
 
+        document.getElementById('cartToggle').addEventListener('click',()=>{
+            document.getElementById('cartDropdown').classList.toggle('active');
+            document.getElementById('wishlistDropdown').classList.remove('active');
+        });
+        document.getElementById('wishlistToggle').addEventListener('click',()=>{
+            document.getElementById('wishlistDropdown').classList.toggle('active');
+            document.getElementById('cartDropdown').classList.remove('active');
+        });
+
         const searchOverlay = document.getElementById('searchOverlay');
         const searchInput = document.getElementById('searchInput');
         const searchResults = document.getElementById('searchResults');
-        document.getElementById('searchToggle').addEventListener('click', ()=>{
+        const searchToggle = document.getElementById('searchToggle');
+        const closeSearchBtn = document.getElementById('closeSearch');
+
+        searchToggle.addEventListener('click', ()=>{
             searchOverlay.classList.add('active');
             searchInput.focus();
         });
-        document.getElementById('closeSearch').addEventListener('click', ()=> searchOverlay.classList.remove('active'));
+        closeSearchBtn.addEventListener('click', ()=> searchOverlay.classList.remove('active'));
         searchInput.addEventListener('input', (e)=>{
             const query = e.target.value.trim().toLowerCase();
             if (query.length === 0) { searchResults.innerHTML = ''; return; }
