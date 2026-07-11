@@ -16,10 +16,10 @@
             --text-primary: #0b132b;
             --text-secondary: #1e293b;
             --text-muted: #475569;
-            --accent: #0d9488;
-            --accent-hover: #0f766e;
-            --accent-glow: rgba(13, 148, 136, 0.5);
-            --gold: #b45309;
+            --accent: #d4af37; /* طلایی کهربایی */
+            --accent-hover: #c8963e;
+            --accent-glow: rgba(212, 175, 55, 0.5);
+            --gold: #f4a261;
             --danger: #dc2626;
             --border: rgba(0, 0, 0, 0.15);
             --radius-sm: 6px;
@@ -41,10 +41,10 @@
             --text-primary: #ffffff;
             --text-secondary: #f0f4ff;
             --text-muted: #cbd5e1;
-            --accent: #6fffe9;
-            --accent-hover: #4cd4c0;
-            --accent-glow: rgba(111, 255, 233, 0.6);
-            --gold: #f4d03f;
+            --accent: #d4af37;
+            --accent-hover: #e6c300;
+            --accent-glow: rgba(212, 175, 55, 0.6);
+            --gold: #f4a261;
             --danger: #ff6b6b;
             --border: rgba(255, 255, 255, 0.2);
         }
@@ -77,10 +77,10 @@
             font-size: 0.8rem;
         }
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent), #2dd4bf); color: #fff;
-            box-shadow: 0 2px 10px var(--accent-glow);
+            background: linear-gradient(135deg, var(--accent), #e6c300); color: #0b132b;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            font-weight: 700;
         }
-        body.dark-mode .btn-primary { color: #0b132b; }
         .btn-outline { border: 2px solid var(--accent); color: var(--accent); background: transparent; }
         .btn-sm { padding: 6px 14px; font-size: 0.75rem; }
 
@@ -95,7 +95,7 @@
         .navbar-brand { display: flex; align-items: center; gap: 6px; text-decoration: none; font-size: 1.2rem; font-weight: 800; }
         .brand-logo svg { width: 26px; height: 26px; }
         .brand-text {
-            background: linear-gradient(135deg, var(--accent), #0b132b);
+            background: linear-gradient(135deg, var(--accent), #f4a261);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         body.dark-mode .brand-text {
@@ -139,7 +139,7 @@
         body.dark-mode .mobile-menu a, body.dark-mode .mobile-menu .menu-item {
             color: #ffffff !important; background: rgba(255, 255, 255, 0.15);
         }
-        .mobile-menu a:hover, .mobile-menu .menu-item:hover { background: rgba(111, 255, 233, 0.3); color: var(--accent) !important; }
+        .mobile-menu a:hover, .mobile-menu .menu-item:hover { background: rgba(212,175,55,0.2); color: var(--accent) !important; }
         .mobile-menu .submenu { margin-right: 16px; display: none; }
         .mobile-menu .submenu.open { display: block; }
         .mobile-menu .submenu a { font-size: 0.8rem; padding-right: 24px; background: rgba(0,0,0,0.03); color: #0b132b !important; }
@@ -223,19 +223,21 @@
         .old-price { font-size: 0.7rem; color: var(--text-muted); text-decoration: line-through; margin-right: 4px; }
         .add-to-cart-btn {
             width: 100%; margin-top: 6px; padding: 6px; border-radius: var(--radius-sm);
-            background: linear-gradient(135deg, var(--accent), #2dd4bf); color: #fff;
+            background: linear-gradient(135deg, var(--accent), #e6c300); color: #0b132b;
             border: none; font-weight: 700; font-family: inherit; cursor: pointer; font-size: 0.7rem;
+            transition: box-shadow 0.3s;
         }
-        body.dark-mode .add-to-cart-btn { color: #0b132b; }
+        .add-to-cart-btn:hover { box-shadow: 0 0 15px var(--accent-glow); }
 
         .countdown { display: flex; gap: 6px; justify-content: center; margin: 16px 0 20px; }
         .countdown-item {
-            background: rgba(0,0,0,0.05); padding: 8px 12px; border-radius: var(--radius-sm);
-            min-width: 45px; border: 1px solid var(--border); text-align: center;
+            background: rgba(0,0,0,0.2); backdrop-filter: blur(5px);
+            padding: 8px 12px; border-radius: var(--radius-sm);
+            min-width: 45px; border: 1px solid var(--accent); text-align: center;
         }
         body.dark-mode .countdown-item { background: rgba(20,30,56,0.8); }
-        .countdown-number { font-size: 1.2rem; font-weight: 800; color: var(--danger); }
-        .countdown-label { font-size: 0.65rem; color: var(--text-muted); }
+        .countdown-number { font-size: 1.2rem; font-weight: 800; color: var(--accent); }
+        .countdown-label { font-size: 0.65rem; color: #f0f0f0; }
 
         .category-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 20px; }
         .filter-btn {
@@ -296,7 +298,7 @@
         <div class="container navbar-inner">
             <a href="index.html" class="navbar-brand">
                 <span class="brand-logo">
-                    <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="url(#g)" stroke-width="2.5"/><path d="M12 14L20 8L28 14M12 20L20 14L28 20M12 26L20 20L28 26" stroke="url(#g)" stroke-width="2.5"/><circle cx="20" cy="20" r="3" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0d9488"/><stop offset="100%" stop-color="#b45309"/></linearGradient></defs></svg>
+                    <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="url(#g)" stroke-width="2.5"/><path d="M12 14L20 8L28 14M12 20L20 14L28 20M12 26L20 20L28 26" stroke="url(#g)" stroke-width="2.5"/><circle cx="20" cy="20" r="3" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d4af37"/><stop offset="100%" stop-color="#f4a261"/></linearGradient></defs></svg>
                 </span>
                 <span class="brand-text">ژینو</span>
             </a>
@@ -350,18 +352,18 @@
     </div>
 
     <main>
-        <!-- هیروی لوکس با پس‌زمینه تیره عمیق -->
-        <section style="position: relative; padding: 60px 0 30px; text-align: center; background: radial-gradient(circle at 30% 20%, #334155, #0f172a); overflow: hidden;">
+        <!-- بنر لوکس طلایی -->
+        <section style="position: relative; padding: 70px 0 30px; text-align: center; background: radial-gradient(circle at 30% 30%, #3a2c1b, #1a1a1a 70%); overflow: hidden;">
             <canvas id="heroParticles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
             <div class="container" style="position: relative; z-index: 1;">
-                <h1 style="font-size: clamp(1.8rem, 5vw, 2.5rem); background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">خریدی لوکس، تجربه‌ای ناب</h1>
-                <p style="color: #f1f5f9; margin: 12px 0 6px; font-weight: 500; font-size: 0.9rem;">تا ۵۰٪ تخفیف ویژه</p>
+                <h1 style="font-size: clamp(2rem, 6vw, 3rem); background: linear-gradient(135deg, #d4af37, #f4a261); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">خریدی لوکس، تجربه‌ای ناب</h1>
+                <p style="color: #fef3c7; margin: 16px 0 8px; font-weight: 500; font-size: 1rem;">تا ۵۰٪ تخفیف ویژه</p>
                 <div class="countdown" id="countdown">
                     <div class="countdown-item"><div class="countdown-number" id="cd-seconds">56</div><div class="countdown-label">ثانیه</div></div>
                     <div class="countdown-item"><div class="countdown-number" id="cd-minutes">34</div><div class="countdown-label">دقیقه</div></div>
                     <div class="countdown-item"><div class="countdown-number" id="cd-hours">02</div><div class="countdown-label">ساعت</div></div>
                 </div>
-                <a href="#flash-sale" class="btn btn-primary" style="font-size:0.85rem;">مشاهده محصولات</a>
+                <a href="#flash-sale" class="btn btn-primary" style="font-size:0.9rem; padding: 12px 30px;">مشاهده محصولات</a>
             </div>
         </section>
 
@@ -446,6 +448,7 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
+        // ذرات طلایی
         (function() {
             const canvas = document.getElementById('heroParticles');
             const ctx = canvas.getContext('2d');
@@ -454,11 +457,11 @@
             window.addEventListener('resize', resizeCanvas); resizeCanvas();
             class Particle {
                 constructor() { this.reset(); }
-                reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.radius = Math.random()*2+0.8; this.speedX = (Math.random()-0.5)*0.6; this.speedY = (Math.random()-0.5)*0.6; this.opacity = Math.random()*0.5+0.2; this.color = Math.random()>0.5?'111, 255, 233':'244, 208, 63'; }
+                reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.radius = Math.random()*2+0.8; this.speedX = (Math.random()-0.5)*0.5; this.speedY = (Math.random()-0.5)*0.5; this.opacity = Math.random()*0.6+0.2; this.color = Math.random()>0.5?'212, 175, 55':'244, 162, 97'; }
                 update() { this.x+=this.speedX; this.y+=this.speedY; if(this.x<0||this.x>canvas.width) this.speedX*=-1; if(this.y<0||this.y>canvas.height) this.speedY*=-1; }
                 draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.radius,0,Math.PI*2); ctx.fillStyle=`rgba(${this.color},${this.opacity})`; ctx.fill(); }
             }
-            for(let i=0;i<35;i++) particles.push(new Particle());
+            for(let i=0;i<45;i++) particles.push(new Particle());
             function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
             animate();
         })();
@@ -475,7 +478,7 @@
         ];
 
         let currentFilter = 'all';
-        const groups = ['fashion', 'electronics', 'beauty', 'home'];
+        const groups = ['fashion', 'electronics', 'beauty'];
 
         function getCart() { return JSON.parse(localStorage.getItem('cart')||'[]'); }
         function setCart(c) { localStorage.setItem('cart',JSON.stringify(c)); updateCartUI(); }
@@ -573,7 +576,7 @@
 
         function showToast(msg) {
             const t = document.createElement('div'); t.textContent=msg;
-            t.style.cssText='position:fixed; bottom:70px; left:16px; background:var(--accent); color:#fff; padding:8px 16px; border-radius:20px; z-index:9999; font-weight:700; font-size:0.8rem;';
+            t.style.cssText='position:fixed; bottom:70px; left:16px; background:var(--accent); color:#0b132b; padding:8px 16px; border-radius:20px; z-index:9999; font-weight:700; font-size:0.8rem;';
             document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
         }
 
