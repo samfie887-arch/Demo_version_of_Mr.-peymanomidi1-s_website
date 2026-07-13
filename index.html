@@ -27,6 +27,7 @@
             --bg-card: #FFFFFF;
             --border: #E8E4DF;
             --border-light: #F0EDE8;
+            /* ... سایر متغیرها بدون تغییر ... */
             --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
@@ -52,6 +53,7 @@
         [data-theme="dark"] {
             --warm-white: #1A1A1A;
             --soft-beige: #252525;
+            /* ... متغیرهای حالت تاریک بدون تغییر ... */
             --cream: #1E1E1E;
             --charcoal: #E8E4DF;
             --charcoal-light: #D0CCC7;
@@ -1200,96 +1202,82 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* ===== بازطراحی منوی پایین موبایل: Floating Pill ===== */
+        /* ===== نوار پایین موبایل — ساده، فقط متن ===== */
         .mobile-bottom-nav {
             display: none;
             position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 0;
+            left: 0;
+            right: 0;
             z-index: 998;
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            padding: 5px 6px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.13), 0 4px 12px rgba(0, 0, 0, 0.06);
-            gap: 2px;
-            transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow var(--transition-smooth);
-            will-change: transform, opacity;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border);
+            padding: 6px 8px 8px;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.03);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
         }
         .mobile-bottom-nav.hidden {
-            transform: translateX(-50%) translateY(130px);
+            transform: translateY(100%);
             opacity: 0;
             pointer-events: none;
         }
         .mobile-nav-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 5px;
-            padding: 10px 15px;
-            border-radius: 50px;
+            gap: 1px;
+            padding: 4px 6px;
             border: none;
-            background: transparent;
+            background: none;
             cursor: pointer;
-            color: var(--text-secondary);
-            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-size: 0.68rem;
             font-weight: 500;
-            letter-spacing: 0.3px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            white-space: nowrap;
+            letter-spacing: 0.2px;
+            transition: color 0.25s ease;
             font-family: var(--font-body);
-            position: relative;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
+            position: relative;
+            min-width: 48px;
         }
         .mobile-nav-item .icon {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             line-height: 1;
-            transition: transform 0.3s ease;
-        }
-        .mobile-nav-item .label {
-            transition: max-width 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
-            max-width: 50px;
-            opacity: 1;
-            overflow: hidden;
         }
         .mobile-nav-item.active {
-            background: var(--gold);
-            color: #fff;
-            box-shadow: 0 6px 20px rgba(200, 169, 126, 0.45);
-            padding: 10px 18px;
-        }
-        .mobile-nav-item.active .icon {
-            transform: scale(1.08);
-        }
-        .mobile-nav-item:active:not(.active) {
-            background: rgba(200, 169, 126, 0.15);
-            transform: scale(0.94);
+            color: var(--gold);
+            font-weight: 600;
         }
         .mobile-nav-item.cart-nav-item {
             position: relative;
         }
+        /* نشانگر تعداد سبد — فقط وقتی > 0 نمایش داده شود */
         .cart-dot {
             position: absolute;
-            top: 2px;
-            left: 4px;
+            top: -1px;
+            left: 2px;
             background: #C44536;
             color: #fff;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 700;
-            min-width: 17px;
-            height: 17px;
-            line-height: 17px;
+            min-width: 15px;
+            height: 15px;
+            line-height: 15px;
             text-align: center;
             border-radius: 50%;
-            padding: 0 4px;
+            padding: 0 3px;
             letter-spacing: 0;
+            display: none;
             transition: transform var(--transition-spring);
             font-family: var(--font-body);
+        }
+        .cart-dot.show {
+            display: inline-block;
         }
         .cart-dot.bump {
             transform: scale(1.45);
@@ -1440,7 +1428,7 @@
                 display: flex;
             }
             body {
-                padding-bottom: 110px;
+                padding-bottom: 58px;
             }
             .checkout-grid {
                 grid-template-columns: 1fr;
@@ -1466,7 +1454,7 @@
                 left: -100%;
             }
             .toast {
-                bottom: 110px;
+                bottom: 90px;
             }
         }
         @media (max-width: 480px) {
@@ -1496,20 +1484,6 @@
             }
             .instagram-grid {
                 grid-template-columns: repeat(2, 1fr);
-            }
-            .mobile-nav-item {
-                padding: 9px 11px;
-                gap: 3px;
-            }
-            .mobile-nav-item .label {
-                font-size: 0.65rem;
-                max-width: 35px;
-            }
-            .mobile-nav-item .icon {
-                font-size: 1.1rem;
-            }
-            .mobile-nav-item.active {
-                padding: 9px 14px;
             }
         }
     </style>
@@ -1818,20 +1792,20 @@
         <div class="footer-bottom">© ۲۰۲۶ آتلیه نوا. تمامی حقوق محفوظ است. طراحی با ❤️</div>
     </footer>
 
-    <!-- منوی شناور پایین موبایل (بازطراحی‌شده) -->
+    <!-- نوار پایین موبایل — ساده، فقط متن، بدون استیکر -->
     <nav class="mobile-bottom-nav" id="mobileBottomNav">
         <button class="mobile-nav-item active" data-nav="home" onclick="navigateTo('home')">
-            <span class="icon">🏠</span><span class="label">خانه</span>
+            <span class="icon">🏠</span>خانه
         </button>
         <button class="mobile-nav-item" data-nav="shop" onclick="navigateTo('category','دکوراسیون دیوار')">
-            <span class="icon">🖼️</span><span class="label">فروشگاه</span>
+            <span class="icon">🖼️</span>فروشگاه
         </button>
         <button class="mobile-nav-item cart-nav-item" data-nav="cart" onclick="openCart()">
-            <span class="icon">🛒</span><span class="label">سبد</span>
-            <span class="cart-dot" id="mobileCartDot">۰</span>
+            <span class="icon">🛒</span>سبد
+            <span class="cart-dot" id="mobileCartDot"></span>
         </button>
         <button class="mobile-nav-item" data-nav="art" onclick="navigateTo('category','مجسمه‌های مدرن')">
-            <span class="icon">🗿</span><span class="label">هنر</span>
+            <span class="icon">🗿</span>هنر
         </button>
     </nav>
 
@@ -2100,9 +2074,8 @@
             const countEl = document.getElementById('cartCount');
             countEl.classList.add('bump');
             setTimeout(() => countEl.classList.remove('bump'), 300);
-            // Bump mobile cart dot too
             const dotEl = document.getElementById('mobileCartDot');
-            if (dotEl) {
+            if (dotEl && getCartCount() > 0) {
                 dotEl.classList.add('bump');
                 setTimeout(() => dotEl.classList.remove('bump'), 300);
             }
@@ -2138,11 +2111,19 @@
             const count = getCartCount();
             const countStr = count > 0 ? count : '۰';
             document.getElementById('cartCount').textContent = countStr;
+
+            // آپدیت نشانگر موبایل — فقط وقتی تعداد > ۰ باشه نمایش بده
             const mobileDot = document.getElementById('mobileCartDot');
             if (mobileDot) {
-                mobileDot.textContent = countStr;
-                mobileDot.style.display = count > 0 ? 'inline-block' : 'none';
+                if (count > 0) {
+                    mobileDot.textContent = count;
+                    mobileDot.classList.add('show');
+                } else {
+                    mobileDot.textContent = '';
+                    mobileDot.classList.remove('show');
+                }
             }
+
             const cartItemsContainer = document.getElementById('cartItems');
             const cartFooter = document.getElementById('cartFooter');
 
@@ -2254,12 +2235,10 @@
                 document.getElementById('confirmation-page').classList.add('active');
             }
 
-            // Update desktop nav
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
             const activeLink = document.querySelector(`.nav-links a[data-page="${page==='category'?'category':page}"]`);
             if (activeLink) activeLink.classList.add('active');
 
-            // Update mobile floating nav
             document.querySelectorAll('.mobile-nav-item').forEach(b => b.classList.remove('active'));
             if (page === 'home') {
                 const homeBtn = document.querySelector('.mobile-nav-item[data-nav="home"]');
@@ -2279,7 +2258,6 @@
             document.getElementById('hamburger').classList.remove('active');
             closeCart();
 
-            // Show mobile nav when navigating
             const mobileNav = document.getElementById('mobileBottomNav');
             if (mobileNav) mobileNav.classList.remove('hidden');
         }
@@ -2394,7 +2372,6 @@
             });
         }
 
-        // ===== مخفی/ظاهر شدن منوی شناور با اسکرول =====
         function setupMobileNavScroll() {
             const mobileNav = document.getElementById('mobileBottomNav');
             if (!mobileNav) return;
@@ -2403,43 +2380,26 @@
                 const currentScrollY = window.scrollY;
                 const scrollDelta = currentScrollY - lastScrollY;
 
-                // فقط در موبایل (زیر ۷۶۸px) رفتار مخفی‌شدن فعال باشد
                 if (window.innerWidth > 768) {
                     mobileNav.classList.add('hidden');
                     lastScrollY = currentScrollY;
                     return;
                 }
 
-                if (currentScrollY < 100) {
-                    // بالای صفحه: همیشه نمایش بده
+                if (currentScrollY < 80) {
                     mobileNav.classList.remove('hidden');
-                } else if (scrollDelta > 8 && currentScrollY > 200) {
-                    // اسکرول به پایین: مخفی کن
+                } else if (scrollDelta > 10 && currentScrollY > 200) {
                     mobileNav.classList.add('hidden');
-                } else if (scrollDelta < -5) {
-                    // اسکرول به بالا: نمایش بده
+                } else if (scrollDelta < -6) {
                     mobileNav.classList.remove('hidden');
                 }
 
-                // نزدیک انتهای صفحه: نمایش بده
-                if (currentScrollY + window.innerHeight >= document.documentElement.scrollHeight - 120) {
+                if (currentScrollY + window.innerHeight >= document.documentElement.scrollHeight - 100) {
                     mobileNav.classList.remove('hidden');
                 }
 
                 lastScrollY = currentScrollY;
             }, { passive: true });
-
-            // نمایش مجدد هنگام لمس بالای منو (با هر کلیک روی صفحه)
-            document.addEventListener('click', (e) => {
-                if (window.innerWidth <= 768 && mobileNav.classList.contains('hidden')) {
-                    const clickY = e.clientY;
-                    const windowH = window.innerHeight;
-                    // اگر کاربر نزدیک پایین صفحه کلیک کرد، منو را نشان بده
-                    if (clickY > windowH - 100) {
-                        mobileNav.classList.remove('hidden');
-                    }
-                }
-            });
         }
 
         function setupRevealObserver() {
@@ -2475,8 +2435,6 @@
             'font-size:1.4em;font-family:serif;color:#c8a97e;',
             'font-size:1em;color:#555;',
             'font-size:1.2em;');
-        console.log('%c۷۵ محصول • ۵ دسته‌بندی • حالت تاریک/روشن • سبد خرید • تسویه حساب • واکنش‌گرا • Floating Pill Nav',
-            'color:#888;font-style:italic;');
     </script>
 </body>
 </html>
