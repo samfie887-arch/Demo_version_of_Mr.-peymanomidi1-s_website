@@ -27,7 +27,6 @@
             --bg-card: #FFFFFF;
             --border: #E8E4DF;
             --border-light: #F0EDE8;
-            /* ... سایر متغیرها بدون تغییر ... */
             --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
@@ -53,7 +52,6 @@
         [data-theme="dark"] {
             --warm-white: #1A1A1A;
             --soft-beige: #252525;
-            /* ... متغیرهای حالت تاریک بدون تغییر ... */
             --cream: #1E1E1E;
             --charcoal: #E8E4DF;
             --charcoal-light: #D0CCC7;
@@ -1202,85 +1200,41 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* ===== نوار پایین موبایل — ساده، فقط متن ===== */
         .mobile-bottom-nav {
             display: none;
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            z-index: 998;
-            background: var(--bg-primary);
-            border-top: 1px solid var(--border);
-            padding: 6px 8px 8px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            z-index: 999;
+            padding: 8px 16px 12px;
             justify-content: space-around;
-            align-items: center;
-            box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.03);
-            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform;
-        }
-        .mobile-bottom-nav.hidden {
-            transform: translateY(100%);
-            opacity: 0;
-            pointer-events: none;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
         }
         .mobile-nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1px;
-            padding: 4px 6px;
-            border: none;
+            gap: 3px;
             background: none;
+            border: none;
             cursor: pointer;
             color: var(--text-muted);
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             font-weight: 500;
-            letter-spacing: 0.2px;
-            transition: color 0.25s ease;
+            letter-spacing: 0.5px;
+            transition: color var(--transition-fast);
             font-family: var(--font-body);
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-            position: relative;
-            min-width: 48px;
-        }
-        .mobile-nav-item .icon {
-            font-size: 1.15rem;
-            line-height: 1;
         }
         .mobile-nav-item.active {
             color: var(--gold);
-            font-weight: 600;
         }
-        .mobile-nav-item.cart-nav-item {
-            position: relative;
-        }
-        /* نشانگر تعداد سبد — فقط وقتی > 0 نمایش داده شود */
-        .cart-dot {
-            position: absolute;
-            top: -1px;
-            left: 2px;
-            background: #C44536;
-            color: #fff;
-            font-size: 0.55rem;
-            font-weight: 700;
-            min-width: 15px;
-            height: 15px;
-            line-height: 15px;
-            text-align: center;
-            border-radius: 50%;
-            padding: 0 3px;
-            letter-spacing: 0;
-            display: none;
-            transition: transform var(--transition-spring);
-            font-family: var(--font-body);
-        }
-        .cart-dot.show {
-            display: inline-block;
-        }
-        .cart-dot.bump {
-            transform: scale(1.45);
+        .mobile-nav-item .icon {
+            font-size: 1.3rem;
         }
 
         .page-section {
@@ -1428,7 +1382,7 @@
                 display: flex;
             }
             body {
-                padding-bottom: 58px;
+                padding-bottom: 70px;
             }
             .checkout-grid {
                 grid-template-columns: 1fr;
@@ -1452,9 +1406,6 @@
                 width: 100%;
                 max-width: 100%;
                 left: -100%;
-            }
-            .toast {
-                bottom: 90px;
             }
         }
         @media (max-width: 480px) {
@@ -1792,21 +1743,11 @@
         <div class="footer-bottom">© ۲۰۲۶ آتلیه نوا. تمامی حقوق محفوظ است. طراحی با ❤️</div>
     </footer>
 
-    <!-- نوار پایین موبایل — ساده، فقط متن، بدون استیکر -->
     <nav class="mobile-bottom-nav" id="mobileBottomNav">
-        <button class="mobile-nav-item active" data-nav="home" onclick="navigateTo('home')">
-            <span class="icon">🏠</span>خانه
-        </button>
-        <button class="mobile-nav-item" data-nav="shop" onclick="navigateTo('category','دکوراسیون دیوار')">
-            <span class="icon">🖼️</span>فروشگاه
-        </button>
-        <button class="mobile-nav-item cart-nav-item" data-nav="cart" onclick="openCart()">
-            <span class="icon">🛒</span>سبد
-            <span class="cart-dot" id="mobileCartDot"></span>
-        </button>
-        <button class="mobile-nav-item" data-nav="art" onclick="navigateTo('category','مجسمه‌های مدرن')">
-            <span class="icon">🗿</span>هنر
-        </button>
+        <button class="mobile-nav-item active" onclick="navigateTo('home')"><span class="icon">🏠</span>خانه</button>
+        <button class="mobile-nav-item" onclick="navigateTo('category','دکوراسیون دیوار')"><span class="icon">🖼️</span>فروشگاه</button>
+        <button class="mobile-nav-item" onclick="openCart()"><span class="icon">🛒</span>سبد<span id="mobileCartCount" style="font-size:0.6rem;color:var(--gold);">۰</span></button>
+        <button class="mobile-nav-item" onclick="navigateTo('category','مجسمه‌های مدرن')"><span class="icon">🗿</span>هنر</button>
     </nav>
 
     <script>
@@ -1898,7 +1839,6 @@
         let currentPage = 'home';
         let currentCategory = 'دکوراسیون دیوار';
         let currentProductId = null;
-        let lastScrollY = 0;
 
         // ===== HELPERS =====
         function formatPrice(price) {
@@ -1926,7 +1866,6 @@
             updateCartUI();
             setupScrollListeners();
             setupRevealObserver();
-            setupMobileNavScroll();
         }
 
         // ===== RENDER FUNCTIONS =====
@@ -1992,8 +1931,7 @@
 
         function renderInstagramGallery() {
             const container = document.getElementById('instagramGallery');
-            const seeds = ['living-room', 'vase-styling', 'modern-interior', 'cozy-home', 'minimalist-decor',
-            'luxury-home'];
+            const seeds = ['living-room', 'vase-styling', 'modern-interior', 'cozy-home', 'minimalist-decor', 'luxury-home'];
             container.innerHTML = seeds.map((seed, i) => `
             <div class="instagram-item">
               <img src="https://picsum.photos/seed/insta-${seed}-${i}/400/400" alt="گالری اینستاگرام" loading="lazy" onerror="this.style.background='var(--soft-beige)';">
@@ -2074,11 +2012,6 @@
             const countEl = document.getElementById('cartCount');
             countEl.classList.add('bump');
             setTimeout(() => countEl.classList.remove('bump'), 300);
-            const dotEl = document.getElementById('mobileCartDot');
-            if (dotEl && getCartCount() > 0) {
-                dotEl.classList.add('bump');
-                setTimeout(() => dotEl.classList.remove('bump'), 300);
-            }
         }
 
         function removeFromCart(productId) {
@@ -2109,21 +2042,8 @@
 
         function updateCartUI() {
             const count = getCartCount();
-            const countStr = count > 0 ? count : '۰';
-            document.getElementById('cartCount').textContent = countStr;
-
-            // آپدیت نشانگر موبایل — فقط وقتی تعداد > ۰ باشه نمایش بده
-            const mobileDot = document.getElementById('mobileCartDot');
-            if (mobileDot) {
-                if (count > 0) {
-                    mobileDot.textContent = count;
-                    mobileDot.classList.add('show');
-                } else {
-                    mobileDot.textContent = '';
-                    mobileDot.classList.remove('show');
-                }
-            }
-
+            document.getElementById('cartCount').textContent = count > 0 ? count : '۰';
+            document.getElementById('mobileCartCount').textContent = count > 0 ? ` (${count})` : '۰';
             const cartItemsContainer = document.getElementById('cartItems');
             const cartFooter = document.getElementById('cartFooter');
 
@@ -2218,12 +2138,11 @@
         // ===== NAVIGATION =====
         function navigateTo(page, category = null) {
             currentPage = page;
-            if (category) currentCategory = category;
-
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             if (page === 'home') {
                 document.getElementById('home-page').classList.add('active');
             } else if (page === 'category') {
+                currentCategory = category || 'دکوراسیون دیوار';
                 document.getElementById('category-page').classList.add('active');
                 renderCategoryPage(currentCategory);
             } else if (page === 'product') {
@@ -2234,32 +2153,16 @@
             } else if (page === 'confirmation') {
                 document.getElementById('confirmation-page').classList.add('active');
             }
-
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
             const activeLink = document.querySelector(`.nav-links a[data-page="${page==='category'?'category':page}"]`);
             if (activeLink) activeLink.classList.add('active');
-
             document.querySelectorAll('.mobile-nav-item').forEach(b => b.classList.remove('active'));
-            if (page === 'home') {
-                const homeBtn = document.querySelector('.mobile-nav-item[data-nav="home"]');
-                if (homeBtn) homeBtn.classList.add('active');
-            } else if (page === 'category') {
-                if (currentCategory === 'مجسمه‌های مدرن') {
-                    const artBtn = document.querySelector('.mobile-nav-item[data-nav="art"]');
-                    if (artBtn) artBtn.classList.add('active');
-                } else {
-                    const shopBtn = document.querySelector('.mobile-nav-item[data-nav="shop"]');
-                    if (shopBtn) shopBtn.classList.add('active');
-                }
-            }
-
+            if (page === 'home') document.querySelector('.mobile-nav-item:nth-child(1)').classList.add('active');
+            if (page === 'category') document.querySelector('.mobile-nav-item:nth-child(2)').classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
             document.getElementById('navLinks').classList.remove('mobile-open');
             document.getElementById('hamburger').classList.remove('active');
             closeCart();
-
-            const mobileNav = document.getElementById('mobileBottomNav');
-            if (mobileNav) mobileNav.classList.remove('hidden');
         }
 
         function openProductDetail(productId) {
@@ -2270,7 +2173,6 @@
             renderProductDetail(productId);
             window.scrollTo({ top: 0, behavior: 'smooth' });
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-            document.querySelectorAll('.mobile-nav-item').forEach(b => b.classList.remove('active'));
         }
 
         function goToCheckout() {
@@ -2372,36 +2274,6 @@
             });
         }
 
-        function setupMobileNavScroll() {
-            const mobileNav = document.getElementById('mobileBottomNav');
-            if (!mobileNav) return;
-
-            window.addEventListener('scroll', () => {
-                const currentScrollY = window.scrollY;
-                const scrollDelta = currentScrollY - lastScrollY;
-
-                if (window.innerWidth > 768) {
-                    mobileNav.classList.add('hidden');
-                    lastScrollY = currentScrollY;
-                    return;
-                }
-
-                if (currentScrollY < 80) {
-                    mobileNav.classList.remove('hidden');
-                } else if (scrollDelta > 10 && currentScrollY > 200) {
-                    mobileNav.classList.add('hidden');
-                } else if (scrollDelta < -6) {
-                    mobileNav.classList.remove('hidden');
-                }
-
-                if (currentScrollY + window.innerHeight >= document.documentElement.scrollHeight - 100) {
-                    mobileNav.classList.remove('hidden');
-                }
-
-                lastScrollY = currentScrollY;
-            }, { passive: true });
-        }
-
         function setupRevealObserver() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -2435,6 +2307,9 @@
             'font-size:1.4em;font-family:serif;color:#c8a97e;',
             'font-size:1em;color:#555;',
             'font-size:1.2em;');
+        console.log('%c۷۵ محصول • ۵ دسته‌بندی • حالت تاریک/روشن • سبد خرید • تسویه حساب • واکنش‌گرا',
+            'color:#888;font-style:italic;');
     </script>
 </body>
 </html>
+
