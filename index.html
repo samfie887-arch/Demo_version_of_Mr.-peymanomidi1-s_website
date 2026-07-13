@@ -1200,41 +1200,99 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        /* ===== بازطراحی منوی پایین موبایل: Floating Pill ===== */
         .mobile-bottom-nav {
             display: none;
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 998;
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--glass-border);
-            z-index: 999;
-            padding: 8px 16px 12px;
-            justify-content: space-around;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 5px 6px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.13), 0 4px 12px rgba(0, 0, 0, 0.06);
+            gap: 2px;
+            transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow var(--transition-smooth);
+            will-change: transform, opacity;
+        }
+        .mobile-bottom-nav.hidden {
+            transform: translateX(-50%) translateY(130px);
+            opacity: 0;
+            pointer-events: none;
         }
         .mobile-nav-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 3px;
-            background: none;
+            gap: 5px;
+            padding: 10px 15px;
+            border-radius: 50px;
             border: none;
+            background: transparent;
             cursor: pointer;
-            color: var(--text-muted);
-            font-size: 0.65rem;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
             font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: color var(--transition-fast);
+            letter-spacing: 0.3px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
             font-family: var(--font-body);
-        }
-        .mobile-nav-item.active {
-            color: var(--gold);
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
         .mobile-nav-item .icon {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
+            line-height: 1;
+            transition: transform 0.3s ease;
+        }
+        .mobile-nav-item .label {
+            transition: max-width 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+            max-width: 50px;
+            opacity: 1;
+            overflow: hidden;
+        }
+        .mobile-nav-item.active {
+            background: var(--gold);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(200, 169, 126, 0.45);
+            padding: 10px 18px;
+        }
+        .mobile-nav-item.active .icon {
+            transform: scale(1.08);
+        }
+        .mobile-nav-item:active:not(.active) {
+            background: rgba(200, 169, 126, 0.15);
+            transform: scale(0.94);
+        }
+        .mobile-nav-item.cart-nav-item {
+            position: relative;
+        }
+        .cart-dot {
+            position: absolute;
+            top: 2px;
+            left: 4px;
+            background: #C44536;
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 700;
+            min-width: 17px;
+            height: 17px;
+            line-height: 17px;
+            text-align: center;
+            border-radius: 50%;
+            padding: 0 4px;
+            letter-spacing: 0;
+            transition: transform var(--transition-spring);
+            font-family: var(--font-body);
+        }
+        .cart-dot.bump {
+            transform: scale(1.45);
         }
 
         .page-section {
@@ -1382,7 +1440,7 @@
                 display: flex;
             }
             body {
-                padding-bottom: 70px;
+                padding-bottom: 110px;
             }
             .checkout-grid {
                 grid-template-columns: 1fr;
@@ -1406,6 +1464,9 @@
                 width: 100%;
                 max-width: 100%;
                 left: -100%;
+            }
+            .toast {
+                bottom: 110px;
             }
         }
         @media (max-width: 480px) {
@@ -1435,6 +1496,20 @@
             }
             .instagram-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            .mobile-nav-item {
+                padding: 9px 11px;
+                gap: 3px;
+            }
+            .mobile-nav-item .label {
+                font-size: 0.65rem;
+                max-width: 35px;
+            }
+            .mobile-nav-item .icon {
+                font-size: 1.1rem;
+            }
+            .mobile-nav-item.active {
+                padding: 9px 14px;
             }
         }
     </style>
@@ -1743,11 +1818,21 @@
         <div class="footer-bottom">© ۲۰۲۶ آتلیه نوا. تمامی حقوق محفوظ است. طراحی با ❤️</div>
     </footer>
 
+    <!-- منوی شناور پایین موبایل (بازطراحی‌شده) -->
     <nav class="mobile-bottom-nav" id="mobileBottomNav">
-        <button class="mobile-nav-item active" onclick="navigateTo('home')"><span class="icon">🏠</span>خانه</button>
-        <button class="mobile-nav-item" onclick="navigateTo('category','دکوراسیون دیوار')"><span class="icon">🖼️</span>فروشگاه</button>
-        <button class="mobile-nav-item" onclick="openCart()"><span class="icon">🛒</span>سبد<span id="mobileCartCount" style="font-size:0.6rem;color:var(--gold);">۰</span></button>
-        <button class="mobile-nav-item" onclick="navigateTo('category','مجسمه‌های مدرن')"><span class="icon">🗿</span>هنر</button>
+        <button class="mobile-nav-item active" data-nav="home" onclick="navigateTo('home')">
+            <span class="icon">🏠</span><span class="label">خانه</span>
+        </button>
+        <button class="mobile-nav-item" data-nav="shop" onclick="navigateTo('category','دکوراسیون دیوار')">
+            <span class="icon">🖼️</span><span class="label">فروشگاه</span>
+        </button>
+        <button class="mobile-nav-item cart-nav-item" data-nav="cart" onclick="openCart()">
+            <span class="icon">🛒</span><span class="label">سبد</span>
+            <span class="cart-dot" id="mobileCartDot">۰</span>
+        </button>
+        <button class="mobile-nav-item" data-nav="art" onclick="navigateTo('category','مجسمه‌های مدرن')">
+            <span class="icon">🗿</span><span class="label">هنر</span>
+        </button>
     </nav>
 
     <script>
@@ -1839,6 +1924,7 @@
         let currentPage = 'home';
         let currentCategory = 'دکوراسیون دیوار';
         let currentProductId = null;
+        let lastScrollY = 0;
 
         // ===== HELPERS =====
         function formatPrice(price) {
@@ -1866,6 +1952,7 @@
             updateCartUI();
             setupScrollListeners();
             setupRevealObserver();
+            setupMobileNavScroll();
         }
 
         // ===== RENDER FUNCTIONS =====
@@ -1931,7 +2018,8 @@
 
         function renderInstagramGallery() {
             const container = document.getElementById('instagramGallery');
-            const seeds = ['living-room', 'vase-styling', 'modern-interior', 'cozy-home', 'minimalist-decor', 'luxury-home'];
+            const seeds = ['living-room', 'vase-styling', 'modern-interior', 'cozy-home', 'minimalist-decor',
+            'luxury-home'];
             container.innerHTML = seeds.map((seed, i) => `
             <div class="instagram-item">
               <img src="https://picsum.photos/seed/insta-${seed}-${i}/400/400" alt="گالری اینستاگرام" loading="lazy" onerror="this.style.background='var(--soft-beige)';">
@@ -2012,6 +2100,12 @@
             const countEl = document.getElementById('cartCount');
             countEl.classList.add('bump');
             setTimeout(() => countEl.classList.remove('bump'), 300);
+            // Bump mobile cart dot too
+            const dotEl = document.getElementById('mobileCartDot');
+            if (dotEl) {
+                dotEl.classList.add('bump');
+                setTimeout(() => dotEl.classList.remove('bump'), 300);
+            }
         }
 
         function removeFromCart(productId) {
@@ -2042,8 +2136,13 @@
 
         function updateCartUI() {
             const count = getCartCount();
-            document.getElementById('cartCount').textContent = count > 0 ? count : '۰';
-            document.getElementById('mobileCartCount').textContent = count > 0 ? ` (${count})` : '۰';
+            const countStr = count > 0 ? count : '۰';
+            document.getElementById('cartCount').textContent = countStr;
+            const mobileDot = document.getElementById('mobileCartDot');
+            if (mobileDot) {
+                mobileDot.textContent = countStr;
+                mobileDot.style.display = count > 0 ? 'inline-block' : 'none';
+            }
             const cartItemsContainer = document.getElementById('cartItems');
             const cartFooter = document.getElementById('cartFooter');
 
@@ -2138,11 +2237,12 @@
         // ===== NAVIGATION =====
         function navigateTo(page, category = null) {
             currentPage = page;
+            if (category) currentCategory = category;
+
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             if (page === 'home') {
                 document.getElementById('home-page').classList.add('active');
             } else if (page === 'category') {
-                currentCategory = category || 'دکوراسیون دیوار';
                 document.getElementById('category-page').classList.add('active');
                 renderCategoryPage(currentCategory);
             } else if (page === 'product') {
@@ -2153,16 +2253,35 @@
             } else if (page === 'confirmation') {
                 document.getElementById('confirmation-page').classList.add('active');
             }
+
+            // Update desktop nav
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
             const activeLink = document.querySelector(`.nav-links a[data-page="${page==='category'?'category':page}"]`);
             if (activeLink) activeLink.classList.add('active');
+
+            // Update mobile floating nav
             document.querySelectorAll('.mobile-nav-item').forEach(b => b.classList.remove('active'));
-            if (page === 'home') document.querySelector('.mobile-nav-item:nth-child(1)').classList.add('active');
-            if (page === 'category') document.querySelector('.mobile-nav-item:nth-child(2)').classList.add('active');
+            if (page === 'home') {
+                const homeBtn = document.querySelector('.mobile-nav-item[data-nav="home"]');
+                if (homeBtn) homeBtn.classList.add('active');
+            } else if (page === 'category') {
+                if (currentCategory === 'مجسمه‌های مدرن') {
+                    const artBtn = document.querySelector('.mobile-nav-item[data-nav="art"]');
+                    if (artBtn) artBtn.classList.add('active');
+                } else {
+                    const shopBtn = document.querySelector('.mobile-nav-item[data-nav="shop"]');
+                    if (shopBtn) shopBtn.classList.add('active');
+                }
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
             document.getElementById('navLinks').classList.remove('mobile-open');
             document.getElementById('hamburger').classList.remove('active');
             closeCart();
+
+            // Show mobile nav when navigating
+            const mobileNav = document.getElementById('mobileBottomNav');
+            if (mobileNav) mobileNav.classList.remove('hidden');
         }
 
         function openProductDetail(productId) {
@@ -2173,6 +2292,7 @@
             renderProductDetail(productId);
             window.scrollTo({ top: 0, behavior: 'smooth' });
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('.mobile-nav-item').forEach(b => b.classList.remove('active'));
         }
 
         function goToCheckout() {
@@ -2274,6 +2394,54 @@
             });
         }
 
+        // ===== مخفی/ظاهر شدن منوی شناور با اسکرول =====
+        function setupMobileNavScroll() {
+            const mobileNav = document.getElementById('mobileBottomNav');
+            if (!mobileNav) return;
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                const scrollDelta = currentScrollY - lastScrollY;
+
+                // فقط در موبایل (زیر ۷۶۸px) رفتار مخفی‌شدن فعال باشد
+                if (window.innerWidth > 768) {
+                    mobileNav.classList.add('hidden');
+                    lastScrollY = currentScrollY;
+                    return;
+                }
+
+                if (currentScrollY < 100) {
+                    // بالای صفحه: همیشه نمایش بده
+                    mobileNav.classList.remove('hidden');
+                } else if (scrollDelta > 8 && currentScrollY > 200) {
+                    // اسکرول به پایین: مخفی کن
+                    mobileNav.classList.add('hidden');
+                } else if (scrollDelta < -5) {
+                    // اسکرول به بالا: نمایش بده
+                    mobileNav.classList.remove('hidden');
+                }
+
+                // نزدیک انتهای صفحه: نمایش بده
+                if (currentScrollY + window.innerHeight >= document.documentElement.scrollHeight - 120) {
+                    mobileNav.classList.remove('hidden');
+                }
+
+                lastScrollY = currentScrollY;
+            }, { passive: true });
+
+            // نمایش مجدد هنگام لمس بالای منو (با هر کلیک روی صفحه)
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768 && mobileNav.classList.contains('hidden')) {
+                    const clickY = e.clientY;
+                    const windowH = window.innerHeight;
+                    // اگر کاربر نزدیک پایین صفحه کلیک کرد، منو را نشان بده
+                    if (clickY > windowH - 100) {
+                        mobileNav.classList.remove('hidden');
+                    }
+                }
+            });
+        }
+
         function setupRevealObserver() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -2307,7 +2475,7 @@
             'font-size:1.4em;font-family:serif;color:#c8a97e;',
             'font-size:1em;color:#555;',
             'font-size:1.2em;');
-        console.log('%c۷۵ محصول • ۵ دسته‌بندی • حالت تاریک/روشن • سبد خرید • تسویه حساب • واکنش‌گرا',
+        console.log('%c۷۵ محصول • ۵ دسته‌بندی • حالت تاریک/روشن • سبد خرید • تسویه حساب • واکنش‌گرا • Floating Pill Nav',
             'color:#888;font-style:italic;');
     </script>
 </body>
