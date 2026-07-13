@@ -1192,12 +1192,15 @@
             z-index: 5000;
             letter-spacing: 0.5px;
             box-shadow: var(--shadow-lg);
-            transition: transform var(--transition-spring);
+            transition: transform var(--transition-spring), opacity var(--transition-smooth);  /* updated */
             pointer-events: none;
             font-family: var(--font-body);
+            opacity: 0;  /* added */
         }
         .toast.show {
             transform: translateX(-50%) translateY(0);
+            opacity: 1;  /* added */
+            pointer-events: auto;  /* optional, to allow interaction when visible */
         }
 
         /* ===== بازطراحی منوی پایین موبایل: Floating Pill ===== */
