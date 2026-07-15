@@ -686,30 +686,10 @@
             cursor: pointer;
             transition: all var(--transition-fast);
             font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         .btn-quick-view:hover {
             border-color: var(--gold);
             color: var(--gold);
-        }
-        .btn-quick-view svg {
-            width: 16px;
-            height: 16px;
-            stroke: currentColor;
-        }
-
-        /* اصلاح کنتراست دکمه افزودن به سبد خرید در حالت تاریک */
-        [data-theme="dark"] .btn-add-cart {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: #1A1A1A;
-        }
-        [data-theme="dark"] .btn-add-cart:hover {
-            background: var(--gold-light);
-            border-color: var(--gold-light);
-            color: #1A1A1A;
         }
 
         .slider-container {
@@ -1427,11 +1407,6 @@
                 max-width: 100%;
                 left: -100%;
             }
-            /* ریسپانسیو صفحه محصول در موبایل */
-            .product-detail-grid {
-                grid-template-columns: 1fr !important;
-                gap: 24px !important;
-            }
         }
         @media (max-width: 480px) {
             .products-grid {
@@ -1524,7 +1499,7 @@
                     <p class="hero-subtitle">ظرافت بی‌همتا</p>
                     <h1 class="hero-title">فضای خود را به<br><em>اثری هنری</em> تبدیل کنید</h1>
                     <p class="hero-desc">قطعات دکوراتیو با دقت انتخاب شده که هر اتاق را ارتقا می‌بخشند. جایی که طراحی جاودانه با ظرافت مدرن ملاقات می‌کند.</p>
-                    <button class="btn btn-primary" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">
+                    <button class="btn btn-primary" onclick="navigateTo('category','دکوراسیون دیوار')">
                         مشاهده محصولات <span class="btn-arrow">←</span>
                     </button>
                 </div>
@@ -1925,12 +1900,7 @@
                 ${stockStatus}
                 <div class="product-card-actions">
                   <button class="btn-add-cart" onclick="event.stopPropagation();addToCart(${product.id})" ${!product.inStock?'disabled style="opacity:0.5;cursor:not-allowed;"':''}>${product.inStock?'افزودن به سبد':'ناموجود'}</button>
-                  <button class="btn-quick-view" onclick="event.stopPropagation();openQuickView(${product.id})" aria-label="مشاهده سریع">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                      <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                  </button>
+                  <button class="btn-quick-view" onclick="event.stopPropagation();openQuickView(${product.id})" aria-label="مشاهده سریع">👁</button>
                 </div>
               </div>
             </div>`;
@@ -1989,7 +1959,7 @@
                 4);
 
             container.innerHTML = `
-            <div class="product-detail-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
               <div>
                 <div style="border-radius:var(--radius-lg);overflow:hidden;background:var(--soft-beige);aspect-ratio:1;display:flex;align-items:center;justify-content:center;">
                   <img src="${getProductImageUrl(product)}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,var(--soft-beige),var(--gold-pale))';">
@@ -2342,3 +2312,4 @@
     </script>
 </body>
 </html>
+
