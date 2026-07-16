@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>آتلیه نوا — دکوراسیون لوکس خانه</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -718,6 +718,271 @@
             color: #1A1A1A;
         }
 
+        /* ========== NEW ARRIVALS – VERTICAL SNAP (MOBILE-FIRST) ========== */
+        .new-arrivals-section {
+            padding: 40px 0 0 0;
+            max-width: 100%;
+            position: relative;
+        }
+        .new-arrivals-section .section-header {
+            padding: 0 16px;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+        .new-arrivals-section .section-header .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+        }
+        .new-arrivals-section .section-header .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+        .new-arrivals-section .section-header .section-subtitle {
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        /* The vertical snap scroll container */
+        .new-arrivals-vertical-container {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            height: calc(100vh - 180px);
+            max-height: 700px;
+            padding: 0 12px 100px 12px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .new-arrivals-vertical-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Each full-bleed snap card */
+        .snap-product-card {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            width: 100%;
+            height: 88%;
+            min-height: 88%;
+            max-height: 88%;
+            background: var(--bg-card);
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow var(--transition-smooth), border-color var(--transition-smooth), transform 0.25s ease;
+            /* Animation on enter */
+            opacity: 0;
+            transform: translateY(28px);
+            will-change: transform, opacity;
+        }
+        .snap-product-card.snap-visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1), transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+        }
+        .snap-product-card:active {
+            transform: scale(0.985);
+            transition: transform 0.15s ease;
+        }
+        .snap-product-card .snap-image-wrap {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: var(--soft-beige);
+            min-height: 55%;
+        }
+        .snap-product-card .snap-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .snap-product-card:active .snap-image-wrap img {
+            transform: scale(1.03);
+        }
+        .snap-product-card .product-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 7px 16px;
+            border-radius: 22px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            z-index: 3;
+            font-family: var(--font-body);
+        }
+        .snap-product-card .product-wishlist {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(200, 169, 126, 0.3);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: all var(--transition-fast);
+            color: var(--text-secondary);
+        }
+        [data-theme="dark"] .snap-product-card .product-wishlist {
+            background: rgba(40, 40, 40, 0.85);
+            border-color: rgba(200, 169, 126, 0.4);
+        }
+        .snap-product-card .product-wishlist.liked {
+            color: #e74c3c;
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .snap-product-card .snap-body {
+            padding: 16px 18px 18px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            background: var(--bg-card);
+        }
+        .snap-product-card .product-card-category {
+            font-size: 0.68rem;
+            letter-spacing: 2.5px;
+            color: var(--gold);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .snap-product-card .product-card-name {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.2px;
+            line-height: 1.4;
+        }
+        .snap-product-card .snap-price-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-body);
+        }
+        .snap-product-card .price-current {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+        }
+        .snap-product-card .price-original {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .snap-product-card .snap-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.78rem;
+            color: var(--gold);
+        }
+        .snap-product-card .snap-rating span {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+        .snap-product-card .snap-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .snap-product-card .btn-add-cart {
+            flex: 1;
+            padding: 11px 14px;
+            font-size: 0.78rem;
+            letter-spacing: 0.4px;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            background: var(--charcoal);
+            color: #fff;
+            border: none;
+            transition: all var(--transition-fast);
+            font-family: var(--font-body);
+            text-align: center;
+        }
+        [data-theme="dark"] .snap-product-card .btn-add-cart {
+            background: var(--gold);
+            color: #1A1A1A;
+        }
+        .snap-product-card .btn-add-cart:hover {
+            background: var(--gold);
+            color: #fff;
+        }
+        [data-theme="dark"] .snap-product-card .btn-add-cart:hover {
+            background: var(--gold-light);
+            color: #1A1A1A;
+        }
+        .snap-product-card .btn-quick-view {
+            padding: 10px 12px;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .snap-product-card .btn-quick-view:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .snap-stock-badge {
+            color: #c44536;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* Scroll hint dot indicator */
+        .snap-scroll-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 6px 0 14px;
+            flex-shrink: 0;
+        }
+        .snap-scroll-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all var(--transition-smooth);
+        }
+        .snap-scroll-dot.active-dot {
+            background: var(--gold);
+            width: 18px;
+            border-radius: 8px;
+        }
+
+        /* Desktop: horizontal slider for new arrivals */
+        .new-arrivals-desktop-slider {
+            display: none;
+        }
         .slider-container {
             position: relative;
             overflow: hidden;
@@ -1459,10 +1724,10 @@
                 height: 64px;
             }
             .slider-track .product-card {
-                min-width: 160px; /* کارت‌های کوچک‌تر برای موبایل */
+                min-width: 160px;
             }
             .slider-track {
-                gap: 10px; /* فاصله کمتر بین کارت‌ها */
+                gap: 10px;
             }
             .cart-sidebar {
                 width: 100%;
@@ -1472,6 +1737,57 @@
             .product-detail-grid {
                 grid-template-columns: 1fr !important;
                 gap: 24px !important;
+            }
+
+            /* MOBILE: Show vertical snap, hide desktop slider */
+            .new-arrivals-vertical-container {
+                display: flex;
+                height: calc(100vh - 170px);
+                max-height: 620px;
+                padding: 0 10px 100px 10px;
+                gap: 16px;
+            }
+            .new-arrivals-desktop-slider {
+                display: none !important;
+            }
+            .snap-product-card {
+                height: 87%;
+                min-height: 87%;
+                max-height: 87%;
+                border-radius: 20px;
+            }
+            .snap-product-card .snap-image-wrap img {
+                border-radius: 0;
+            }
+            .snap-product-card .snap-body {
+                padding: 14px 15px 16px;
+            }
+            .snap-product-card .product-card-name {
+                font-size: 1.05rem;
+            }
+            .snap-product-card .price-current {
+                font-size: 1.05rem;
+            }
+            .snap-scroll-indicator {
+                display: flex;
+            }
+            .new-arrivals-section .section-header .section-subtitle {
+                display: none;
+            }
+            .new-arrivals-section .section-header {
+                margin-bottom: 10px;
+            }
+        }
+        @media (min-width: 769px) {
+            /* Desktop: hide vertical snap, show horizontal slider */
+            .new-arrivals-vertical-container {
+                display: none !important;
+            }
+            .snap-scroll-indicator {
+                display: none !important;
+            }
+            .new-arrivals-desktop-slider {
+                display: block;
             }
         }
         @media (max-width: 480px) {
@@ -1501,6 +1817,45 @@
             }
             .instagram-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            .new-arrivals-vertical-container {
+                height: calc(100vh - 155px);
+                max-height: 560px;
+                padding: 0 6px 90px 6px;
+                gap: 14px;
+            }
+            .snap-product-card {
+                height: 86%;
+                min-height: 86%;
+                max-height: 86%;
+                border-radius: 18px;
+            }
+            .snap-product-card .snap-body {
+                padding: 12px 13px 14px;
+            }
+            .snap-product-card .product-card-name {
+                font-size: 0.95rem;
+            }
+            .snap-product-card .product-badge {
+                top: 10px;
+                right: 10px;
+                padding: 5px 12px;
+                font-size: 0.65rem;
+            }
+            .snap-product-card .product-wishlist {
+                top: 10px;
+                left: 10px;
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+            .snap-product-card .snap-actions .btn-add-cart {
+                font-size: 0.7rem;
+                padding: 9px 10px;
+            }
+            .snap-product-card .snap-actions .btn-quick-view {
+                padding: 8px 10px;
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -1622,13 +1977,23 @@
                 </div>
             </section>
 
-            <section class="section">
+            <!-- ============ NEW ARRIVALS – REDESIGNED MOBILE-FIRST VERTICAL SNAP ============ -->
+            <section class="section new-arrivals-section" id="newArrivalsSection">
                 <div class="section-header reveal">
                     <p class="section-label">تازه‌ها</p>
                     <h2 class="section-title">محصولات جدید</h2>
                     <p class="section-subtitle">آخرین اضافه‌شده‌ها به مجموعه ما</p>
                 </div>
-                <div class="slider-container reveal">
+                <!-- Mobile: Vertical Snap Scroll Container -->
+                <div class="new-arrivals-vertical-container" id="newArrivalsVertical">
+                    <!-- Cards rendered by JS -->
+                </div>
+                <!-- Snap scroll dot indicators (mobile) -->
+                <div class="snap-scroll-indicator" id="snapScrollDots">
+                    <!-- Dots rendered by JS -->
+                </div>
+                <!-- Desktop: Horizontal Slider (preserved) -->
+                <div class="new-arrivals-desktop-slider slider-container reveal">
                     <div class="slider-track" id="newArrivalsSlider"></div>
                     <div class="slider-nav">
                         <button onclick="slideNewArrivals(1)" aria-label="بعدی">→</button>
@@ -1918,6 +2283,8 @@
         let currentPage = 'home';
         let currentCategory = 'دکوراسیون دیوار';
         let currentProductId = null;
+        let snapActiveIndex = 0;
+        let snapTotalCards = 0;
 
         // ===== HELPERS =====
         function formatPrice(price) {
@@ -1945,6 +2312,7 @@
             updateCartUI();
             setupScrollListeners();
             setupRevealObserver();
+            setupSnapScrollObserver();
         }
 
         // ===== RENDER FUNCTIONS =====
@@ -1990,6 +2358,49 @@
             </div>`;
         }
 
+        // Create a snap card for the mobile vertical layout
+        function createSnapProductCard(product) {
+            const discountBadge = product.originalPrice ?
+                `<span class="product-badge badge-discount">٪${product.discountPercent}-</span>` : '';
+            const newBadge = product.isNew && !product.originalPrice ?
+                `<span class="product-badge badge-new">جدید</span>` : '';
+            const bestsellerBadge = product.isBestSeller ?
+                `<span class="product-badge badge-bestseller">پرفروش</span>` : '';
+            const badgeHTML = discountBadge || newBadge || bestsellerBadge || '';
+            const priceHTML = product.originalPrice ?
+                `<span class="price-current">${formatPrice(product.price)}</span><span class="price-original">${formatPrice(product.originalPrice)}</span>` :
+                `<span class="price-current">${formatPrice(product.price)}</span>`;
+            const stockStatus = !product.inStock ?
+                '<span class="snap-stock-badge">ناموجود</span>' : '';
+            const stars = '★'.repeat(Math.floor(product.rating)) + (product.rating % 1 >= 0.5 ? '½' : '') + '☆'.repeat(5 -
+                Math.ceil(product.rating));
+
+            return `
+            <div class="snap-product-card" data-product-id="${product.id}" data-snap-index="" onclick="openProductDetail(${product.id})">
+              <div class="snap-image-wrap">
+                <img src="${getProductImageUrl(product)}" alt="${product.name}" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(180deg,var(--soft-beige),var(--gold-pale))';">
+                ${badgeHTML}
+                <button class="product-wishlist ${wishlist.has(product.id)?'liked':''}" onclick="event.stopPropagation();toggleWishlist(${product.id})" aria-label="علاقه‌مندی">${wishlist.has(product.id)?'❤️':'🤍'}</button>
+              </div>
+              <div class="snap-body">
+                <p class="product-card-category">${product.category}</p>
+                <h3 class="product-card-name">${product.name}</h3>
+                <div class="snap-price-row">${priceHTML}</div>
+                <div class="snap-rating">${stars} <span>(${product.reviewCount})</span></div>
+                ${stockStatus}
+                <div class="snap-actions">
+                  <button class="btn-add-cart" onclick="event.stopPropagation();addToCart(${product.id})" ${!product.inStock?'disabled style="opacity:0.5;cursor:not-allowed;"':''}>${product.inStock?'افزودن به سبد':'ناموجود'}</button>
+                  <button class="btn-quick-view" onclick="event.stopPropagation();openQuickView(${product.id})" aria-label="مشاهده سریع">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>`;
+        }
+
         function renderFeaturedProducts() {
             const container = document.getElementById('featuredProducts');
             const featured = allProducts.filter(p => p.rating >= 4.2).slice(0, 8);
@@ -2003,14 +2414,61 @@
         }
 
         function renderNewArrivals() {
-            const container = document.getElementById('newArrivalsSlider');
+            // Desktop horizontal slider
+            const desktopSlider = document.getElementById('newArrivalsSlider');
             const newArrivals = allProducts.filter(p => p.isNew).slice(0, 12);
+            let desktopProducts;
             if (newArrivals.length === 0) {
-                const shuffled = [...allProducts].sort(() => Math.random() - 0.5).slice(0, 12);
-                container.innerHTML = shuffled.map(p => createProductCard(p)).join('');
+                desktopProducts = [...allProducts].sort(() => Math.random() - 0.5).slice(0, 12);
             } else {
-                container.innerHTML = newArrivals.map(p => createProductCard(p)).join('');
+                desktopProducts = newArrivals;
             }
+            if (desktopSlider) {
+                desktopSlider.innerHTML = desktopProducts.map(p => createProductCard(p)).join('');
+            }
+
+            // Mobile vertical snap container
+            const mobileContainer = document.getElementById('newArrivalsVertical');
+            const mobileProducts = newArrivals.length >= 4 ? newArrivals.slice(0, 8) :
+                [...allProducts].sort(() => Math.random() - 0.5).slice(0, 8);
+            snapTotalCards = mobileProducts.length;
+            if (mobileContainer) {
+                mobileContainer.innerHTML = mobileProducts.map((p, i) => {
+                    return createSnapProductCard(p).replace('data-snap-index=""', `data-snap-index="${i}"`);
+                }).join('');
+                // Set data-snap-index on each card after render
+                const cards = mobileContainer.querySelectorAll('.snap-product-card');
+                cards.forEach((card, i) => {
+                    card.setAttribute('data-snap-index', i);
+                });
+            }
+
+            // Render snap scroll dots
+            renderSnapDots();
+            snapActiveIndex = 0;
+            updateSnapDots(0);
+        }
+
+        function renderSnapDots() {
+            const dotsContainer = document.getElementById('snapScrollDots');
+            if (!dotsContainer || snapTotalCards <= 1) {
+                if (dotsContainer) dotsContainer.innerHTML = '';
+                return;
+            }
+            dotsContainer.innerHTML = Array.from({ length: snapTotalCards }, (_, i) =>
+                `<span class="snap-scroll-dot${i === 0 ? ' active-dot' : ''}" data-dot-index="${i}"></span>`
+            ).join('');
+        }
+
+        function updateSnapDots(activeIndex) {
+            const dots = document.querySelectorAll('#snapScrollDots .snap-scroll-dot');
+            dots.forEach((dot, i) => {
+                if (i === activeIndex) {
+                    dot.classList.add('active-dot');
+                } else {
+                    dot.classList.remove('active-dot');
+                }
+            });
         }
 
         function renderInstagramGallery() {
@@ -2303,11 +2761,83 @@
             }
         }
 
-        // ===== SLIDER =====
+        // ===== SLIDER (Desktop) =====
         function slideNewArrivals(direction) {
             const track = document.getElementById('newArrivalsSlider');
             const scrollAmount = 300 * direction;
             track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+
+        // ===== SNAP SCROLL OBSERVER (Mobile Vertical) =====
+        function setupSnapScrollObserver() {
+            const container = document.getElementById('newArrivalsVertical');
+            if (!container) return;
+
+            // Intersection Observer to detect which snap card is most visible
+            const observer = new IntersectionObserver((entries) => {
+                let maxRatio = 0;
+                let mostVisibleIndex = snapActiveIndex;
+                entries.forEach(entry => {
+                    if (entry.intersectionRatio > maxRatio) {
+                        maxRatio = entry.intersectionRatio;
+                        const idx = parseInt(entry.target.getAttribute('data-snap-index'));
+                        if (!isNaN(idx)) mostVisibleIndex = idx;
+                    }
+                });
+                if (mostVisibleIndex !== snapActiveIndex) {
+                    snapActiveIndex = mostVisibleIndex;
+                    updateSnapDots(snapActiveIndex);
+                }
+            }, {
+                root: container,
+                threshold: [0.3, 0.5, 0.7, 0.85],
+                rootMargin: '0px'
+            });
+
+            // Observe all snap cards
+            const cards = container.querySelectorAll('.snap-product-card');
+            cards.forEach(card => observer.observe(card));
+
+            // Also listen to scroll events for dot updates
+            container.addEventListener('scroll', () => {
+                const scrollTop = container.scrollTop;
+                const cardHeight = container.clientHeight * 0.87;
+                const gapTotal = 16;
+                const effectiveCardHeight = cardHeight + gapTotal;
+                const index = Math.round(scrollTop / effectiveCardHeight);
+                const clampedIndex = Math.max(0, Math.min(snapTotalCards - 1, index));
+                if (clampedIndex !== snapActiveIndex) {
+                    snapActiveIndex = clampedIndex;
+                    updateSnapDots(snapActiveIndex);
+                }
+            }, { passive: true });
+        }
+
+        // ===== SNAP CARD ENTER ANIMATION =====
+        function setupSnapCardAnimations() {
+            const container = document.getElementById('newArrivalsVertical');
+            if (!container) return;
+
+            const animationObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('snap-visible');
+                    }
+                });
+            }, {
+                root: container,
+                threshold: 0.2,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            const cards = container.querySelectorAll('.snap-product-card');
+            cards.forEach(card => {
+                animationObserver.observe(card);
+            });
+
+            // Also immediately mark the first 1-2 cards as visible
+            if (cards.length > 0) cards[0].classList.add('snap-visible');
+            if (cards.length > 1) cards[1].classList.add('snap-visible');
         }
 
         // ===== THEME =====
@@ -2431,11 +2961,16 @@
 
         // ===== INIT =====
         init();
+        // Setup snap card animations after a short delay to ensure DOM is ready
+        setTimeout(() => {
+            setupSnapCardAnimations();
+        }, 300);
+
         console.log('%c🏛️ Atelier Nova %c— نسخه نمایشی دکوراسیون لوکس %c✨',
             'font-size:1.4em;font-family:serif;color:#c8a97e;',
             'font-size:1em;color:#555;',
             'font-size:1.2em;');
-        console.log('%c۷۵ محصول • ۵ دسته‌بندی • حالت تاریک/روشن • سبد خرید • تسویه حساب • واکنش‌گرا',
+        console.log('%c۷۵ محصول • ۵ دسته‌بندی • حالت تاریک/روشن • سبد خرید • تسویه حساب • واکنش‌گرا • اسنپ عمودی موبایل',
             'color:#888;font-style:italic;');
     </script>
 </body>
