@@ -718,7 +718,7 @@
             color: #1A1A1A;
         }
 
-        /* ========== NEW ARRIVALS – VERTICAL SNAP (MOBILE-FIRST) ========== */
+        /* ========== NEW ARRIVALS – HORIZONTAL SNAP (MOBILE-FIRST) ========== */
         .new-arrivals-section {
             padding: 40px 0 0 0;
             max-width: 100%;
@@ -742,34 +742,31 @@
             display: none;
         }
 
-        /* The vertical snap scroll container */
-        .new-arrivals-vertical-container {
+        /* The horizontal snap scroll container */
+        .new-arrivals-horizontal-container {
             display: flex;
-            flex-direction: column;
-            gap: 18px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            scroll-snap-type: y mandatory;
+            flex-direction: row;
+            gap: 16px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
-            height: calc(100vh - 180px);
-            max-height: 700px;
             padding: 0 12px 100px 12px;
             -ms-overflow-style: none;
             scrollbar-width: none;
+            white-space: nowrap;
         }
-        .new-arrivals-vertical-container::-webkit-scrollbar {
+        .new-arrivals-horizontal-container::-webkit-scrollbar {
             display: none;
         }
 
-        /* Each full-bleed snap card */
+        /* Each full-bleed snap card (horizontal) */
         .snap-product-card {
             scroll-snap-align: start;
             flex-shrink: 0;
-            width: 100%;
-            height: 88%;
-            min-height: 88%;
-            max-height: 88%;
+            width: 85vw;
+            max-width: 85vw;
             background: var(--bg-card);
             border-radius: 22px;
             overflow: hidden;
@@ -780,7 +777,7 @@
             display: flex;
             flex-direction: column;
             transition: box-shadow var(--transition-smooth), border-color var(--transition-smooth), transform 0.25s ease;
-            /* Animation on enter */
+            white-space: normal;
             opacity: 0;
             transform: translateY(28px);
             will-change: transform, opacity;
@@ -1491,7 +1488,6 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* نوار پایین شناور و جمع‌وجور و بیضی شکل */
         .mobile-bottom-nav {
             display: none;
             position: fixed;
@@ -1739,34 +1735,12 @@
                 gap: 24px !important;
             }
 
-            /* MOBILE: Show vertical snap, hide desktop slider */
-            .new-arrivals-vertical-container {
+            /* Mobile: Show horizontal snap, hide desktop slider */
+            .new-arrivals-horizontal-container {
                 display: flex;
-                height: calc(100vh - 170px);
-                max-height: 620px;
-                padding: 0 10px 100px 10px;
-                gap: 16px;
             }
             .new-arrivals-desktop-slider {
                 display: none !important;
-            }
-            .snap-product-card {
-                height: 87%;
-                min-height: 87%;
-                max-height: 87%;
-                border-radius: 20px;
-            }
-            .snap-product-card .snap-image-wrap img {
-                border-radius: 0;
-            }
-            .snap-product-card .snap-body {
-                padding: 14px 15px 16px;
-            }
-            .snap-product-card .product-card-name {
-                font-size: 1.05rem;
-            }
-            .snap-product-card .price-current {
-                font-size: 1.05rem;
             }
             .snap-scroll-indicator {
                 display: flex;
@@ -1779,8 +1753,7 @@
             }
         }
         @media (min-width: 769px) {
-            /* Desktop: hide vertical snap, show horizontal slider */
-            .new-arrivals-vertical-container {
+            .new-arrivals-horizontal-container {
                 display: none !important;
             }
             .snap-scroll-indicator {
@@ -1817,45 +1790,6 @@
             }
             .instagram-grid {
                 grid-template-columns: repeat(2, 1fr);
-            }
-            .new-arrivals-vertical-container {
-                height: calc(100vh - 155px);
-                max-height: 560px;
-                padding: 0 6px 90px 6px;
-                gap: 14px;
-            }
-            .snap-product-card {
-                height: 86%;
-                min-height: 86%;
-                max-height: 86%;
-                border-radius: 18px;
-            }
-            .snap-product-card .snap-body {
-                padding: 12px 13px 14px;
-            }
-            .snap-product-card .product-card-name {
-                font-size: 0.95rem;
-            }
-            .snap-product-card .product-badge {
-                top: 10px;
-                right: 10px;
-                padding: 5px 12px;
-                font-size: 0.65rem;
-            }
-            .snap-product-card .product-wishlist {
-                top: 10px;
-                left: 10px;
-                width: 32px;
-                height: 32px;
-                font-size: 0.9rem;
-            }
-            .snap-product-card .snap-actions .btn-add-cart {
-                font-size: 0.7rem;
-                padding: 9px 10px;
-            }
-            .snap-product-card .snap-actions .btn-quick-view {
-                padding: 8px 10px;
-                font-size: 0.75rem;
             }
         }
     </style>
@@ -1977,15 +1911,15 @@
                 </div>
             </section>
 
-            <!-- ============ NEW ARRIVALS – REDESIGNED MOBILE-FIRST VERTICAL SNAP ============ -->
+            <!-- ============ NEW ARRIVALS – REDESIGNED MOBILE-FIRST HORIZONTAL SNAP ============ -->
             <section class="section new-arrivals-section" id="newArrivalsSection">
                 <div class="section-header reveal">
                     <p class="section-label">تازه‌ها</p>
                     <h2 class="section-title">محصولات جدید</h2>
                     <p class="section-subtitle">آخرین اضافه‌شده‌ها به مجموعه ما</p>
                 </div>
-                <!-- Mobile: Vertical Snap Scroll Container -->
-                <div class="new-arrivals-vertical-container" id="newArrivalsVertical">
+                <!-- Mobile: Horizontal Snap Scroll Container -->
+                <div class="new-arrivals-horizontal-container" id="newArrivalsHorizontal">
                     <!-- Cards rendered by JS -->
                 </div>
                 <!-- Snap scroll dot indicators (mobile) -->
@@ -2358,7 +2292,7 @@
             </div>`;
         }
 
-        // Create a snap card for the mobile vertical layout
+        // Create a horizontal snap card for mobile
         function createSnapProductCard(product) {
             const discountBadge = product.originalPrice ?
                 `<span class="product-badge badge-discount">٪${product.discountPercent}-</span>` : '';
@@ -2427,8 +2361,8 @@
                 desktopSlider.innerHTML = desktopProducts.map(p => createProductCard(p)).join('');
             }
 
-            // Mobile vertical snap container
-            const mobileContainer = document.getElementById('newArrivalsVertical');
+            // Mobile horizontal snap container
+            const mobileContainer = document.getElementById('newArrivalsHorizontal');
             const mobileProducts = newArrivals.length >= 4 ? newArrivals.slice(0, 8) :
                 [...allProducts].sort(() => Math.random() - 0.5).slice(0, 8);
             snapTotalCards = mobileProducts.length;
@@ -2768,9 +2702,9 @@
             track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
 
-        // ===== SNAP SCROLL OBSERVER (Mobile Vertical) =====
+        // ===== SNAP SCROLL OBSERVER (Mobile Horizontal) =====
         function setupSnapScrollObserver() {
-            const container = document.getElementById('newArrivalsVertical');
+            const container = document.getElementById('newArrivalsHorizontal');
             if (!container) return;
 
             // Intersection Observer to detect which snap card is most visible
@@ -2798,13 +2732,13 @@
             const cards = container.querySelectorAll('.snap-product-card');
             cards.forEach(card => observer.observe(card));
 
-            // Also listen to scroll events for dot updates
+            // Also listen to scroll events for dot updates (horizontal)
             container.addEventListener('scroll', () => {
-                const scrollTop = container.scrollTop;
-                const cardHeight = container.clientHeight * 0.87;
-                const gapTotal = 16;
-                const effectiveCardHeight = cardHeight + gapTotal;
-                const index = Math.round(scrollTop / effectiveCardHeight);
+                const scrollLeft = container.scrollLeft;
+                const cardWidth = container.querySelector('.snap-product-card')?.offsetWidth || window.innerWidth * 0.85;
+                const gap = 16; // gap between cards
+                const effectiveCardWidth = cardWidth + gap;
+                const index = Math.round(scrollLeft / effectiveCardWidth);
                 const clampedIndex = Math.max(0, Math.min(snapTotalCards - 1, index));
                 if (clampedIndex !== snapActiveIndex) {
                     snapActiveIndex = clampedIndex;
@@ -2815,7 +2749,7 @@
 
         // ===== SNAP CARD ENTER ANIMATION =====
         function setupSnapCardAnimations() {
-            const container = document.getElementById('newArrivalsVertical');
+            const container = document.getElementById('newArrivalsHorizontal');
             if (!container) return;
 
             const animationObserver = new IntersectionObserver((entries) => {
@@ -2970,7 +2904,7 @@
             'font-size:1.4em;font-family:serif;color:#c8a97e;',
             'font-size:1em;color:#555;',
             'font-size:1.2em;');
-        console.log('%c۷۵ محصول • ۵ دسته‌بندی • حالت تاریک/روشن • سبد خرید • تسویه حساب • واکنش‌گرا • اسنپ عمودی موبایل',
+        console.log('%c۷۵ محصول • ۵ دسته‌بندی • حالت تاریک/روشن • سبد خرید • تسویه حساب • واکنش‌گرا • اسنپ افقی موبایل',
             'color:#888;font-style:italic;');
     </script>
 </body>
