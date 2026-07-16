@@ -93,12 +93,6 @@
             direction: rtl;
         }
 
-        /* Prevent layout shift when scrollbar disappears */
-        body.menu-open {
-            overflow: hidden;
-            padding-right: var(--scrollbar-width, 0px);
-        }
-
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -2645,14 +2639,18 @@
             document.getElementById('navLinks').classList.remove('mobile-open');
             document.getElementById('hamburger').classList.remove('active');
             closeCart();
-            // Ensure body scroll is unlocked and scrolled state re-evaluated
-            document.body.style.overflow = '';
+            // Ensure navbar filter is restored after navigation (in case menu was open)
             const navbar = document.getElementById('navbar');
+            navbar.style.backdropFilter = '';
+            navbar.style.webkitBackdropFilter = '';
+            // Re-evaluate scroll state
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
+            document.body.style.overflow = '';
+            document.body.classList.remove('menu-open');
         }
 
         function openProductDetail(productId) {
@@ -2795,27 +2793,44 @@
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
 
-        // ===== MOBILE MENU =====
+        // ===== MOBILE MENU (FIXED – no more white flash) =====
         function toggleMobileMenu() {
             const navLinks = document.getElementById('navLinks');
             const hamburger = document.getElementById('hamburger');
             const navbar = document.getElementById('navbar');
             const isOpening = !navLinks.classList.contains('mobile-open');
 
-            // When opening, remove the backdrop-filter‑causing class *before* showing menu
+            // Temporarily disable transition to avoid any animated filter change
+            const originalTransition = navbar.style.transition;
+            navbar.style.transition = 'none';
+
             if (isOpening) {
-                navbar.classList.remove('scrolled');
+                // Remove backdrop-filter inline so the menu uses the viewport as containing block
+                navbar.style.backdropFilter = 'none';
+                navbar.style.webkitBackdropFilter = 'none';
+                // Force reflow to apply instantly
+                navbar.offsetHeight;
+
                 document.body.classList.add('menu-open');
-                // Calculate scrollbar width to avoid layout shift
                 const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
                 document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
             } else {
+                // Restore the filter (remove inline → .scrolled will take over if present)
+                navbar.style.backdropFilter = '';
+                navbar.style.webkitBackdropFilter = '';
+                navbar.offsetHeight;
+
                 document.body.classList.remove('menu-open');
                 document.documentElement.style.removeProperty('--scrollbar-width');
+
                 if (window.scrollY > 50) {
                     navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
                 }
             }
+
+            navbar.style.transition = originalTransition; // restore
 
             navLinks.classList.toggle('mobile-open');
             hamburger.classList.toggle('active');
