@@ -536,6 +536,9 @@
             transition: all var(--transition-smooth);
             border: 1px solid var(--border-light);
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         .product-card:hover {
             box-shadow: var(--shadow-lg);
@@ -547,6 +550,7 @@
             aspect-ratio: 1;
             overflow: hidden;
             background: var(--soft-beige);
+            flex-shrink: 0;
         }
         .product-card-image-wrap img {
             width: 100%;
@@ -609,6 +613,9 @@
         }
         .product-card-body {
             padding: 18px 20px 22px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .product-card-category {
             font-size: 0.7rem;
@@ -657,7 +664,7 @@
         .product-card-actions {
             display: flex;
             gap: 8px;
-            margin-top: 14px;
+            margin-top: auto;
         }
         .btn-add-cart {
             flex: 1;
@@ -2334,7 +2341,7 @@
         // ===== SCROLL EFFECTS =====
         let lastScrollY = window.scrollY;
         let accumulatedScroll = 0;
-        const SCROLL_THRESHOLD = 22; // آستانه بالاتر برای مخفی شدن دیرتر
+        const SCROLL_THRESHOLD = 22;
         const mobileNav = document.getElementById('mobileBottomNav');
         let isNavHidden = false;
 
