@@ -93,6 +93,12 @@
             direction: rtl;
         }
 
+        /* Prevent layout shift when scrollbar disappears */
+        body.menu-open {
+            overflow: hidden;
+            padding-right: var(--scrollbar-width, 0px);
+        }
+
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -2639,6 +2645,14 @@
             document.getElementById('navLinks').classList.remove('mobile-open');
             document.getElementById('hamburger').classList.remove('active');
             closeCart();
+            // Ensure body scroll is unlocked and scrolled state re-evaluated
+            document.body.style.overflow = '';
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
         }
 
         function openProductDetail(productId) {
@@ -2707,7 +2721,6 @@
             const container = document.getElementById('newArrivalsHorizontal');
             if (!container) return;
 
-            // Intersection Observer to detect which snap card is most visible
             const observer = new IntersectionObserver((entries) => {
                 let maxRatio = 0;
                 let mostVisibleIndex = snapActiveIndex;
@@ -2728,15 +2741,13 @@
                 rootMargin: '0px'
             });
 
-            // Observe all snap cards
             const cards = container.querySelectorAll('.snap-product-card');
             cards.forEach(card => observer.observe(card));
 
-            // Also listen to scroll events for dot updates (horizontal)
             container.addEventListener('scroll', () => {
                 const scrollLeft = container.scrollLeft;
                 const cardWidth = container.querySelector('.snap-product-card')?.offsetWidth || window.innerWidth * 0.85;
-                const gap = 16; // gap between cards
+                const gap = 16;
                 const effectiveCardWidth = cardWidth + gap;
                 const index = Math.round(scrollLeft / effectiveCardWidth);
                 const clampedIndex = Math.max(0, Math.min(snapTotalCards - 1, index));
@@ -2769,7 +2780,6 @@
                 animationObserver.observe(card);
             });
 
-            // Also immediately mark the first 1-2 cards as visible
             if (cards.length > 0) cards[0].classList.add('snap-visible');
             if (cards.length > 1) cards[1].classList.add('snap-visible');
         }
@@ -2789,6 +2799,24 @@
         function toggleMobileMenu() {
             const navLinks = document.getElementById('navLinks');
             const hamburger = document.getElementById('hamburger');
+            const navbar = document.getElementById('navbar');
+            const isOpening = !navLinks.classList.contains('mobile-open');
+
+            // When opening, remove the backdrop-filter‑causing class *before* showing menu
+            if (isOpening) {
+                navbar.classList.remove('scrolled');
+                document.body.classList.add('menu-open');
+                // Calculate scrollbar width to avoid layout shift
+                const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+                document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
+            } else {
+                document.body.classList.remove('menu-open');
+                document.documentElement.style.removeProperty('--scrollbar-width');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                }
+            }
+
             navLinks.classList.toggle('mobile-open');
             hamburger.classList.toggle('active');
         }
@@ -2895,7 +2923,6 @@
 
         // ===== INIT =====
         init();
-        // Setup snap card animations after a short delay to ensure DOM is ready
         setTimeout(() => {
             setupSnapCardAnimations();
         }, 300);
